@@ -1,1 +1,1 @@
-print("pingpong eiei")
+print("pingpong")
