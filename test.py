@@ -1,18 +1,30 @@
 import sys
+from PyQt5 import QtWidgets
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
-class window(QWidget):
+class window(QMainWindow):
     def __init__(self):
         super(window, self).__init__()
-        self.resize(200, 50)
+        self.resize(300, 300)
         self.setWindowTitle("test Lib")
+        self.initUI()
+
+    def initUI(self):
         self.label = QLabel(self)
         self.label.setText("1234")
-        font = QFont()
-        font.setPointSize(16)
-        self.label.setFont(font)
-        self.label.move(50, 20)
+        self.label.move(50, 50)
+
+        self.btn0 = QtWidgets.QPushButton(self)
+        self.btn0.setText("Click")
+        self.btn0.clicked.connect(self.clicked)
+
+    def clicked(self):
+        self.label.setText("You Clicked 12344575678679")
+        self.update()
+
+    def update(self):
+        self.label.adjustSize()
 
 def main():
     app = QApplication(sys.argv)
