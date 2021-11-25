@@ -3,8 +3,8 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 class window(QWidget):
-    def __init__(self, parent = None):
-        super(window, self).__init__(parent)
+    def __init__(self):
+        super(window, self).__init__()
         self.resize(200, 50)
         self.setWindowTitle("test Lib")
         self.label = QLabel(self)
