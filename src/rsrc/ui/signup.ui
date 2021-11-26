@@ -217,7 +217,7 @@
       <property name="font">
        <font>
         <family>Helvetica Neue</family>
-        <pointsize>13</pointsize>
+        <pointsize>10</pointsize>
        </font>
       </property>
       <property name="cursor">
@@ -267,7 +267,7 @@
       <property name="font">
        <font>
         <family>Helvetica Neue</family>
-        <pointsize>13</pointsize>
+        <pointsize>10</pointsize>
        </font>
       </property>
       <property name="cursor">
@@ -317,7 +317,7 @@
       <property name="font">
        <font>
         <family>Helvetica Neue</family>
-        <pointsize>13</pointsize>
+        <pointsize>10</pointsize>
        </font>
       </property>
       <property name="cursor">
@@ -419,7 +419,7 @@
       <property name="font">
        <font>
         <family>Helvetica Neue</family>
-        <pointsize>13</pointsize>
+        <pointsize>10</pointsize>
        </font>
       </property>
       <property name="cursor">
@@ -675,7 +675,7 @@ QPushButton:hover {
       <property name="font">
        <font>
         <family>Helvetica Neue</family>
-        <pointsize>13</pointsize>
+        <pointsize>10</pointsize>
        </font>
       </property>
       <property name="contextMenuPolicy">
@@ -789,7 +789,7 @@ QPushButton:hover {
       <property name="font">
        <font>
         <family>Helvetica Neue</family>
-        <pointsize>13</pointsize>
+        <pointsize>10</pointsize>
        </font>
       </property>
       <property name="cursor">
@@ -841,14 +841,14 @@ QPushButton:hover {
    <property name="geometry">
     <rect>
      <x>355</x>
-     <y>444</y>
-     <width>26</width>
+     <y>445</y>
+     <width>28</width>
      <height>24</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>12</pointsize>
+     <pointsize>10</pointsize>
     </font>
    </property>
    <property name="cursor">
@@ -883,8 +883,8 @@ QPushButton:hover {
    <property name="geometry">
     <rect>
      <x>355</x>
-     <y>504</y>
-     <width>26</width>
+     <y>505</y>
+     <width>28</width>
      <height>24</height>
     </rect>
    </property>
@@ -896,7 +896,7 @@ QPushButton:hover {
    </property>
    <property name="font">
     <font>
-     <pointsize>12</pointsize>
+     <pointsize>10</pointsize>
     </font>
    </property>
    <property name="cursor">
