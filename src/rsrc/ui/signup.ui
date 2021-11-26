@@ -762,7 +762,7 @@ QPushButton:hover {
 </string>
       </property>
       <property name="text">
-       <string>SIGN UP</string>
+       <string>CONFIRM</string>
       </property>
       <property name="checkable">
        <bool>false</bool>
