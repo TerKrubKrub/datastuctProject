@@ -854,6 +854,9 @@ QPushButton:hover {
    <property name="cursor">
     <cursorShape>PointingHandCursor</cursorShape>
    </property>
+   <property name="acceptDrops">
+    <bool>false</bool>
+   </property>
    <property name="autoFillBackground">
     <bool>false</bool>
    </property>
@@ -918,6 +921,9 @@ QPushButton:hover {
     <bool>true</bool>
    </property>
   </widget>
+  <zorder>signup_panel</zorder>
+  <zorder>show_repwd</zorder>
+  <zorder>show_pwd</zorder>
  </widget>
  <tabstops>
   <tabstop>min_btn</tabstop>

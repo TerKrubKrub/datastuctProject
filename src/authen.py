@@ -1,27 +1,30 @@
 import sys
 from PyQt5 import QtWidgets, QtCore, QtGui, uic
-from PyQt5.QtWidgets import *
 from rsrc import rsrc
 
 
-class LogIn(QWidget):
+class LogIn(QtWidgets.QWidget):
     def __init__(self):
         super().__init__()
         uic.loadUi("rsrc/ui/login.ui", self)
-        fontDB = QtGui.QFontDatabase()
-        fontDB.addApplicationFont(":/Font/font/Better Grade/Better Grade.ttf")
-        fontDB.addApplicationFont(":/Font/font/Product Sans/Product Sans Regular.ttf")
+        self.fontDB = QtGui.QFontDatabase()
+        self.fontDB.addApplicationFont(":/Font/font/Better Grade/Better Grade.ttf")
+        self.fontDB.addApplicationFont(
+            ":/Font/font/Product Sans/Product Sans Regular.ttf"
+        )
         self.setWindowFlags(QtCore.Qt.WindowType.FramelessWindowHint)
         self.setAttribute(QtCore.Qt.WidgetAttribute.WA_TranslucentBackground)
-        self.ext_btn.clicked.connect(self.exit)
-        self.min_btn.clicked.connect(self.minimize)
-        self.show_pwd.clicked.connect(self.showPassword)
-        self.login_btn.clicked.connect(self.logIn)
-        self.signup_btn.clicked.connect(self.signUp)
+        self.ext_btn.mousePressEvent = self.exit
+        self.min_btn.mousePressEvent = self.minimize
+        self.show_pwd.mousePressEvent = self.showPassword
+        self.login_btn.mousePressEvent = self.logIn
+        self.signup_btn.mousePressEvent = self.signUp
         self.usnErrStyle = "#username { padding-left: 10px;  border-radius: 10px; background-color: rgb(255, 228, 184); color: red; font-size: 13px; }"
         self.usnNormStyle = "#username { padding-left: 10px; border-radius: 10px; background-color: rgb(255, 228, 184); color: black; font-size: 16px; }"
         self.pwdErrStyle = "#password { padding-left: 10px;  border-radius: 10px; background-color: rgb(255, 228, 184); color: red; font-size: 13px; }"
         self.pwdNormStyle = "#password { padding-left: 10px; border-radius: 10px; background-color: rgb(255, 228, 184); color: black; font-size: 16px; }"
+        self.password.textEdited.connect(self.hidePassword)
+        self.cur_pos = QtCore.QPoint(1080, 620)
 
     def mousePressEvent(self, event):
         self.cur_pos = event.globalPos()
@@ -29,12 +32,11 @@ class LogIn(QWidget):
     def mouseMoveEvent(self, event):
         self.move(self.pos() + event.globalPos() - self.cur_pos)
         self.cur_pos = event.globalPos()
-        event.accept()
 
-    def minimize(self):
+    def minimize(self, event):
         self.setWindowState(QtCore.Qt.WindowState.WindowMinimized)
 
-    def exit(self):
+    def exit(self, event):
         sys.exit(0)
 
     def usnChanged(self, txt):
@@ -75,34 +77,39 @@ class LogIn(QWidget):
         event.accept()
 
     def signUp(self, event):
-        self.toSignUp()
-
-    def toSignUp(self):
         self.sign_up = SignUp()
         self.sign_up.show()
         self.close()
 
-    def showPassword(self):
-        if self.password.echoMode() == QLineEdit.Normal:
-            self.password.setEchoMode(QLineEdit.Password)
+    def showPassword(self, event):
+        if self.password.echoMode() == QtWidgets.QLineEdit.Normal:
+            self.hidePassword()
         else:
-            self.password.setEchoMode(QLineEdit.Normal)
+            self.password.setEchoMode(QtWidgets.QLineEdit.Normal)
+
+    def hidePassword(self):
+        self.password.setEchoMode(QtWidgets.QLineEdit.Password)
 
 
-class SignUp(QWidget):
+class SignUp(QtWidgets.QWidget):
     def __init__(self):
         super().__init__()
         uic.loadUi("rsrc/ui/signup.ui", self)
-        fontDB = QtGui.QFontDatabase()
-        fontDB.addApplicationFont(":/Font/font/Better Grade/Better Grade.ttf")
-        fontDB.addApplicationFont(":/Font/font/Product Sans/Product Sans Regular.ttf")
+        self.fontDB = QtGui.QFontDatabase()
+        self.fontDB.addApplicationFont(":/Font/font/Better Grade/Better Grade.ttf")
+        self.fontDB.addApplicationFont(
+            ":/Font/font/Product Sans/Product Sans Regular.ttf"
+        )
         self.setWindowFlags(QtCore.Qt.WindowType.FramelessWindowHint)
         self.setAttribute(QtCore.Qt.WidgetAttribute.WA_TranslucentBackground)
         self.ext_btn.mousePressEvent = self.exit
         self.min_btn.mousePressEvent = self.minimize
-        self.signup_btn.clicked.connect(self.signUp)
-        self.show_pwd.clicked.connect(self.showPassword)
-        self.show_repwd.clicked.connect(self.showRePassword)
+        self.signup_btn.mousePressEvent = self.signUp
+        self.show_pwd.mousePressEvent = self.showPassword
+        self.show_repwd.mousePressEvent = self.showRePassword
+        self.password.textEdited.connect(self.hidePassword)
+        self.re_password.textEdited.connect(self.hideRePassword)
+        self.cur_pos = QtCore.QPoint(1080, 620)
 
     def mousePressEvent(self, event):
         self.cur_pos = event.globalPos()
@@ -110,33 +117,34 @@ class SignUp(QWidget):
     def mouseMoveEvent(self, event):
         self.move(self.pos() + event.globalPos() - self.cur_pos)
         self.cur_pos = event.globalPos()
-        event.accept()
 
     def minimize(self, event):
         self.setWindowState(QtCore.Qt.WindowState.WindowMinimized)
-        event.accept()
 
     def exit(self, event):
         event.accept()
         sys.exit(0)
 
-    def toLogIn(self):
+    def signUp(self, event):
+        # to database
         self.log_in = LogIn()
         self.log_in.show()
         self.close()
 
-    def signUp(self):
-        # to database
-        self.toLogIn()
-
-    def showPassword(self):
-        if self.password.echoMode() == QLineEdit.Normal:
-            self.password.setEchoMode(QLineEdit.Password)
+    def showPassword(self, event):
+        if self.password.echoMode() == QtWidgets.QLineEdit.Normal:
+            self.hidePassword()
         else:
-            self.password.setEchoMode(QLineEdit.Normal)
+            self.password.setEchoMode(QtWidgets.QLineEdit.Normal)
 
-    def showRePassword(self):
-        if self.re_password.echoMode() == QLineEdit.Normal:
-            self.re_password.setEchoMode(QLineEdit.Password)
+    def showRePassword(self, event):
+        if self.re_password.echoMode() == QtWidgets.QLineEdit.Normal:
+            self.hideRePassword()
         else:
-            self.re_password.setEchoMode(QLineEdit.Normal)
+            self.re_password.setEchoMode(QtWidgets.QLineEdit.Normal)
+
+    def hidePassword(self):
+        self.password.setEchoMode(QtWidgets.QLineEdit.Password)
+
+    def hideRePassword(self):
+        self.re_password.setEchoMode(QtWidgets.QLineEdit.Password)
