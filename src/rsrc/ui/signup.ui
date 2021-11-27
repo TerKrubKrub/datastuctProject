@@ -85,8 +85,8 @@
     <property name="verticalSpacing">
      <number>20</number>
     </property>
-    <item row="8" column="0">
-     <spacer name="horizontalSpacer_14">
+    <item row="8" column="2">
+     <spacer name="horizontalSpacer_16">
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>
@@ -111,8 +111,8 @@
       </property>
      </spacer>
     </item>
-    <item row="8" column="2">
-     <spacer name="horizontalSpacer_16">
+    <item row="8" column="0">
+     <spacer name="horizontalSpacer_14">
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>
@@ -124,8 +124,8 @@
       </property>
      </spacer>
     </item>
-    <item row="9" column="2">
-     <spacer name="horizontalSpacer_17">
+    <item row="4" column="2">
+     <spacer name="horizontalSpacer_7">
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>
@@ -137,8 +137,110 @@
       </property>
      </spacer>
     </item>
-    <item row="9" column="0">
-     <spacer name="horizontalSpacer_15">
+    <item row="1" column="0">
+     <spacer name="horizontalSpacer_11">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="8" column="1">
+     <widget class="QLineEdit" name="password">
+      <property name="minimumSize">
+       <size>
+        <width>300</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>300</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>Helvetica Neue</family>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="cursor">
+       <cursorShape>IBeamCursor</cursorShape>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">#password {
+	padding-left: 13px;
+	border-radius: 10px;
+	background-color: rgb(255, 228, 184);
+}</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="maxLength">
+       <number>1000</number>
+      </property>
+      <property name="frame">
+       <bool>false</bool>
+      </property>
+      <property name="echoMode">
+       <enum>QLineEdit::Password</enum>
+      </property>
+      <property name="placeholderText">
+       <string>Password</string>
+      </property>
+      <property name="cursorMoveStyle">
+       <enum>Qt::VisualMoveStyle</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="2">
+     <spacer name="horizontalSpacer_8">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="3" column="0">
+     <spacer name="horizontalSpacer">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="1" column="2">
+     <spacer name="horizontalSpacer_12">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="11" column="0">
+     <spacer name="horizontalSpacer_5">
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>
@@ -162,43 +264,6 @@
        </size>
       </property>
      </spacer>
-    </item>
-    <item row="1" column="1">
-     <widget class="QLabel" name="signup_label">
-      <property name="minimumSize">
-       <size>
-        <width>300</width>
-        <height>100</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>300</width>
-        <height>100</height>
-       </size>
-      </property>
-      <property name="font">
-       <font>
-        <family>Better Grade</family>
-        <pointsize>72</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true"/>
-      </property>
-      <property name="frameShadow">
-       <enum>QFrame::Plain</enum>
-      </property>
-      <property name="text">
-       <string>Sign Up</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-      <property name="wordWrap">
-       <bool>false</bool>
-      </property>
-     </widget>
     </item>
     <item row="3" column="1">
      <widget class="QLineEdit" name="f_name">
@@ -250,55 +315,81 @@
       </property>
      </widget>
     </item>
-    <item row="6" column="1">
-     <widget class="QLineEdit" name="email">
+    <item row="9" column="2">
+     <spacer name="horizontalSpacer_17">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="9" column="0">
+     <spacer name="horizontalSpacer_15">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="1" column="1">
+     <widget class="QLabel" name="signup_label">
       <property name="minimumSize">
        <size>
         <width>300</width>
-        <height>40</height>
+        <height>100</height>
        </size>
       </property>
       <property name="maximumSize">
        <size>
         <width>300</width>
-        <height>40</height>
+        <height>100</height>
        </size>
       </property>
       <property name="font">
        <font>
-        <family>Helvetica Neue</family>
-        <pointsize>10</pointsize>
+        <family>Better Grade</family>
+        <pointsize>72</pointsize>
        </font>
       </property>
-      <property name="cursor">
-       <cursorShape>IBeamCursor</cursorShape>
-      </property>
       <property name="styleSheet">
-       <string notr="true">#email {
-	padding-left: 13px;
-	border-radius: 10px;
-	background-color: rgb(255, 228, 184);
-}</string>
+       <string notr="true"/>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Plain</enum>
       </property>
       <property name="text">
-       <string/>
+       <string>Sign Up</string>
       </property>
-      <property name="maxLength">
-       <number>1000</number>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
       </property>
-      <property name="frame">
+      <property name="wordWrap">
        <bool>false</bool>
       </property>
-      <property name="echoMode">
-       <enum>QLineEdit::Normal</enum>
-      </property>
-      <property name="placeholderText">
-       <string>Email</string>
-      </property>
-      <property name="cursorMoveStyle">
-       <enum>Qt::VisualMoveStyle</enum>
-      </property>
      </widget>
+    </item>
+    <item row="5" column="0">
+     <spacer name="horizontalSpacer_3">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
     </item>
     <item row="9" column="1">
      <widget class="QLineEdit" name="re_password">
@@ -376,34 +467,8 @@
       </property>
      </spacer>
     </item>
-    <item row="5" column="0">
-     <spacer name="horizontalSpacer_3">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>40</width>
-        <height>20</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="10" column="1">
-     <spacer name="verticalSpacer_3">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>40</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="8" column="1">
-     <widget class="QLineEdit" name="password">
+    <item row="6" column="1">
+     <widget class="QLineEdit" name="email">
       <property name="minimumSize">
        <size>
         <width>300</width>
@@ -426,7 +491,7 @@
        <cursorShape>IBeamCursor</cursorShape>
       </property>
       <property name="styleSheet">
-       <string notr="true">#password {
+       <string notr="true">#email {
 	padding-left: 13px;
 	border-radius: 10px;
 	background-color: rgb(255, 228, 184);
@@ -442,83 +507,182 @@
        <bool>false</bool>
       </property>
       <property name="echoMode">
-       <enum>QLineEdit::Password</enum>
+       <enum>QLineEdit::Normal</enum>
       </property>
       <property name="placeholderText">
-       <string>Password</string>
+       <string>Email (optional)</string>
       </property>
       <property name="cursorMoveStyle">
        <enum>Qt::VisualMoveStyle</enum>
       </property>
      </widget>
     </item>
-    <item row="1" column="0">
-     <spacer name="horizontalSpacer_11">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
+    <item row="11" column="1">
+     <widget class="QPushButton" name="signup_btn">
+      <property name="minimumSize">
        <size>
-        <width>40</width>
-        <height>20</height>
+        <width>300</width>
+        <height>50</height>
        </size>
       </property>
-     </spacer>
-    </item>
-    <item row="4" column="2">
-     <spacer name="horizontalSpacer_7">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
+      <property name="maximumSize">
        <size>
-        <width>40</width>
-        <height>20</height>
+        <width>300</width>
+        <height>50</height>
        </size>
       </property>
-     </spacer>
-    </item>
-    <item row="11" column="0">
-     <spacer name="horizontalSpacer_5">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
+      <property name="font">
+       <font>
+        <family>Product Sans</family>
+        <pointsize>16</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
       </property>
-      <property name="sizeHint" stdset="0">
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::StrongFocus</enum>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+	background-color: rgb(255, 255, 255);
+	border-radius: 20px;
+	transition-duration: 0.4s;
+}
+
+QPushButton:hover {
+	background-color: rgb(255, 190, 111);
+	color: rgb(255, 255, 255);
+}
+</string>
+      </property>
+      <property name="text">
+       <string>CONFIRM</string>
+      </property>
+      <property name="checkable">
+       <bool>false</bool>
+      </property>
+      <property name="flat">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="1">
+     <widget class="QLineEdit" name="username">
+      <property name="minimumSize">
        <size>
-        <width>40</width>
-        <height>20</height>
+        <width>300</width>
+        <height>40</height>
        </size>
       </property>
-     </spacer>
-    </item>
-    <item row="5" column="2">
-     <spacer name="horizontalSpacer_8">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
+      <property name="maximumSize">
        <size>
-        <width>40</width>
-        <height>20</height>
+        <width>300</width>
+        <height>40</height>
        </size>
       </property>
-     </spacer>
-    </item>
-    <item row="3" column="0">
-     <spacer name="horizontalSpacer">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
+      <property name="font">
+       <font>
+        <family>Helvetica Neue</family>
+        <pointsize>10</pointsize>
+       </font>
       </property>
-      <property name="sizeHint" stdset="0">
+      <property name="cursor">
+       <cursorShape>IBeamCursor</cursorShape>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">#username {
+	padding-left: 13px;
+	border-radius: 10px;
+	background-color: rgb(255, 228, 184);
+}</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="maxLength">
+       <number>1000</number>
+      </property>
+      <property name="frame">
+       <bool>false</bool>
+      </property>
+      <property name="echoMode">
+       <enum>QLineEdit::Normal</enum>
+      </property>
+      <property name="placeholderText">
+       <string>Username</string>
+      </property>
+      <property name="cursorMoveStyle">
+       <enum>Qt::VisualMoveStyle</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="1">
+     <widget class="QLineEdit" name="l_name">
+      <property name="minimumSize">
        <size>
-        <width>40</width>
-        <height>20</height>
+        <width>300</width>
+        <height>40</height>
        </size>
       </property>
-     </spacer>
+      <property name="maximumSize">
+       <size>
+        <width>300</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>Helvetica Neue</family>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::NoContextMenu</enum>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">#l_name {
+	padding-left: 13px;
+	border-radius: 10px;
+	background-color: rgb(255, 228, 184);
+}</string>
+      </property>
+      <property name="inputMask">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="maxLength">
+       <number>1000</number>
+      </property>
+      <property name="frame">
+       <bool>false</bool>
+      </property>
+      <property name="echoMode">
+       <enum>QLineEdit::Normal</enum>
+      </property>
+      <property name="cursorPosition">
+       <number>0</number>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+      </property>
+      <property name="dragEnabled">
+       <bool>true</bool>
+      </property>
+      <property name="placeholderText">
+       <string>Last name</string>
+      </property>
+      <property name="cursorMoveStyle">
+       <enum>Qt::VisualMoveStyle</enum>
+      </property>
+     </widget>
     </item>
-    <item row="1" column="2">
-     <spacer name="horizontalSpacer_12">
+    <item row="6" column="2">
+     <spacer name="horizontalSpacer_9">
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>
@@ -658,182 +822,57 @@ QPushButton:hover {
       </property>
      </spacer>
     </item>
-    <item row="4" column="1">
-     <widget class="QLineEdit" name="l_name">
+    <item row="10" column="1">
+     <widget class="QPushButton" name="back_btn">
       <property name="minimumSize">
        <size>
-        <width>300</width>
-        <height>40</height>
+        <width>100</width>
+        <height>35</height>
        </size>
       </property>
       <property name="maximumSize">
        <size>
         <width>300</width>
-        <height>40</height>
-       </size>
-      </property>
-      <property name="font">
-       <font>
-        <family>Helvetica Neue</family>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="contextMenuPolicy">
-       <enum>Qt::NoContextMenu</enum>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">#l_name {
-	padding-left: 13px;
-	border-radius: 10px;
-	background-color: rgb(255, 228, 184);
-}</string>
-      </property>
-      <property name="inputMask">
-       <string/>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="maxLength">
-       <number>1000</number>
-      </property>
-      <property name="frame">
-       <bool>false</bool>
-      </property>
-      <property name="echoMode">
-       <enum>QLineEdit::Normal</enum>
-      </property>
-      <property name="cursorPosition">
-       <number>0</number>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-      </property>
-      <property name="dragEnabled">
-       <bool>true</bool>
-      </property>
-      <property name="placeholderText">
-       <string>Last name</string>
-      </property>
-      <property name="cursorMoveStyle">
-       <enum>Qt::VisualMoveStyle</enum>
-      </property>
-     </widget>
-    </item>
-    <item row="11" column="1">
-     <widget class="QPushButton" name="signup_btn">
-      <property name="minimumSize">
-       <size>
-        <width>300</width>
-        <height>50</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>300</width>
-        <height>50</height>
+        <height>20</height>
        </size>
       </property>
       <property name="font">
        <font>
         <family>Product Sans</family>
-        <pointsize>16</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
+        <pointsize>10</pointsize>
+        <underline>true</underline>
        </font>
       </property>
       <property name="cursor">
        <cursorShape>PointingHandCursor</cursorShape>
       </property>
-      <property name="focusPolicy">
-       <enum>Qt::StrongFocus</enum>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
       </property>
       <property name="styleSheet">
-       <string notr="true">QPushButton {
-	background-color: rgb(255, 255, 255);
-	border-radius: 20px;
-	transition-duration: 0.4s;
+       <string notr="true">#back_btn {
+	text-align: right;
 }
 
-QPushButton:hover {
-	background-color: rgb(255, 190, 111);
-	color: rgb(255, 255, 255);
+#back_btn:hover {
+	font-weight: bold;
+	background-color: rgba(255, 255, 255, 0);
 }
 </string>
       </property>
       <property name="text">
-       <string>CONFIRM</string>
+       <string>&lt; BACK</string>
       </property>
-      <property name="checkable">
+      <property name="shortcut">
+       <string/>
+      </property>
+      <property name="default">
        <bool>false</bool>
       </property>
       <property name="flat">
        <bool>true</bool>
       </property>
      </widget>
-    </item>
-    <item row="5" column="1">
-     <widget class="QLineEdit" name="username">
-      <property name="minimumSize">
-       <size>
-        <width>300</width>
-        <height>40</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>300</width>
-        <height>40</height>
-       </size>
-      </property>
-      <property name="font">
-       <font>
-        <family>Helvetica Neue</family>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="cursor">
-       <cursorShape>IBeamCursor</cursorShape>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">#username {
-	padding-left: 13px;
-	border-radius: 10px;
-	background-color: rgb(255, 228, 184);
-}</string>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="maxLength">
-       <number>1000</number>
-      </property>
-      <property name="frame">
-       <bool>false</bool>
-      </property>
-      <property name="echoMode">
-       <enum>QLineEdit::Normal</enum>
-      </property>
-      <property name="placeholderText">
-       <string>Username</string>
-      </property>
-      <property name="cursorMoveStyle">
-       <enum>Qt::VisualMoveStyle</enum>
-      </property>
-     </widget>
-    </item>
-    <item row="6" column="2">
-     <spacer name="horizontalSpacer_9">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>40</width>
-        <height>20</height>
-       </size>
-      </property>
-     </spacer>
     </item>
    </layout>
   </widget>
