@@ -1,6 +1,8 @@
-import sys
+import sys,os
+import sqlite3
 from PyQt5 import QtWidgets, QtCore, QtGui, uic
-from rsrc import rsrc
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+import rsrc.rsrc
 
 
 class LogIn(QtWidgets.QWidget):
@@ -58,7 +60,7 @@ class LogIn(QtWidgets.QWidget):
             print(self.username.text())
             print(self.password.text())
 
-            self.toHome()
+            # self.toHome()
         else:
             self.username.clear()
             self.password.clear()
@@ -83,7 +85,7 @@ class LogIn(QtWidgets.QWidget):
     def signUp(self, event):
         self.sign_up = SignUp()
         self.sign_up.show()
-        self.close()
+        self.hide()
 
     def showPassword(self, event):
         if self.password.echoMode() == QtWidgets.QLineEdit.Normal:
@@ -214,7 +216,7 @@ class SignUp(QtWidgets.QWidget):
         if self.re_password.text() == "":
             self.re_password.setStyleSheet(self.rpwdErrStyle)
             self.re_password.textChanged.connect(self.rpwdChanged)
-        elif self.username.text() == "admin":  # if exists
+        if self.username.text() == "admin":  # if exists
             if self.username.text() == "":
                 self.username.setStyleSheet(self.usnErrStyle)
             self.username.textChanged.connect(self.usnChanged)
@@ -224,7 +226,7 @@ class SignUp(QtWidgets.QWidget):
                 )
             )
             self.username.clear()
-        elif self.email.text() == "admin@kmitl.ac.th":  # if exists
+        if self.email.text() == "admin@kmitl.ac.th":  # if exists
             if self.email.text() == "":
                 self.email.setStyleSheet(self.emlErrStyle)
             self.email.textChanged.connect(self.emlChanged)
@@ -234,7 +236,7 @@ class SignUp(QtWidgets.QWidget):
                 )
             )
             self.email.clear()
-        elif len(self.password.text()) < 8:
+        if len(self.password.text()) < 8:
             self.password.clear()
             self.re_password.clear()
             self.password.setStyleSheet(self.pwdErrStyle)
@@ -244,7 +246,7 @@ class SignUp(QtWidgets.QWidget):
                     "SignUp", "⚠ Password must be 8 or more charactors."
                 )
             )
-        elif self.re_password.text() != self.password.text():
+        if self.re_password.text() != self.password.text():
             self.password.clear()
             self.re_password.clear()
             self.password.setStyleSheet(self.pwdErrStyle)
@@ -261,7 +263,17 @@ class SignUp(QtWidgets.QWidget):
                     "SignUp", "⚠ Password is not matched."
                 )
             )
-        else:  # if valid
+        if (
+            self.f_name.text() != ""
+            and self.l_name.text() != ""
+            and self.username.text() != ""
+            and self.password.text() != ""
+            and self.re_password.text() != ""
+            and self.username.text() != "admin"
+            and self.email.text() != "admin@kmitl.ac.th"
+            and len(self.password.text()) >= 8
+            and self.re_password.text() == self.password.text()
+        ):  # if valid
             print(self.f_name.text())
             print(self.l_name.text())
             print(self.username.text())

@@ -1,10 +1,10 @@
-from authen import *
+from gui.authen import *
 
 
 def run():
     app = QtWidgets.QApplication(sys.argv)
-    ui = LogIn()
-    ui.show()
+    gui = LogIn()
+    gui.show()
     sys.exit(app.exec_())
 
 
