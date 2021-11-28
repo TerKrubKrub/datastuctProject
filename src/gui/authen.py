@@ -58,16 +58,24 @@ class LogIn(QtWidgets.QWidget):
         self.curs.execute("SELECT username FROM users")
         self.users_db = self.curs.fetchall()
         self.usn_db = [i[0] for i in self.users_db]
-        if self.username.text() in self.usn_db:
+        self.curs.execute("SELECT email FROM users")
+        self.emails_db = self.curs.fetchall()
+        self.eml_db = [i[0] for i in self.emails_db]
+        if self.username.text() in self.usn_db or self.username.text() in self.eml_db:
             self.curs.execute(
                 'SELECT password FROM users WHERE username="'
+                + self.username.text()
+                + '" OR email="'
                 + self.username.text()
                 + '"'
             )
             self.pwd_db = self.curs.fetchone()[0]
+            print(self.pwd_db)
             if self.password.text() == self.pwd_db:
                 self.curs.execute(
                     'SELECT user_id FROM users WHERE username="'
+                    + self.username.text()
+                    + '" OR email="'
                     + self.username.text()
                     + '"'
                 )
