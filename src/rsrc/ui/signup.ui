@@ -54,12 +54,6 @@
      <family>Arial</family>
     </font>
    </property>
-   <property name="styleSheet">
-    <string notr="true">#signup_panel {
-	background: qlineargradient(x1:0 y1:0, x2:0 y2:1, stop:0 rgb(255, 255, 249), stop:1 rgb(255, 242, 215));
-	border-radius: 20px;\n
-}</string>
-   </property>
    <property name="frameShape">
     <enum>QFrame::Panel</enum>
    </property>
@@ -173,13 +167,6 @@
       <property name="cursor">
        <cursorShape>IBeamCursor</cursorShape>
       </property>
-      <property name="styleSheet">
-       <string notr="true">#password {
-	padding-left: 13px;
-	border-radius: 10px;
-	background-color: rgb(255, 228, 184);
-}</string>
-      </property>
       <property name="text">
        <string/>
       </property>
@@ -287,13 +274,6 @@
       </property>
       <property name="cursor">
        <cursorShape>IBeamCursor</cursorShape>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">#f_name {
-	padding-left: 13px;
-	border-radius: 10px;
-	background-color: rgb(255, 228, 184);
-}</string>
       </property>
       <property name="text">
        <string/>
@@ -414,13 +394,6 @@
       <property name="cursor">
        <cursorShape>IBeamCursor</cursorShape>
       </property>
-      <property name="styleSheet">
-       <string notr="true">#re_password {
-	padding-left: 13px;
-	border-radius: 10px;
-	background-color: rgb(255, 228, 184);
-}</string>
-      </property>
       <property name="text">
        <string/>
       </property>
@@ -490,13 +463,6 @@
       <property name="cursor">
        <cursorShape>IBeamCursor</cursorShape>
       </property>
-      <property name="styleSheet">
-       <string notr="true">#email {
-	padding-left: 13px;
-	border-radius: 10px;
-	background-color: rgb(255, 228, 184);
-}</string>
-      </property>
       <property name="text">
        <string/>
       </property>
@@ -545,19 +511,6 @@
       <property name="focusPolicy">
        <enum>Qt::StrongFocus</enum>
       </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton {
-	background-color: rgb(255, 255, 255);
-	border-radius: 20px;
-	transition-duration: 0.4s;
-}
-
-QPushButton:hover {
-	background-color: rgb(255, 190, 111);
-	color: rgb(255, 255, 255);
-}
-</string>
-      </property>
       <property name="text">
        <string>CONFIRM</string>
       </property>
@@ -591,13 +544,6 @@ QPushButton:hover {
       </property>
       <property name="cursor">
        <cursorShape>IBeamCursor</cursorShape>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">#username {
-	padding-left: 13px;
-	border-radius: 10px;
-	background-color: rgb(255, 228, 184);
-}</string>
       </property>
       <property name="text">
        <string/>
@@ -641,13 +587,6 @@ QPushButton:hover {
       </property>
       <property name="contextMenuPolicy">
        <enum>Qt::NoContextMenu</enum>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">#l_name {
-	padding-left: 13px;
-	border-radius: 10px;
-	background-color: rgb(255, 228, 184);
-}</string>
       </property>
       <property name="inputMask">
        <string/>
@@ -740,17 +679,6 @@ QPushButton:hover {
             <pointsize>10</pointsize>
            </font>
           </property>
-          <property name="styleSheet">
-           <string notr="true">QPushButton {
-	background-color: rgb(255, 227, 142);
-	color: rgb(255, 227, 142);
-	border-radius: 8px;
-}
-
-QPushButton:hover {
-	color: white
-}</string>
-          </property>
           <property name="text">
            <string>-</string>
           </property>
@@ -775,17 +703,6 @@ QPushButton:hover {
             <family>Arial</family>
             <pointsize>7</pointsize>
            </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">QPushButton {
-	background-color: rgb(255, 0, 0);
-	color: rgb(255, 0, 0);
-	border-radius: 8px;
-}
-
-QPushButton:hover {
-	color: white
-}</string>
           </property>
           <property name="text">
            <string>x</string>
@@ -849,17 +766,6 @@ QPushButton:hover {
       <property name="layoutDirection">
        <enum>Qt::LeftToRight</enum>
       </property>
-      <property name="styleSheet">
-       <string notr="true">#back_btn {
-	text-align: right;
-}
-
-#back_btn:hover {
-	font-weight: bold;
-	background-color: rgba(255, 255, 255, 0);
-}
-</string>
-      </property>
       <property name="text">
        <string>&lt; BACK</string>
       </property>
@@ -896,18 +802,6 @@ QPushButton:hover {
    <property name="acceptDrops">
     <bool>false</bool>
    </property>
-   <property name="autoFillBackground">
-    <bool>false</bool>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">#show_pwd {
-	color: black;
-}
-
-#show_pwd:hover {
-	background-color: rgba(255, 255, 255, 0);
-}</string>
-   </property>
    <property name="text">
     <string>👁️</string>
    </property>
@@ -943,15 +837,6 @@ QPushButton:hover {
    </property>
    <property name="cursor">
     <cursorShape>PointingHandCursor</cursorShape>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">#show_repwd {
-	color: black;
-}
-
-#show_repwd:hover {
-	background-color: rgba(255, 255, 255, 0);
-}</string>
    </property>
    <property name="text">
     <string>👁️</string>
