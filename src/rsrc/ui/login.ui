@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>480</width>
-    <height>720</height>
+    <width>520</width>
+    <height>760</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -22,8 +22,8 @@
   <widget class="QFrame" name="login_panel">
    <property name="geometry">
     <rect>
-     <x>0</x>
-     <y>0</y>
+     <x>20</x>
+     <y>20</y>
      <width>480</width>
      <height>720</height>
     </rect>
@@ -582,8 +582,8 @@
   <widget class="QPushButton" name="show_pwd">
    <property name="geometry">
     <rect>
-     <x>355</x>
-     <y>426</y>
+     <x>375</x>
+     <y>446</y>
      <width>28</width>
      <height>24</height>
     </rect>

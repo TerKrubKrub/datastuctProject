@@ -3,6 +3,7 @@ import sqlite3
 from PyQt5 import QtWidgets, QtCore, QtGui, uic
 
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
+from gui.app import *
 import rsrc.rsrc
 import rsrc.style.authen as style
 
@@ -13,6 +14,9 @@ class LogIn(QtWidgets.QWidget):
         uic.loadUi("rsrc/ui/login.ui", self)
         self.setWindowFlags(QtCore.Qt.WindowType.FramelessWindowHint)
         self.setAttribute(QtCore.Qt.WidgetAttribute.WA_TranslucentBackground)
+        self.setGraphicsEffect(
+            QtWidgets.QGraphicsDropShadowEffect(blurRadius=25, xOffset=5, yOffset=5)
+        )
         self.fontDB = QtGui.QFontDatabase()
         self.fontDB.addApplicationFont(":/Font/font/Better Grade/Better Grade.ttf")
         self.fontDB.addApplicationFont(
@@ -85,7 +89,8 @@ class LogIn(QtWidgets.QWidget):
                 print("id:", self.user_id)
                 print("\nSuccessfully logged in!")
 
-                # to home
+                self.app = App(self.user_id)
+                self.app.show()
                 self.close()
             else:
                 self.password.clear()
