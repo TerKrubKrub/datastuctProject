@@ -1,9 +1,8 @@
-import sys, os
-import sqlite3
+import sys, os, sqlite3
 from PyQt5 import QtWidgets, QtCore, QtGui, uic
 
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
-from gui.app import *
+import gui.app as app
 import rsrc.rsrc
 import rsrc.style.authen as style
 
@@ -44,7 +43,7 @@ class LogIn(QtWidgets.QWidget):
         self.setWindowState(QtCore.Qt.WindowState.WindowMinimized)
 
     def exit(self, event):
-        sys.exit(0)
+        self.close()
 
     def usnChanged(self, txt):
         if not txt:
@@ -59,37 +58,40 @@ class LogIn(QtWidgets.QWidget):
             self.password.setStyleSheet(style.input)
 
     def logIn(self, event):
-        self.curs.execute("SELECT username FROM users")
+        self.curs.execute("SELECT username, email FROM users")
         self.users_db = self.curs.fetchall()
         self.usn_db = [i[0] for i in self.users_db]
-        self.curs.execute("SELECT email FROM users")
-        self.emails_db = self.curs.fetchall()
-        self.eml_db = [i[0] for i in self.emails_db]
+        self.eml_db = [i[1] for i in self.users_db]
+        self.curs.execute("SELECT rmb FROM current_user")
+        try:
+            self.rmb = self.curs.fetchone()[0]
+        except:
+            self.rmb = None
         if self.username.text() in self.usn_db or self.username.text() in self.eml_db:
             self.curs.execute(
-                'SELECT password FROM users WHERE username="'
+                'SELECT password, user_id FROM users WHERE username="'
                 + self.username.text()
                 + '" OR email="'
                 + self.username.text()
                 + '"'
             )
-            self.pwd_db = self.curs.fetchone()[0]
-            print(self.pwd_db)
+            self.user_db = self.curs.fetchone()
+            self.pwd_db = self.user_db[0]
+            self.user_id = self.user_db[1]
             if self.password.text() == self.pwd_db:
+                if not self.rmb:
+                    self.curs.execute("DELETE FROM current_user")
+                    self.db.commit()
+                print("\nSuccessfully logged in!\n")
+                self.cur_user = [self.user_id, self.remember.isChecked()]
                 self.curs.execute(
-                    'SELECT user_id FROM users WHERE username="'
-                    + self.username.text()
-                    + '" OR email="'
-                    + self.username.text()
-                    + '"'
+                    "INSERT INTO current_user (id, rmb) VALUES (?,?)",
+                    self.cur_user,
                 )
-                self.user_id = self.curs.fetchone()[0]
-                print("\nusername:", self.username.text())
-                print("password:", self.password.text())
-                print("id:", self.user_id)
-                print("\nSuccessfully logged in!")
+                self.db.commit()
+                self.db.close()
 
-                self.app = App(self.user_id)
+                self.app = app.App(self.user_id)
                 self.app.show()
                 self.close()
             else:
@@ -150,7 +152,7 @@ class SignUp(QtWidgets.QWidget):
         self.db = sqlite3.connect("rsrc/db/data.db")
         self.curs = self.db.cursor()
         self.setStyleSheet(style.default)
-        self.ext_btn.mousePressEvent = self.login
+        self.ext_btn.mousePressEvent = self.exit
         self.min_btn.mousePressEvent = self.minimize
         self.signup_btn.mousePressEvent = self.signUp
         self.back_btn.mousePressEvent = self.login
@@ -171,8 +173,7 @@ class SignUp(QtWidgets.QWidget):
         self.setWindowState(QtCore.Qt.WindowState.WindowMinimized)
 
     def exit(self, event):
-        event.accept()
-        sys.exit(0)
+        self.close()
 
     def fnChanged(self, txt):
         if not txt:
@@ -300,7 +301,7 @@ class SignUp(QtWidgets.QWidget):
             and len(self.password.text()) >= 8
             and self.re_password.text() == self.password.text()
         ):
-            user_info = [
+            self.user_info = [
                 self.f_name.text(),
                 self.l_name.text(),
                 self.username.text(),
@@ -309,7 +310,7 @@ class SignUp(QtWidgets.QWidget):
             ]
             self.curs.execute(
                 "INSERT INTO users (fname, lname, username, password, email) VALUES (?,?,?,?,?)",
-                user_info,
+                self.user_info,
             )
             self.db.commit()
             self.db.close()

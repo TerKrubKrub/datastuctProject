@@ -1,14 +1,4 @@
 <RCC>
-  <qresource prefix="Logo">
-    <file>logo/logo.png</file>
-    <file>logo/logo_full.png</file>
-  </qresource>
-  <qresource prefix="Miscellaneous">
-    <file>misc/eye.png</file>
-  </qresource>
-  <qresource prefix="Background">
-    <file>bg/login_bg.jpg</file>
-  </qresource>
   <qresource prefix="Font">
     <file>font/Better Grade/Better Grade.ttf</file>
     <file>font/Helvetica Neue/Helvetica Neue LT 23 Ultra Light Extended Oblique.ttf</file>
@@ -66,5 +56,19 @@
     <file>font/Product Sans/Product Sans Bold.ttf</file>
     <file>font/Product Sans/Product Sans Italic.ttf</file>
     <file>font/Product Sans/Product Sans Regular.ttf</file>
+  </qresource>
+  <qresource prefix="Image">
+    <file>img/frame_dark.png</file>
+    <file>img/menu.png</file>
+    <file>db/userimg/gchax.jpg</file>
+    <file>db/userimg/dafault-pic.png</file>
+    <file>img/frame.png</file>
+    <file>img/gear.png</file>
+    <file>img/library.ico</file>
+    <file>img/logo.png</file>
+    <file>img/logo_full.png</file>
+    <file>img/logout.png</file>
+    <file>img/request.png</file>
+    <file>img/trophy.png</file>
   </qresource>
 </RCC>
