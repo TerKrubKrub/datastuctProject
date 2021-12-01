@@ -16,19 +16,34 @@ class LogIn(QtWidgets.QWidget):
         self.setGraphicsEffect(
             QtWidgets.QGraphicsDropShadowEffect(blurRadius=25, xOffset=5, yOffset=5)
         )
-        self.fontDB = QtGui.QFontDatabase()
-        self.fontDB.addApplicationFont(":/Font/font/Better Grade/Better Grade.ttf")
-        self.fontDB.addApplicationFont(
-            ":/Font/font/Product Sans/Product Sans Regular.ttf"
-        )
         self.db = sqlite3.connect("rsrc/db/data.db")
         self.curs = self.db.cursor()
+        self.curs.execute("SELECT username, email FROM users")
+        self.users_db = self.curs.fetchall()
+        self.usn_db = [i[0] for i in self.users_db]
+        self.eml_db = [i[1] for i in self.users_db]
+        self.curs.execute("SELECT id, rmb FROM current_user")
+        try:
+            self.temp = self.curs.fetchone()
+            self.user_id = self.temp[0]
+            self.rmb = self.temp[1]
+        except:
+            self.rmb = self.user_id = None
+        if self.rmb:
+            self.curs.execute(
+                'SELECT f_name FROM users WHERE user_id="' + str(self.user_id) + '"'
+            )
+            self.showRmb()
+        else:
+            self.showNotRmb()
         self.setStyleSheet(style.default)
         self.ext_btn.mousePressEvent = self.exit
         self.min_btn.mousePressEvent = self.minimize
         self.show_pwd.mousePressEvent = self.showPassword
         self.login_btn.mousePressEvent = self.logIn
+        self.continue_btn.mousePressEvent = self.logIn
         self.create_btn.mousePressEvent = self.signUp
+        self.unrmb_btn.clicked.connect(self.notYou)
         self.password.textChanged.connect(self.hidePassword)
         self.cur_pos = QtCore.QPoint(1080, 620)
 
@@ -45,6 +60,37 @@ class LogIn(QtWidgets.QWidget):
     def exit(self, event):
         self.close()
 
+    def showRmb(self):
+        self.rmb_welcome.setText("Welcome back\n" + self.curs.fetchone()[0] + "!")
+        self.rmb_welcome.show()
+        self.continue_btn.show()
+        self.unrmb_btn.show()
+        self.login_label.hide()
+        self.username.hide()
+        self.password.hide()
+        self.show_pwd.hide()
+        self.login_btn.hide()
+        self.remember.hide()
+        self.create_btn.hide()
+
+    def showNotRmb(self):
+        self.rmb_welcome.hide()
+        self.continue_btn.hide()
+        self.unrmb_btn.hide()
+        self.login_label.show()
+        self.username.show()
+        self.password.show()
+        self.show_pwd.show()
+        self.login_btn.show()
+        self.remember.show()
+        self.create_btn.show()
+
+    def notYou(self):
+        self.showNotRmb()
+        self.user_id = self.rmb = None
+        self.curs.execute("DELETE FROM current_user")
+        self.db.commit()
+
     def usnChanged(self, txt):
         if not txt:
             self.username.setStyleSheet(style.error)
@@ -58,43 +104,62 @@ class LogIn(QtWidgets.QWidget):
             self.password.setStyleSheet(style.input)
 
     def logIn(self, event):
-        self.curs.execute("SELECT username, email FROM users")
-        self.users_db = self.curs.fetchall()
-        self.usn_db = [i[0] for i in self.users_db]
-        self.eml_db = [i[1] for i in self.users_db]
-        self.curs.execute("SELECT rmb FROM current_user")
-        try:
-            self.rmb = self.curs.fetchone()[0]
-        except:
-            self.rmb = None
-        if self.username.text() in self.usn_db or self.username.text() in self.eml_db:
-            self.curs.execute(
-                'SELECT password, user_id FROM users WHERE username="'
-                + self.username.text()
-                + '" OR email="'
-                + self.username.text()
-                + '"'
-            )
-            self.user_db = self.curs.fetchone()
-            self.pwd_db = self.user_db[0]
-            self.user_id = self.user_db[1]
-            if self.password.text() == self.pwd_db:
-                if not self.rmb:
-                    self.curs.execute("DELETE FROM current_user")
-                    self.db.commit()
-                print("\nSuccessfully logged in!\n")
-                self.cur_user = [self.user_id, self.remember.isChecked()]
+        global mainApp
+        if self.rmb:
+            self.curs.execute("SELECT id FROM current_user")
+            self.user_id = self.curs.fetchone()[0]
+            mainApp = app.App(self.user_id)
+            mainApp.show()
+            self.db.close()
+            self.close()
+        else:
+            if (
+                self.username.text() in self.usn_db
+                or self.username.text() in self.eml_db
+            ):
                 self.curs.execute(
-                    "INSERT INTO current_user (id, rmb) VALUES (?,?)",
-                    self.cur_user,
+                    'SELECT password, user_id FROM users WHERE username="'
+                    + self.username.text()
+                    + '" OR email="'
+                    + self.username.text()
+                    + '"'
                 )
-                self.db.commit()
-                self.db.close()
+                self.user_db = self.curs.fetchone()
+                self.pwd_db = self.user_db[0]
+                self.user_id = self.user_db[1]
+                if self.password.text() == self.pwd_db:
+                    print("\nSuccessfully logged in!\n")
+                    self.cur_user = [self.user_id, self.remember.isChecked()]
+                    self.curs.execute(
+                        "INSERT INTO current_user (id, rmb) VALUES (?,?)",
+                        self.cur_user,
+                    )
+                    self.db.commit()
+                    self.db.close()
 
-                self.app = app.App(self.user_id)
-                self.app.show()
-                self.close()
+                    mainApp = app.App(self.user_id)
+                    mainApp.show()
+                    self.close()
+                else:
+                    self.password.clear()
+                    if self.password.text() == "":
+                        self.password.setStyleSheet(style.error)
+                    self.password.textChanged.connect(self.pwdChanged)
+                    self.password.setPlaceholderText(
+                        QtCore.QCoreApplication.translate(
+                            "LogIn", "⚠ Password is incorrect."
+                        )
+                    )
             else:
+                self.username.clear()
+                if self.username.text() == "":
+                    self.username.setStyleSheet(style.error)
+                self.username.textChanged.connect(self.usnChanged)
+                self.username.setPlaceholderText(
+                    QtCore.QCoreApplication.translate(
+                        "LogIn", "⚠ The username does not exist."
+                    )
+                )
                 self.password.clear()
                 if self.password.text() == "":
                     self.password.setStyleSheet(style.error)
@@ -104,23 +169,6 @@ class LogIn(QtWidgets.QWidget):
                         "LogIn", "⚠ Password is incorrect."
                     )
                 )
-        else:
-            self.username.clear()
-            if self.username.text() == "":
-                self.username.setStyleSheet(style.error)
-            self.username.textChanged.connect(self.usnChanged)
-            self.username.setPlaceholderText(
-                QtCore.QCoreApplication.translate(
-                    "LogIn", "⚠ The username does not exist."
-                )
-            )
-            self.password.clear()
-            if self.password.text() == "":
-                self.password.setStyleSheet(style.error)
-            self.password.textChanged.connect(self.pwdChanged)
-            self.password.setPlaceholderText(
-                QtCore.QCoreApplication.translate("LogIn", "⚠ Password is incorrect.")
-            )
         event.accept()
 
     def signUp(self, event):
@@ -309,7 +357,7 @@ class SignUp(QtWidgets.QWidget):
                 self.email.text() if self.email.text() else None,
             ]
             self.curs.execute(
-                "INSERT INTO users (fname, lname, username, password, email) VALUES (?,?,?,?,?)",
+                "INSERT INTO users (f_name, l_name, username, password, email) VALUES (?,?,?,?,?)",
                 self.user_info,
             )
             self.db.commit()

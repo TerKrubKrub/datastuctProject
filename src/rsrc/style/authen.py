@@ -15,7 +15,7 @@ default = """
 	border-radius: 8px;
 }
 #min_btn:hover {
-	color: white
+	color: black
 }
 
 #ext_btn {
@@ -24,7 +24,7 @@ default = """
 	border-radius: 8px;
 }
 #ext_btn:hover {
-	color: white
+	color: black
 }
 
 #f_name {
@@ -91,6 +91,26 @@ default = """
 	transition-duration: 0.4s;
 }
 #login_btn:hover {
+	background-color: rgb(255, 190, 111);
+	color: rgb(255, 255, 255);
+}
+
+#continue_btn {
+	background-color: rgb(255, 255, 255);
+	border-radius: 12px;
+	transition-duration: 0.4s;
+}
+#continue_btn:hover {
+	background-color: rgb(255, 190, 111);
+	color: rgb(255, 255, 255);
+}
+
+#unrmb_btn {
+	background-color: rgb(255, 255, 255);
+	border-radius: 12px;
+	transition-duration: 0.4s;
+}
+#unrmb_btn:hover {
 	background-color: rgb(255, 190, 111);
 	color: rgb(255, 255, 255);
 }

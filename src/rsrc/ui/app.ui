@@ -6,18 +6,23 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1000</width>
-    <height>720</height>
+    <width>1200</width>
+    <height>750</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>1000</width>
-    <height>720</height>
+    <width>1200</width>
+    <height>750</height>
    </size>
   </property>
-  <property name="windowTitle">
-   <string>Booque</string>
+  <property name="windowIcon">
+   <iconset>
+    <normalon>:/Image/img/logo.png</normalon>
+   </iconset>
+  </property>
+  <property name="windowOpacity">
+   <double>1.000000000000000</double>
   </property>
   <property name="styleSheet">
    <string notr="true">#booque {
@@ -25,7 +30,7 @@
 }
 
 QMenu {
-	background-color: rgb(255, 251, 247);
+	background-color: rgb(241, 224, 200);
 }
 QMenu::item {
 	padding: 2px 20px 2px 20px;
@@ -63,19 +68,16 @@ QMenu::item:selected {
      </property>
      <property name="minimumSize">
       <size>
-       <width>1000</width>
-       <height>590</height>
+       <width>1200</width>
+       <height>610</height>
       </size>
-     </property>
-     <property name="currentIndex">
-      <number>0</number>
      </property>
      <widget class="Home" name="home_page"/>
      <widget class="Profile" name="profile_page"/>
      <widget class="Edit" name="edit_page"/>
-     <widget class="Setting" name="setting_page"/>
-     <widget class="Request" name="request_page"/>
      <widget class="Library" name="library_page"/>
+     <widget class="Request" name="request_page"/>
+     <widget class="Setting" name="setting_page"/>
      <widget class="Book" name="book_page"/>
      <widget class="Chart" name="chart_page"/>
     </widget>
@@ -111,13 +113,13 @@ QMenu::item:selected {
        <widget class="QPushButton" name="menu_btn">
         <property name="minimumSize">
          <size>
-          <width>70</width>
-          <height>70</height>
+          <width>50</width>
+          <height>50</height>
          </size>
         </property>
         <property name="maximumSize">
          <size>
-          <width>70</width>
+          <width>50</width>
           <height>70</height>
          </size>
         </property>
@@ -145,8 +147,8 @@ QMenu::item:selected {
         </property>
         <property name="iconSize">
          <size>
-          <width>60</width>
-          <height>60</height>
+          <width>50</width>
+          <height>50</height>
          </size>
         </property>
         <property name="flat">
@@ -246,8 +248,8 @@ QMenu::item:selected {
          <widget class="QFrame" name="frame">
           <property name="minimumSize">
            <size>
-            <width>70</width>
-            <height>70</height>
+            <width>50</width>
+            <height>50</height>
            </size>
           </property>
           <property name="maximumSize">
@@ -267,20 +269,20 @@ QMenu::item:selected {
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>70</width>
-             <height>70</height>
+             <width>50</width>
+             <height>50</height>
             </rect>
            </property>
            <property name="minimumSize">
             <size>
-             <width>70</width>
-             <height>70</height>
+             <width>50</width>
+             <height>50</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>70</width>
-             <height>70</height>
+             <width>50</width>
+             <height>50</height>
             </size>
            </property>
            <property name="cursor">
@@ -292,20 +294,20 @@ QMenu::item:selected {
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>70</width>
-             <height>70</height>
+             <width>50</width>
+             <height>50</height>
             </rect>
            </property>
            <property name="minimumSize">
             <size>
-             <width>70</width>
-             <height>70</height>
+             <width>50</width>
+             <height>50</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>70</width>
-             <height>70</height>
+             <width>50</width>
+             <height>50</height>
             </size>
            </property>
            <property name="font">
@@ -326,8 +328,8 @@ QMenu::item:selected {
            </property>
            <property name="iconSize">
             <size>
-             <width>70</width>
-             <height>70</height>
+             <width>50</width>
+             <height>50</height>
             </size>
            </property>
            <property name="flat">
