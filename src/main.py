@@ -1,7 +1,6 @@
-import sys, sqlite3
+import sys
 from PyQt5 import QtWidgets
 from gui.authen import *
-from gui.app import App
 
 
 def run():
