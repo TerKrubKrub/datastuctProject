@@ -58,7 +58,10 @@
     <file>font/Product Sans/Product Sans Regular.ttf</file>
   </qresource>
   <qresource prefix="Image">
+    <file>img/off.png</file>
+    <file>img/on.png</file>
     <file>img/frame_dark.png</file>
+    <file>img/logo_full.png</file>
     <file>img/menu.png</file>
     <file>db/userimg/gchax.jpg</file>
     <file>db/userimg/dafault-pic.png</file>
@@ -66,7 +69,6 @@
     <file>img/gear.png</file>
     <file>img/library.ico</file>
     <file>img/logo.png</file>
-    <file>img/logo_full.png</file>
     <file>img/logout.png</file>
     <file>img/request.png</file>
     <file>img/trophy.png</file>

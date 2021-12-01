@@ -1,5 +1,6 @@
 import sys, os, sqlite3
-from PyQt5 import QtWidgets, QtGui, uic
+from PyQt5 import QtWidgets, QtCore, QtGui, uic
+from PyQt5.QtCore import Qt
 
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 from gui import authen
@@ -30,10 +31,11 @@ class App(QtWidgets.QWidget):
         self.menu.addAction("Library").setIcon(QtGui.QIcon("rsrc/img/library.ico"))
         self.menu.addAction("Chart").setIcon(QtGui.QIcon("rsrc/img/trophy.png"))
         self.menu.addAction("Request").setIcon(QtGui.QIcon("rsrc/img/request.png"))
+        self.menu.addAction("Profile").setIcon(QtGui.QIcon("rsrc/img/prof.png"))
         self.menu.addAction("Setting").setIcon(QtGui.QIcon("rsrc/img/gear.png"))
         self.menu.addAction("Log out").setIcon(QtGui.QIcon("rsrc/img/logout.png"))
         self.menu.setProperty("hide", True)
-        self.menu_btn.setMenu(self.menu)
+        self.prof_btn.setMenu(self.menu)
 
     def goToHome(self):
         self.setWindowTitle("Booque - Home")
@@ -44,17 +46,20 @@ class App(QtWidgets.QWidget):
         self.app_panel.setCurrentIndex(1)
 
     def menuHandler(self, action):
-        if action == "Library":
-            self.setWindowTitle("Booque - library")
+        if action == "Profile":
+            self.setWindowTitle("Booque - Profile")
+            self.app_panel.setCurrentIndex(1)
+        elif action == "Library":
+            self.setWindowTitle("Booque - Library")
             self.app_panel.setCurrentIndex(3)
         elif action == "Request":
-            self.setWindowTitle("Booque - request")
+            self.setWindowTitle("Booque - Request")
             self.app_panel.setCurrentIndex(4)
         elif action == "Setting":
-            self.setWindowTitle("Booque - setting")
+            self.setWindowTitle("Booque - Setting")
             self.app_panel.setCurrentIndex(5)
         if action == "Chart":
-            self.setWindowTitle("Booque - charts")
+            self.setWindowTitle("Booque - Charts")
             self.app_panel.setCurrentIndex(7)
         elif action == "Log out":
             self.curs.execute("DELETE FROM current_user")

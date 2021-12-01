@@ -58,7 +58,7 @@ class LogIn(QtWidgets.QWidget):
         self.setWindowState(QtCore.Qt.WindowState.WindowMinimized)
 
     def exit(self, event):
-        self.close()
+        sys.exit(0)
 
     def showRmb(self):
         self.rmb_welcome.setText("Welcome back\n" + self.curs.fetchone()[0] + "!")
@@ -221,7 +221,7 @@ class SignUp(QtWidgets.QWidget):
         self.setWindowState(QtCore.Qt.WindowState.WindowMinimized)
 
     def exit(self, event):
-        self.close()
+        sys.exit(0)
 
     def fnChanged(self, txt):
         if not txt:

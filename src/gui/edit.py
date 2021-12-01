@@ -14,5 +14,5 @@ class Edit(QtWidgets.QWidget):
         self.back_btn.clicked.connect(self.goToProfile)
 
     def goToProfile(self):
-        authen.mainApp.setWindowTitle("Booque - profile")
+        authen.mainApp.setWindowTitle("Booque - Profile")
         authen.mainApp.app_panel.setCurrentIndex(1)

@@ -29,6 +29,13 @@
 	background-color: rgb(255, 247, 237);
 }
 
+#prof_btn::menu-indicator {
+    image: url(myindicator.png);
+    subcontrol-position: right center;
+    subcontrol-origin: padding;
+    left: -5px;
+}
+
 QMenu {
 	background-color: rgb(241, 224, 200);
 }
@@ -110,76 +117,16 @@ QMenu::item:selected {
        <number>0</number>
       </property>
       <item>
-       <widget class="QPushButton" name="menu_btn">
-        <property name="minimumSize">
-         <size>
-          <width>50</width>
-          <height>50</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>50</width>
-          <height>70</height>
-         </size>
-        </property>
-        <property name="cursor">
-         <cursorShape>PointingHandCursor</cursorShape>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">#menu_btn {
-	background-color: rgba(255, 255, 255, 0);
-}
-#menu_btn::menu-indicator {
-    image: url(myindicator.png);
-    subcontrol-position: right center;
-    subcontrol-origin: padding;
-    left: -5px;
-}</string>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-        <property name="icon">
-         <iconset>
-          <normalon>:/Image/img/menu.png</normalon>
-         </iconset>
-        </property>
-        <property name="iconSize">
-         <size>
-          <width>50</width>
-          <height>50</height>
-         </size>
-        </property>
-        <property name="flat">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <spacer name="horizontalSpacer">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
        <widget class="QPushButton" name="home_btn">
         <property name="minimumSize">
          <size>
-          <width>120</width>
+          <width>280</width>
           <height>110</height>
          </size>
         </property>
         <property name="maximumSize">
          <size>
-          <width>120</width>
+          <width>280</width>
           <height>110</height>
          </size>
         </property>
@@ -196,13 +143,13 @@ QMenu::item:selected {
         </property>
         <property name="icon">
          <iconset>
-          <normalon>:/Image/img/logo.png</normalon>
+          <normalon>:/Image/img/logo_full.png</normalon>
          </iconset>
         </property>
         <property name="iconSize">
          <size>
-          <width>120</width>
-          <height>110</height>
+          <width>250</width>
+          <height>65</height>
          </size>
         </property>
         <property name="flat">
@@ -317,6 +264,9 @@ QMenu::item:selected {
            </property>
            <property name="cursor">
             <cursorShape>PointingHandCursor</cursorShape>
+           </property>
+           <property name="layoutDirection">
+            <enum>Qt::RightToLeft</enum>
            </property>
            <property name="styleSheet">
             <string notr="true">#prof_btn:hover {
