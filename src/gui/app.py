@@ -7,7 +7,7 @@ from gui import authen
 import rsrc.rsrc
 import rsrc.style.app as style
 
-
+#ffff
 class App(QtWidgets.QWidget):
     def __init__(self, user_id):
         super().__init__()
