@@ -1,1 +1,0 @@
-print("learn git desktop")
