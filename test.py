@@ -29,6 +29,7 @@ class window(QMainWindow):
 def main():
     app = QApplication(sys.argv)
     ex = window()
+    print("Hello")
     ex.show()
     sys.exit(app.exec_())
 
