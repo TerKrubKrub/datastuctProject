@@ -3,7 +3,7 @@ from PyQt5 import QtWidgets, QtCore, QtGui, uic
 from PyQt5.QtCore import Qt
 
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
-from gui import authen
+from gui import authen,library
 import rsrc.rsrc
 import rsrc.style.app as style
 
@@ -14,8 +14,11 @@ class App(QtWidgets.QWidget):
         self.user_id = user_id
         global id
         id = self.user_id
+        global dark
+        dark = False
         uic.loadUi("rsrc/ui/app.ui", self)
         self.setWindowTitle("Booque - Home")
+        self.setStyleSheet(style.default)
         self.app_panel.setCurrentIndex(0)
         self.db = sqlite3.connect("rsrc/db/data.db")
         self.curs = self.db.cursor()
@@ -26,7 +29,8 @@ class App(QtWidgets.QWidget):
         self.prof.setScaledContents(True)
         self.prof_btn.setIcon(QtGui.QIcon(":/Image/img/frame.png"))
         self.menu = QtWidgets.QMenu("menu_list", self)
-        self.menu.triggered.connect(lambda x: self.menuHandler(x.text()))
+        self.menu.setFont(QtGui.QFont("Product Sans", 10))
+        self.menu.triggered.connect(lambda x: self.handleMenu(x.text()))
         self.menu.addAction("Library").setIcon(QtGui.QIcon("rsrc/img/library.ico"))
         self.menu.addAction("Chart").setIcon(QtGui.QIcon("rsrc/img/trophy.png"))
         self.menu.addAction("Request").setIcon(QtGui.QIcon("rsrc/img/request.png"))
@@ -40,7 +44,7 @@ class App(QtWidgets.QWidget):
         self.setWindowTitle("Booque - Home")
         self.app_panel.setCurrentIndex(0)
 
-    def menuHandler(self, action):
+    def handleMenu(self, action):
         if action == "Profile":
             self.setWindowTitle("Booque - Profile")
             self.app_panel.setCurrentIndex(1)

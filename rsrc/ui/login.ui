@@ -429,9 +429,11 @@
       </property>
       <property name="font">
        <font>
-        <family>Helvetica Neue LT Medium Ext</family>
-        <pointsize>28</pointsize>
-        <italic>true</italic>
+        <family>Helvetica Neue LT Black Ext</family>
+        <pointsize>24</pointsize>
+        <weight>75</weight>
+        <italic>false</italic>
+        <bold>true</bold>
        </font>
       </property>
       <property name="text">
@@ -461,7 +463,7 @@
         <property name="font">
          <font>
           <family>Product Sans</family>
-          <pointsize>16</pointsize>
+          <pointsize>14</pointsize>
           <weight>75</weight>
           <bold>true</bold>
          </font>
@@ -494,7 +496,7 @@
         <property name="font">
          <font>
           <family>Product Sans</family>
-          <pointsize>16</pointsize>
+          <pointsize>14</pointsize>
           <weight>75</weight>
           <bold>true</bold>
          </font>
@@ -549,7 +551,7 @@
         <property name="font">
          <font>
           <family>Product Sans</family>
-          <pointsize>10</pointsize>
+          <pointsize>9</pointsize>
          </font>
         </property>
         <property name="cursor">
@@ -599,7 +601,7 @@
         <property name="font">
          <font>
           <family>Product Sans</family>
-          <pointsize>10</pointsize>
+          <pointsize>9</pointsize>
           <underline>true</underline>
          </font>
         </property>

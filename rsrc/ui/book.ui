@@ -18,9 +18,14 @@
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="2" column="0">
-    <widget class="QLabel" name="label">
+    <widget class="QLabel" name="id_label">
+     <property name="font">
+      <font>
+       <pointsize>72</pointsize>
+      </font>
+     </property>
      <property name="text">
-      <string>This is Book page.</string>
+      <string>Book ID</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>

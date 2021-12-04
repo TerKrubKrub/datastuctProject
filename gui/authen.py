@@ -61,7 +61,7 @@ class LogIn(QtWidgets.QWidget):
         sys.exit(0)
 
     def showRmb(self):
-        self.rmb_welcome.setText("Welcome back\n" + self.curs.fetchone()[0] + "!")
+        self.rmb_welcome.setText("Welcome back,\n" + self.curs.fetchone()[0] + "!")
         self.rmb_welcome.show()
         self.continue_btn.show()
         self.unrmb_btn.show()

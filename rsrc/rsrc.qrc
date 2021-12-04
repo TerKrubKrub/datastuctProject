@@ -1,10 +1,24 @@
 <RCC>
   <qresource prefix="Image">
+    <file>img/search.png</file>
+    <file>db/bookimg/beautiful-world.jpg</file>
+    <file>db/bookimg/crucible.png</file>
+    <file>db/bookimg/dict-of-lost.jpg</file>
+    <file>db/bookimg/end-of-men.jpg</file>
+    <file>db/bookimg/lincoln-highway.jpg</file>
+    <file>db/bookimg/man-in-castle.jpg</file>
+    <file>db/bookimg/once-wolves.jpg</file>
+    <file>db/bookimg/paper-palace.jpg</file>
+    <file>db/bookimg/psalm-for-wildbuilt.jpg</file>
+    <file>db/bookimg/winters-orbit.jpg</file>
+    <file>db/userimg/dafault-pic.png</file>
+    <file>db/userimg/gchax.jpg</file>
     <file>img/off.png</file>
     <file>img/on.png</file>
     <file>img/frame_dark.png</file>
-    <file>img/logo_full.png</file>
     <file>img/menu.png</file>
+    <file>img/logo_full_dark.png</file>
+    <file>img/logo_full.png</file>
     <file>img/frame.png</file>
     <file>img/gear.png</file>
     <file>img/library.ico</file>

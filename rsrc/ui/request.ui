@@ -7,129 +7,35 @@
     <x>0</x>
     <y>0</y>
     <width>1200</width>
-    <height>640</height>
+    <height>690</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>1200</width>
-    <height>640</height>
+    <height>690</height>
    </size>
   </property>
   <property name="styleSheet">
-   <string notr="true">#req_title {
-	padding-left: 20px;
-	border-radius: 12px;
-	background-color: rgb(255, 231, 203);
-}
-
-#req_author {
-	padding-left: 20px;
-	border-radius: 12px;
-	background-color: rgb(255, 231, 203);
-}
-
-#submit_btn {
-	background-color: rgb(255, 161, 94);
-	color: white;
-	border-radius: 18px;
-}
-#submit_btn:hover {
-	background-color: rgb(29, 131, 255);
-}</string>
+   <string notr="true"/>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <property name="leftMargin">
-    <number>70</number>
+    <number>50</number>
    </property>
    <property name="topMargin">
-    <number>20</number>
+    <number>0</number>
    </property>
    <property name="rightMargin">
-    <number>70</number>
+    <number>50</number>
    </property>
    <property name="bottomMargin">
-    <number>70</number>
+    <number>50</number>
    </property>
-   <item row="1" column="1">
-    <spacer name="horizontalSpacer_2">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>40</width>
-       <height>20</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item row="5" column="0">
-    <widget class="QLineEdit" name="req_title">
-     <property name="minimumSize">
-      <size>
-       <width>900</width>
-       <height>50</height>
-      </size>
-     </property>
-     <property name="maximumSize">
-      <size>
-       <width>900</width>
-       <height>50</height>
-      </size>
-     </property>
-     <property name="font">
-      <font>
-       <family>Helvetica Neue LT Medium Ext</family>
-       <pointsize>14</pointsize>
-      </font>
-     </property>
-     <property name="inputMask">
-      <string/>
-     </property>
-     <property name="frame">
-      <bool>false</bool>
-     </property>
-     <property name="placeholderText">
-      <string>Book title</string>
-     </property>
-     <property name="clearButtonEnabled">
-      <bool>true</bool>
-     </property>
-    </widget>
-   </item>
-   <item row="7" column="0" colspan="2">
-    <widget class="QLineEdit" name="req_author">
-     <property name="minimumSize">
-      <size>
-       <width>900</width>
-       <height>50</height>
-      </size>
-     </property>
-     <property name="maximumSize">
-      <size>
-       <width>900</width>
-       <height>50</height>
-      </size>
-     </property>
-     <property name="font">
-      <font>
-       <family>Helvetica Neue LT Medium Ext</family>
-       <pointsize>14</pointsize>
-      </font>
-     </property>
-     <property name="frame">
-      <bool>false</bool>
-     </property>
-     <property name="placeholderText">
-      <string>Book author</string>
-     </property>
-     <property name="clearButtonEnabled">
-      <bool>true</bool>
-     </property>
-    </widget>
-   </item>
-   <item row="10" column="0">
+   <property name="spacing">
+    <number>0</number>
+   </property>
+   <item row="11" column="0">
     <widget class="QPushButton" name="submit_btn">
      <property name="minimumSize">
       <size>
@@ -163,13 +69,13 @@
     <widget class="QLabel" name="req_label">
      <property name="minimumSize">
       <size>
-       <width>600</width>
+       <width>1000</width>
        <height>150</height>
       </size>
      </property>
      <property name="maximumSize">
       <size>
-       <width>600</width>
+       <width>1000</width>
        <height>150</height>
       </size>
      </property>
@@ -186,9 +92,25 @@
       <string>Request</string>
      </property>
      <property name="alignment">
-      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
      </property>
     </widget>
+   </item>
+   <item row="6" column="0">
+    <spacer name="verticalSpacer_3">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeType">
+      <enum>QSizePolicy::Fixed</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>50</height>
+      </size>
+     </property>
+    </spacer>
    </item>
    <item row="2" column="0">
     <spacer name="verticalSpacer">
@@ -206,7 +128,41 @@
      </property>
     </spacer>
    </item>
-   <item row="8" column="0">
+   <item row="5" column="0">
+    <widget class="QLineEdit" name="req_title">
+     <property name="minimumSize">
+      <size>
+       <width>900</width>
+       <height>50</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>1000</height>
+      </size>
+     </property>
+     <property name="font">
+      <font>
+       <family>Helvetica Neue LT Medium Ext</family>
+       <pointsize>14</pointsize>
+      </font>
+     </property>
+     <property name="inputMask">
+      <string/>
+     </property>
+     <property name="frame">
+      <bool>false</bool>
+     </property>
+     <property name="placeholderText">
+      <string>Book title</string>
+     </property>
+     <property name="clearButtonEnabled">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="10" column="0">
     <spacer name="verticalSpacer_2">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
@@ -219,24 +175,44 @@
      </property>
     </spacer>
    </item>
-   <item row="6" column="0">
-    <spacer name="verticalSpacer_3">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeType">
-      <enum>QSizePolicy::Fixed</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
+   <item row="8" column="0">
+    <widget class="QLineEdit" name="req_author">
+     <property name="minimumSize">
       <size>
-       <width>20</width>
-       <height>30</height>
+       <width>900</width>
+       <height>50</height>
       </size>
      </property>
-    </spacer>
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>1000</height>
+      </size>
+     </property>
+     <property name="font">
+      <font>
+       <family>Helvetica Neue LT Medium Ext</family>
+       <pointsize>14</pointsize>
+      </font>
+     </property>
+     <property name="frame">
+      <bool>false</bool>
+     </property>
+     <property name="placeholderText">
+      <string>Author</string>
+     </property>
+     <property name="clearButtonEnabled">
+      <bool>true</bool>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>req_title</tabstop>
+  <tabstop>req_author</tabstop>
+  <tabstop>submit_btn</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

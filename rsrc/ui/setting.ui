@@ -7,32 +7,30 @@
     <x>0</x>
     <y>0</y>
     <width>1200</width>
-    <height>640</height>
+    <height>690</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>1200</width>
-    <height>640</height>
+    <height>690</height>
    </size>
   </property>
   <property name="styleSheet">
-   <string notr="true">#dark_mode {	
-	background-color: rgba(255, 255, 255, 0);
-}</string>
+   <string notr="true"/>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <property name="leftMargin">
-    <number>70</number>
+    <number>50</number>
    </property>
    <property name="topMargin">
-    <number>20</number>
+    <number>0</number>
    </property>
    <property name="rightMargin">
-    <number>70</number>
+    <number>50</number>
    </property>
    <property name="bottomMargin">
-    <number>70</number>
+    <number>50</number>
    </property>
    <property name="spacing">
     <number>0</number>
@@ -67,13 +65,7 @@
     <widget class="QLabel" name="req_label">
      <property name="minimumSize">
       <size>
-       <width>600</width>
-       <height>150</height>
-      </size>
-     </property>
-     <property name="maximumSize">
-      <size>
-       <width>600</width>
+       <width>1200</width>
        <height>150</height>
       </size>
      </property>
@@ -90,7 +82,7 @@
       <string>Setting</string>
      </property>
      <property name="alignment">
-      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
      </property>
     </widget>
    </item>
@@ -149,7 +141,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label">
+      <widget class="QLabel" name="dark_mode_label">
        <property name="font">
         <font>
          <family>Helvetica Neue LT Medium Ext</family>
