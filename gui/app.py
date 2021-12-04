@@ -1,9 +1,9 @@
-import sys, os, sqlite3
+import sys, os
 from PyQt5 import QtWidgets, QtCore, QtGui, uic
 from PyQt5.QtCore import Qt
 
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
-from gui import authen,library
+from gui import authen, db
 import rsrc.rsrc
 import rsrc.style.app as style
 
@@ -20,11 +20,10 @@ class App(QtWidgets.QWidget):
         self.setWindowTitle("Booque - Home")
         self.setStyleSheet(style.default)
         self.app_panel.setCurrentIndex(0)
-        self.db = sqlite3.connect("rsrc/db/data.db")
-        self.curs = self.db.cursor()
-        self.curs.execute('SELECT user_img FROM users WHERE user_id="' + str(id) + '"')
         self.home_btn.clicked.connect(self.goToHome)
-        self.prof_img = self.curs.fetchone()[0]
+        self.prof_img = [
+            str(i[6]) for i in db.database.users_ll if i[0] == self.user_id
+        ][0]
         self.prof.setPixmap(QtGui.QPixmap(self.prof_img))
         self.prof.setScaledContents(True)
         self.prof_btn.setIcon(QtGui.QIcon(":/Image/img/frame.png"))
@@ -61,9 +60,9 @@ class App(QtWidgets.QWidget):
             self.setWindowTitle("Booque - Charts")
             self.app_panel.setCurrentIndex(7)
         elif action == "Log out":
-            self.curs.execute("DELETE FROM current_user")
-            self.db.commit()
-            self.db.close()
+            db.database.curs.execute("DELETE FROM current_user")
+            db.database.db.commit()
+            db.database.updateDatabase(False, False, True, False)
 
             self.log_in = authen.LogIn()
             self.log_in.show()

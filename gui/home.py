@@ -2,7 +2,7 @@ import sys, os, sqlite3
 from PyQt5 import QtWidgets, uic
 
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
-from gui import app
+from gui import app, db
 import rsrc.rsrc
 import rsrc.style.home as style
 
@@ -14,12 +14,10 @@ class Home(QtWidgets.QWidget):
         global homeApp
         homeApp = self
         self.setStyleSheet(style.default)
-        self.db = sqlite3.connect("rsrc/db/data.db")
-        self.curs = self.db.cursor()
-        self.curs.execute(
+        db.database.curs.execute(
             'SELECT f_name FROM users WHERE user_id="' + str(app.id) + '"'
         )
-        self.f_name = self.curs.fetchone()[0]
+        self.f_name = [str(i[1]) for i in db.database.users_ll if i[0] == app.id][0]
         self.welcome_label.setText(
             "Welcome, " + self.f_name + "!\nto BOOQUE, your favorite book app."
         )

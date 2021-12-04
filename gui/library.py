@@ -1,8 +1,8 @@
-import sys, os, sqlite3
+import sys, os
 from PyQt5 import QtCore, QtGui, QtWidgets, uic
 
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
-from gui import authen, book
+from gui import authen, book, db
 import rsrc.rsrc
 import rsrc.style.library as style
 
@@ -14,25 +14,25 @@ class Library(QtWidgets.QWidget):
         global libApp
         libApp = self
         self.setStyleSheet(style.default)
-        self.db = sqlite3.connect("rsrc/db/data.db")
-        self.curs = self.db.cursor()
-        self.curs.execute("SELECT book_id, title, cover_img, author FROM books")
-        self.books_db = self.curs.fetchall()
-        self.book_ids = [str(i[0]) for i in self.books_db]
-        self.book_titles = [str(i[1]) for i in self.books_db]
-        self.book_imgs = [str(i[2]) for i in self.books_db]
-        self.book_authors = [str(i[3]) for i in self.books_db]
+        self.book_ids = []
+        self.book_titles = []
+        self.book_imgs = []
+        self.book_authors = []
+        for i in range(len(db.database.books_ll)):
+            self.book_ids.append(db.database.books_ll[i][0])
+            self.book_titles.append(db.database.books_ll[i][1])
+            self.book_imgs.append(db.database.books_ll[i][2])
+            self.book_authors.append(db.database.books_ll[i][3])
         self.column = 4
         self.pos = [
             [r, c]
-            for r in range(int(len(self.books_db) / self.column) + 1)
+            for r in range(int(len(db.database.books_ll) / self.column) + 1)
             for c in range(self.column)
         ]
         self.button = [
             [[] for c in range(self.column)]
-            for r in range(int(len(self.books_db) / self.column) + 1)
+            for r in range(int(len(db.database.books_ll) / self.column) + 1)
         ]
-        print(self.button)
         for [r, c], id, title, img, author in zip(
             self.pos, self.book_ids, self.book_titles, self.book_imgs, self.book_authors
         ):
@@ -76,7 +76,7 @@ class Library(QtWidgets.QWidget):
             pass
 
     def handleSortBox(self, index):
-        if index == 0: 
+        if index == 0:
             print("a-z")
         elif index == 1:
             print("z-a")

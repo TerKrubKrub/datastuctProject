@@ -1,4 +1,4 @@
-import sys, os, sqlite3
+import sys, os
 from PyQt5 import QtWidgets, uic
 
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))

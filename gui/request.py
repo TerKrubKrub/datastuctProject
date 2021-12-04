@@ -1,11 +1,28 @@
 import sys, os
-import sqlite3
-from PyQt5 import QtWidgets, QtCore, QtGui, uic
+from PyQt5 import QtWidgets, QtGui, uic
 
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
-from gui import app
+from gui import app, db
 import rsrc.rsrc
 import rsrc.style.request as style
+
+
+class RequestNode:
+    def __init__(self, user_id, title, author):
+        self.user_id = user_id
+        self.title = title
+        self.author = author
+
+
+class Queue:
+    def __init__(self):
+        self.items = []
+
+    def enqueue(self, node):
+        self.items.append(node)
+
+    def dequeue(self):
+        return self.items.pop(0)
 
 
 class Request(QtWidgets.QWidget):
@@ -15,8 +32,6 @@ class Request(QtWidgets.QWidget):
         global reqApp
         reqApp = self
         self.setStyleSheet(style.default)
-        self.db = sqlite3.connect("rsrc/db/data.db")
-        self.curs = self.db.cursor()
         self.msg = QtWidgets.QMessageBox()
         self.msg.setWindowIcon(QtGui.QIcon(":/Image/img/logo.png"))
         self.submit_btn.clicked.connect(self.submitReq)
@@ -28,11 +43,11 @@ class Request(QtWidgets.QWidget):
                 self.req_title.text(),
                 self.req_author.text(),
             ]
-            self.curs.execute(
+            db.database.curs.execute(
                 "INSERT INTO requests (user_id, title, author) VALUES (?,?,?)",
                 self.req_info,
             )
-            self.db.commit()
+            db.database.db.commit()
             self.req_title.setText("")
             self.req_author.setText("")
             self.msg.setIcon(QtWidgets.QMessageBox.Information)
