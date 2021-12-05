@@ -30,7 +30,7 @@
     <number>50</number>
    </property>
    <property name="bottomMargin">
-    <number>50</number>
+    <number>30</number>
    </property>
    <property name="spacing">
     <number>0</number>
@@ -55,7 +55,7 @@
         <x>0</x>
         <y>0</y>
         <width>1100</width>
-        <height>470</height>
+        <height>490</height>
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout_2">
@@ -225,7 +225,7 @@
        </item>
        <item>
         <property name="text">
-         <string>Adventure</string>
+         <string>Poetry</string>
         </property>
        </item>
       </widget>
