@@ -2,18 +2,16 @@ import sys, os
 from PyQt5 import QtWidgets, QtGui, uic
 
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
-from gui import app, authen, book, chart, edit, home, library, profile, request
+from gui import app, authen, book, chart, edit, home, library, request
 import rsrc.rsrc
 from rsrc.style import (
     setting as settingStyle,
     app as appStyle,
-    authen as authenStyle,
     book as bookStyle,
     chart as chartStyle,
     edit as editStyle,
     home as homeStyle,
     library as libStyle,
-    profile as profStyle,
     request as reqStyle,
 )
 

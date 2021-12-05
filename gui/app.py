@@ -30,7 +30,7 @@ class App(QtWidgets.QWidget):
         self.menu.addAction("Library").setIcon(QtGui.QIcon("rsrc/img/library.ico"))
         self.menu.addAction("Chart").setIcon(QtGui.QIcon("rsrc/img/trophy.png"))
         self.menu.addAction("Request").setIcon(QtGui.QIcon("rsrc/img/request.png"))
-        self.menu.addAction("Profile").setIcon(QtGui.QIcon("rsrc/img/prof.png"))
+        self.menu.addAction("Edit Profile").setIcon(QtGui.QIcon("rsrc/img/prof.png"))
         self.menu.addAction("Setting").setIcon(QtGui.QIcon("rsrc/img/gear.png"))
         self.menu.addAction("Log out").setIcon(QtGui.QIcon("rsrc/img/logout.png"))
         self.menu.setProperty("hide", True)
@@ -41,21 +41,21 @@ class App(QtWidgets.QWidget):
         self.app_panel.setCurrentIndex(0)
 
     def handleMenu(self, action):
-        if action == "Profile":
+        if action == "Edit Profile":
             self.setWindowTitle("Booque - Profile")
             self.app_panel.setCurrentIndex(1)
         elif action == "Library":
             self.setWindowTitle("Booque - Library")
-            self.app_panel.setCurrentIndex(3)
+            self.app_panel.setCurrentIndex(2)
         elif action == "Request":
             self.setWindowTitle("Booque - Request")
-            self.app_panel.setCurrentIndex(4)
+            self.app_panel.setCurrentIndex(3)
         elif action == "Setting":
             self.setWindowTitle("Booque - Setting")
-            self.app_panel.setCurrentIndex(5)
+            self.app_panel.setCurrentIndex(4)
         if action == "Chart":
             self.setWindowTitle("Booque - Charts")
-            self.app_panel.setCurrentIndex(7)
+            self.app_panel.setCurrentIndex(6)
         elif action == "Log out":
             db.database.curs.execute("DELETE FROM current_user")
             db.database.db.commit()

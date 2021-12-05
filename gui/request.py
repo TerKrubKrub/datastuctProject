@@ -19,21 +19,29 @@ class Request(QtWidgets.QWidget):
         self.submit_btn.clicked.connect(self.submitReq)
 
     def submitReq(self):
-        if self.req_title.text() and self.req_author.text():
-            self.req_info = db.RequestNode(
-                app.id, self.req_title.text(), self.req_author.text()
-            )
-            db.req_q.enqueue(self.req_info)
-            self.req_title.setText("")
-            self.req_author.setText("")
-            self.msg.setIcon(QtWidgets.QMessageBox.Information)
-            self.msg.setWindowTitle("Your request has been sent!")
-            self.msg.setText(
-                "Successfully sent your request.\nPlease wait at least 24 hours to see your book!"
-            )
-            self.msg.exec_()
+        if self.req_title.text().upper() in [
+            i[1].upper() for i in self.books_ll
+        ] and self.req_author.text().upper() in [i[2].upper() for i in self.books_ll]:
+            if self.req_title.text() and self.req_author.text():
+                self.req_info = db.RequestNode(
+                    app.id, self.req_title.text(), self.req_author.text()
+                )
+                db.req_q.enqueue(self.req_info)
+                self.req_title.setText("")
+                self.req_author.setText("")
+                self.msg.setIcon(QtWidgets.QMessageBox.Information)
+                self.msg.setWindowTitle("Your request has been sent!")
+                self.msg.setText(
+                    "Successfully sent your request.\nPlease wait at least 24 hours to see your book!"
+                )
+                self.msg.exec_()
+            else:
+                self.msg.setWindowTitle("Request information invalid.")
+                self.msg.setIcon(QtWidgets.QMessageBox.Warning)
+                self.msg.setText("Book title and Author field is required.")
+                self.msg.exec_()
         else:
-            self.msg.setWindowTitle("Request information invalid.")
+            self.msg.setWindowTitle("Existed book.")
             self.msg.setIcon(QtWidgets.QMessageBox.Warning)
-            self.msg.setText("Book title and Author field is required.")
+            self.msg.setText("The Book is already existed.")
             self.msg.exec_()

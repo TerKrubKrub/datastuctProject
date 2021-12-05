@@ -289,8 +289,10 @@
        <height>690</height>
       </size>
      </property>
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
      <widget class="Home" name="home_page"/>
-     <widget class="Profile" name="profile_page"/>
      <widget class="Edit" name="edit_page"/>
      <widget class="Library" name="library_page"/>
      <widget class="Request" name="request_page"/>
@@ -306,12 +308,6 @@
    <class>Home</class>
    <extends>QWidget</extends>
    <header>gui/home</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>Profile</class>
-   <extends>QWidget</extends>
-   <header>gui/profile</header>
    <container>1</container>
   </customwidget>
   <customwidget>

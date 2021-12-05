@@ -75,6 +75,19 @@
         <number>0</number>
        </property>
        <item row="0" column="3">
+        <layout class="QGridLayout" name="book_shelf">
+         <property name="topMargin">
+          <number>20</number>
+         </property>
+         <property name="horizontalSpacing">
+          <number>30</number>
+         </property>
+         <property name="verticalSpacing">
+          <number>60</number>
+         </property>
+        </layout>
+       </item>
+       <item row="0" column="5">
         <spacer name="horizontalSpacer_3">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
@@ -101,17 +114,23 @@
         </spacer>
        </item>
        <item row="0" column="2">
-        <layout class="QGridLayout" name="book_shelf">
-         <property name="topMargin">
-          <number>20</number>
+        <widget class="QLabel" name="no_match">
+         <property name="font">
+          <font>
+           <family>Helvetica Neue LT UltLight Ext</family>
+           <pointsize>24</pointsize>
+           <weight>50</weight>
+           <italic>true</italic>
+           <bold>false</bold>
+          </font>
          </property>
-         <property name="horizontalSpacing">
-          <number>30</number>
+         <property name="text">
+          <string>&lt; No result matched &gt;</string>
          </property>
-         <property name="verticalSpacing">
-          <number>50</number>
+         <property name="alignment">
+          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
          </property>
-        </layout>
+        </widget>
        </item>
       </layout>
      </widget>

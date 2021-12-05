@@ -7,13 +7,13 @@
     <x>0</x>
     <y>0</y>
     <width>1200</width>
-    <height>721</height>
+    <height>690</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>1200</width>
-    <height>640</height>
+    <height>690</height>
    </size>
   </property>
   <layout class="QGridLayout" name="gridLayout">
@@ -24,13 +24,6 @@
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="0">
-    <widget class="QPushButton" name="back_btn">
-     <property name="text">
-      <string>Back</string>
      </property>
     </widget>
    </item>

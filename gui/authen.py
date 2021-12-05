@@ -1,5 +1,6 @@
 import sys, os
 from PyQt5 import QtWidgets, QtCore, uic
+from PyQt5.QtGui import QMovie
 
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 from gui import app, db
@@ -126,6 +127,7 @@ class LogIn(QtWidgets.QWidget):
                     db.database.db.commit()
                     db.database.updateDatabase(False, False, True, False)
 
+                    self.movie.start()
                     mainApp = app.App(self.user_id)
                     mainApp.show()
                     self.close()
