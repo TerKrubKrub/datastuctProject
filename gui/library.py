@@ -62,19 +62,19 @@ class Library(QtWidgets.QWidget):
             self.author_label.setFont(QtGui.QFont("Product Sans", 10))
             self.author_label.setWordWrap(True)
             self.author_label.setAlignment(QtCore.Qt.AlignCenter)
-            self.button[r][c] = QtWidgets.QPushButton()
+            self.button = QtWidgets.QPushButton()
             self.pixmap = QtGui.QPixmap(img)
-            self.button[r][c].setIcon(QtGui.QIcon(self.pixmap))
-            self.button[r][c].setSizePolicy(
+            self.button.setIcon(QtGui.QIcon(self.pixmap))
+            self.button.setSizePolicy(
                 QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed
             )
-            self.button[r][c].setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-            self.button[r][c].setMinimumSize(250, 380)
-            self.button[r][c].setIconSize(QtCore.QSize(250, 380))
-            self.button[r][c].clicked.connect(lambda x, id=id: self.goToBook(id))
+            self.button.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+            self.button.setMinimumSize(250, 380)
+            self.button.setIconSize(QtCore.QSize(250, 380))
+            self.button.clicked.connect(lambda x, id=id: self.goToBook(id))
             self.book_container = QtWidgets.QVBoxLayout()
             self.book_container.setSpacing(5)
-            self.book_container.addWidget(self.button[r][c], 0)
+            self.book_container.addWidget(self.button, 0)
             self.book_container.addWidget(self.title_label, 1)
             self.book_container.addWidget(self.author_label, 2)
             self.book_shelf.addLayout(self.book_container, *[r, c])
@@ -120,14 +120,38 @@ class Library(QtWidgets.QWidget):
                     temp.append(db.database.books_ll[i])
             self.updateCatalog(temp)
         elif index == 3:
-            print("Fantasy")
+            temp = []
+            for i in range(len(db.database.books_ll)):
+                if db.database.books_ll[i][6] == "fantasy":
+                    temp.append(db.database.books_ll[i])
+            self.updateCatalog(temp)
         elif index == 4:
-            print("Romance")
+            temp = []
+            for i in range(len(db.database.books_ll)):
+                if db.database.books_ll[i][6] == "romance":
+                    temp.append(db.database.books_ll[i])
+            self.updateCatalog(temp)
         elif index == 5:
-            print("Biography")
+            temp = []
+            for i in range(len(db.database.books_ll)):
+                if db.database.books_ll[i][6] == "biography":
+                    temp.append(db.database.books_ll[i])
+            self.updateCatalog(temp)
         elif index == 6:
-            print("Comedy")
+            temp = []
+            for i in range(len(db.database.books_ll)):
+                if db.database.books_ll[i][6] == "comedy":
+                    temp.append(db.database.books_ll[i])
+            self.updateCatalog(temp)
         elif index == 7:
-            print("Horror")
+            temp = []
+            for i in range(len(db.database.books_ll)):
+                if db.database.books_ll[i][6] == "horror":
+                    temp.append(db.database.books_ll[i])
+            self.updateCatalog(temp)
         elif index == 8:
-            print("Adventure")
+            temp = []
+            for i in range(len(db.database.books_ll)):
+                if db.database.books_ll[i][6] == "poetry":
+                    temp.append(db.database.books_ll[i])
+            self.updateCatalog(temp)

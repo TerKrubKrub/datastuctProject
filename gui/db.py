@@ -447,4 +447,3 @@ def exit():
 
 database = Database()
 req_q = Queue()
-ll = LinkedList()
