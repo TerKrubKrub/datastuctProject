@@ -1,5 +1,5 @@
 import sys, os
-from PyQt5 import QtWidgets, QtCore, QtGui, uic
+from PyQt5 import QtWidgets, QtGui, uic
 from PyQt5.QtCore import Qt
 
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
@@ -11,9 +11,8 @@ import rsrc.style.app as style
 class App(QtWidgets.QWidget):
     def __init__(self, user_id):
         super().__init__()
-        self.user_id = user_id
         global id
-        id = self.user_id
+        id = int(user_id)
         global dark
         dark = False
         uic.loadUi("rsrc/ui/app.ui", self)
@@ -21,9 +20,7 @@ class App(QtWidgets.QWidget):
         self.setStyleSheet(style.default)
         self.app_panel.setCurrentIndex(0)
         self.home_btn.clicked.connect(self.goToHome)
-        self.prof_img = [
-            str(i[6]) for i in db.database.users_ll if i[0] == self.user_id
-        ][0]
+        self.prof_img = [str(i[6]) for i in db.database.users_ll if i[0] == id][0]
         self.prof.setPixmap(QtGui.QPixmap(self.prof_img))
         self.prof.setScaledContents(True)
         self.prof_btn.setIcon(QtGui.QIcon(":/Image/img/frame.png"))

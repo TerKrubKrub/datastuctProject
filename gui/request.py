@@ -7,24 +7,6 @@ import rsrc.rsrc
 import rsrc.style.request as style
 
 
-class RequestNode:
-    def __init__(self, user_id, title, author):
-        self.user_id = user_id
-        self.title = title
-        self.author = author
-
-
-class Queue:
-    def __init__(self):
-        self.items = []
-
-    def enqueue(self, node):
-        self.items.append(node)
-
-    def dequeue(self):
-        return self.items.pop(0)
-
-
 class Request(QtWidgets.QWidget):
     def __init__(self):
         super().__init__()
@@ -38,16 +20,10 @@ class Request(QtWidgets.QWidget):
 
     def submitReq(self):
         if self.req_title.text() and self.req_author.text():
-            self.req_info = [
-                app.id,
-                self.req_title.text(),
-                self.req_author.text(),
-            ]
-            db.database.curs.execute(
-                "INSERT INTO requests (user_id, title, author) VALUES (?,?,?)",
-                self.req_info,
+            self.req_info = db.RequestNode(
+                app.id, self.req_title.text(), self.req_author.text()
             )
-            db.database.db.commit()
+            db.req_q.enqueue(self.req_info)
             self.req_title.setText("")
             self.req_author.setText("")
             self.msg.setIcon(QtWidgets.QMessageBox.Information)

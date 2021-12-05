@@ -117,7 +117,6 @@ class LogIn(QtWidgets.QWidget):
                     for i in db.database.users_ll
                     if i[3] == self.username.text() or i[5] == self.username.text()
                 ][0]
-                print(self.pwd_db)
                 if self.password.text() == self.pwd_db:
                     self.cur_user = [self.user_id, self.remember.isChecked()]
                     db.database.curs.execute(

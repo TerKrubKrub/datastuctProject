@@ -18,20 +18,36 @@ class Library(QtWidgets.QWidget):
         self.book_titles = []
         self.book_imgs = []
         self.book_authors = []
-        for i in range(len(db.database.books_ll)):
-            self.book_ids.append(db.database.books_ll[i][0])
-            self.book_titles.append(db.database.books_ll[i][1])
-            self.book_imgs.append(db.database.books_ll[i][2])
-            self.book_authors.append(db.database.books_ll[i][3])
         self.column = 4
+        self.updateCatalog(db.database.books_ll)
+        self.search_btn.clicked.connect(self.search)
+        self.sort_box.activated.connect(lambda x: self.handleSortBox(x))
+        self.genre_box.activated.connect(lambda x: self.handleGenreBox(x))
+
+    def goToBook(self, book_id):
+        authen.mainApp.setWindowTitle("Booque - ")
+        authen.mainApp.app_panel.setCurrentIndex(6)
+        book.bookApp.setId(int(book_id))
+
+    def search(self):
+        db.database.books_ll.search(self.search_bar.text())
+
+    def updateCatalog(self, ll):
+        self.cur_ll = ll
+        self.clearLayout(self.book_shelf)
+        for i in range(len(self.cur_ll)):
+            self.book_ids.append(self.cur_ll[i][0])
+            self.book_titles.append(self.cur_ll[i][1])
+            self.book_imgs.append(self.cur_ll[i][2])
+            self.book_authors.append(self.cur_ll[i][3])
         self.pos = [
             [r, c]
-            for r in range(int(len(db.database.books_ll) / self.column) + 1)
+            for r in range(int(len(self.cur_ll) / self.column) + 1)
             for c in range(self.column)
         ]
         self.button = [
             [[] for c in range(self.column)]
-            for r in range(int(len(db.database.books_ll) / self.column) + 1)
+            for r in range(int(len(self.cur_ll) / self.column) + 1)
         ]
         for [r, c], id, title, img, author in zip(
             self.pos, self.book_ids, self.book_titles, self.book_imgs, self.book_authors
@@ -62,18 +78,21 @@ class Library(QtWidgets.QWidget):
             self.book_container.addWidget(self.title_label, 1)
             self.book_container.addWidget(self.author_label, 2)
             self.book_shelf.addLayout(self.book_container, *[r, c])
-        self.search_btn.clicked.connect(self.search)
-        self.sort_box.activated.connect(lambda x: self.handleSortBox(x))
-        self.genre_box.activated.connect(lambda x: self.handleGenreBox(x))
 
-    def goToBook(self, book_id):
-        authen.mainApp.setWindowTitle("Booque - ")
-        authen.mainApp.app_panel.setCurrentIndex(6)
-        book.bookApp.setId(int(book_id))
-
-    def search(self):
-        if self.search_bar.text():
-            pass
+    def clearLayout(self, layout):
+        self.book_ids = []
+        self.book_titles = []
+        self.book_imgs = []
+        self.book_authors = []
+        self.pos = []
+        self.button = []
+        if layout is not None:
+            while layout.count():
+                child = layout.takeAt(0)
+                if child.widget() is not None:
+                    child.widget().deleteLater()
+                elif child.layout() is not None:
+                    self.clearLayout(child.layout())
 
     def handleSortBox(self, index):
         if index == 0:
@@ -87,11 +106,19 @@ class Library(QtWidgets.QWidget):
 
     def handleGenreBox(self, index):
         if index == 0:
-            print("All")
+            self.updateCatalog(db.database.books_ll)
         elif index == 1:
-            print("Fiction")
+            temp = []
+            for i in range(len(db.database.books_ll)):
+                if db.database.books_ll[i][6] == "fiction":
+                    temp.append(db.database.books_ll[i])
+            self.updateCatalog(temp)
         elif index == 2:
-            print("Thriller")
+            temp = []
+            for i in range(len(db.database.books_ll)):
+                if db.database.books_ll[i][6] == "thriller":
+                    temp.append(db.database.books_ll[i])
+            self.updateCatalog(temp)
         elif index == 3:
             print("Fantasy")
         elif index == 4:

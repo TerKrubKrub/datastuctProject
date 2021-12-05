@@ -1,4 +1,4 @@
-import sys, os, sqlite3
+import sys, os
 from PyQt5 import QtWidgets, uic
 
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
@@ -14,9 +14,6 @@ class Home(QtWidgets.QWidget):
         global homeApp
         homeApp = self
         self.setStyleSheet(style.default)
-        db.database.curs.execute(
-            'SELECT f_name FROM users WHERE user_id="' + str(app.id) + '"'
-        )
         self.f_name = [str(i[1]) for i in db.database.users_ll if i[0] == app.id][0]
         self.welcome_label.setText(
             "Welcome, " + self.f_name + "!\nto BOOQUE, your favorite book app."

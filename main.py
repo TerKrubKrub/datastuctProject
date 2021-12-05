@@ -8,7 +8,7 @@ def run():
     gui = authen.LogIn()
     db.database.initFont()
     gui.show()
-    app.aboutToQuit.connect(lambda: db.database.db.close())
+    app.aboutToQuit.connect(db.exit)
     sys.exit(app.exec_())
 
 

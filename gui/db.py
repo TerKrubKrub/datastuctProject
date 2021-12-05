@@ -167,7 +167,7 @@ class BookNode:
                     str(self.img),
                     str(self.author),
                     str(self.pages),
-                    str(self.synop),
+                    # str(self.synop),
                     str(self.genre),
                     str(self.rating),
                 ]
@@ -253,6 +253,27 @@ class UserNode:
                     str(self.img),
                 ]
             )
+            + "]"
+        )
+
+
+class RequestNode:
+    def __init__(self, user_id, title, author):
+        self.user_id = user_id
+        self.title = title
+        self.author = author
+
+    def __getitem__(self, index):
+        self.items = [self.user_id, self.title, self.author]
+        return self.items[index]
+
+    def __len__(self):
+        return 1
+
+    def __str__(self):
+        return (
+            "["
+            + ", ".join([str(self.user_id), str(self.title), str(self.author)])
             + "]"
         )
 
@@ -378,17 +399,51 @@ class LinkedList:
             cur = cur.next
 
     def sort(self, type):
-        if type == "a-z":
+        if type == 0:
             pass
-        elif type == "z-a":
+        elif type == 1:
             pass
-        elif type == "Rating (most)":
+        elif type == 2:
             pass
-        elif type == "Rating (least)":
+        elif type == 3:
             pass
 
     def search(self, key):
         pass
 
 
+class Queue:
+    def __init__(self):
+        self.items = []
+
+    def __len__(self):
+        return len(self.items)
+
+    def __getitem__(self, index):
+        return self.items[index]
+
+    def __str__(self):
+        l = []
+        for i in self.items:
+            l.append(str(i))
+        return "[" + ", ".join(l) + "]"
+
+    def enqueue(self, node):
+        self.items.append(node)
+
+    def dequeue(self):
+        return self.items.pop(0)
+
+
+def exit():
+    for i in req_q:
+        database.curs.execute(
+            "INSERT INTO requests (user_id, title, author) VALUES (?,?,?)",
+            [i[0], i[1], i[2]],
+        )
+        database.db.commit()
+    database.db.close()
+
+
 database = Database()
+req_q = Queue()

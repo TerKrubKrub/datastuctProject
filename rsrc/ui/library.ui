@@ -164,7 +164,7 @@
    <item row="0" column="2">
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <property name="spacing">
-      <number>8</number>
+      <number>20</number>
      </property>
      <property name="bottomMargin">
       <number>20</number>
