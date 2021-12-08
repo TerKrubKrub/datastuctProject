@@ -1,6 +1,5 @@
 import sys, os
 from PyQt5 import QtWidgets, QtGui, uic
-from PyQt5.QtCore import Qt
 
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 from gui import authen, db
@@ -23,7 +22,7 @@ class App(QtWidgets.QWidget):
         self.prof_img = [str(i[6]) for i in db.database.users_ll if i[0] == id][0]
         self.prof.setPixmap(QtGui.QPixmap(self.prof_img))
         self.prof.setScaledContents(True)
-        self.prof_btn.setIcon(QtGui.QIcon(":/Image/img/frame.png"))
+        self.prof_btn.setIcon(QtGui.QIcon("rsrc/img/frame.png"))
         self.menu = QtWidgets.QMenu("menu_list", self)
         self.menu.setFont(QtGui.QFont("Product Sans", 10))
         self.menu.triggered.connect(lambda x: self.handleMenu(x.text()))
@@ -42,7 +41,10 @@ class App(QtWidgets.QWidget):
 
     def handleMenu(self, action):
         if action == "Edit Profile":
-            self.setWindowTitle("Booque - Profile")
+            self.setWindowTitle("Booque - Edit Profile")
+            self.home_btn.hide()
+            self.prof_btn.hide()
+            self.prof.hide()
             self.app_panel.setCurrentIndex(1)
         elif action == "Library":
             self.setWindowTitle("Booque - Library")

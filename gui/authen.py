@@ -1,5 +1,5 @@
 import sys, os
-from PyQt5 import QtWidgets, QtCore, uic
+from PyQt5 import QtWidgets, QtGui, QtCore, uic
 from PyQt5.QtGui import QMovie
 
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
@@ -127,7 +127,6 @@ class LogIn(QtWidgets.QWidget):
                     db.database.db.commit()
                     db.database.updateDatabase(False, False, True, False)
 
-                    self.movie.start()
                     mainApp = app.App(self.user_id)
                     mainApp.show()
                     self.close()
@@ -194,6 +193,8 @@ class SignUp(QtWidgets.QWidget):
         self.password.textChanged.connect(self.hidePassword)
         self.re_password.textChanged.connect(self.hideRePassword)
         self.cur_pos = QtCore.QPoint(1080, 620)
+        self.msg = QtWidgets.QMessageBox()
+        self.msg.setWindowIcon(QtGui.QIcon("rsrc/img/logo.png"))
 
     def mousePressEvent(self, event):
         self.cur_pos = event.globalPos()
@@ -339,6 +340,12 @@ class SignUp(QtWidgets.QWidget):
             )
             db.database.db.commit()
             db.database.updateDatabase(True, False, False, False)
+            self.msg.setWindowTitle("Account created.")
+            self.msg.setIcon(QtWidgets.QMessageBox.Information)
+            self.msg.setText(
+                "Your account is successfully created!\nYou can now log in."
+            )
+            self.msg.exec_()
 
             self.log_in = LogIn()
             self.log_in.show()

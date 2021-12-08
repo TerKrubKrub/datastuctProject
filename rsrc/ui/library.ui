@@ -49,7 +49,7 @@
      <property name="widgetResizable">
       <bool>true</bool>
      </property>
-     <widget class="QWidget" name="scrollAreaContent">
+     <widget class="QWidget" name="scrollAreaContents">
       <property name="geometry">
        <rect>
         <x>0</x>
