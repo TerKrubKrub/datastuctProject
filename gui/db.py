@@ -442,10 +442,11 @@ class LinkedList:
             return first
   
         # Pick the smaller value
-        if first.id > second.id:
+        if first.id < second.id:
             first.next = self.merge(first.next, second)
             first.next.prev = first
-            first.prev = None   
+            first.prev = None
+            self.head = first   
             return first
         else:
             second.next = self.merge(first, second.next)
