@@ -332,7 +332,7 @@ class LinkedList:
 
     def append(self, node):
         if not self.head:
-            self.head = node
+            self.head = node # Node(data)
         else:
             cur = self.head
             while cur.next:
@@ -398,13 +398,184 @@ class LinkedList:
                         return node
             cur = cur.next
 
+    def swap2(self, x, y):
+        if x == y:
+            return
+
+        if isinstance(x, int) and isinstance(y, int):
+            cur_x = self[x]
+            prev_x = cur_x.prev
+            cur_y = self[y]
+            prev_y = cur_y.prev
+        else:
+            cur_x = self.head
+            prev_x = None
+            cur_y = self.head
+            prev_y = None
+            while cur_x and cur_x != x:
+                prev_x = cur_x
+                cur_x = cur_x.next
+            while cur_y and cur_y != y:
+                prev_y = cur_y
+                cur_y = cur_y.next
+
+        if not cur_x or not cur_y:
+            return
+        if prev_x:
+            prev_x.next = cur_y
+        else:
+            self.head = cur_y
+        if prev_y:
+            prev_y.next = cur_x
+        else:
+            self.head = cur_x
+        cur_x.next, cur_y.next = cur_y.next, cur_x.next
+
+    def merge(self, first, second):
+          
+        # If first linked list is empty
+        if first is None:
+            return second 
+          
+        # If second linked list is empty 
+        if second is None:
+            return first
+  
+        # Pick the smaller value
+        if first.id > second.id:
+            first.next = self.merge(first.next, second)
+            first.next.prev = first
+            first.prev = None   
+            return first
+        else:
+            second.next = self.merge(first, second.next)
+            second.next.prev = second
+            second.prev = None
+            return second
+
+    def split(self, tempHead):
+        fast = slow =  tempHead
+        while(True):
+            if fast.next is None:
+                break
+            if fast.next.next is None:
+                break
+            fast = fast.next.next 
+            slow = slow.next
+              
+        temp = slow.next
+        slow.next = None
+        return temp
+
+    def mergeSort(self, tempHead):
+        if tempHead is None: 
+            return tempHead
+        if tempHead.next is None:
+            return tempHead
+          
+        second = self.split(tempHead)
+          
+        # Recur for left and right halves
+        tempHead = self.mergeSort(tempHead)
+        second = self.mergeSort(second)
+  
+        # Merge the two sorted halves
+        return self.merge(tempHead, second)
+   
     def sort(self, type):
+        
+        # A-Z
         if type == 0:
-            pass
+            for i in range(1, len(self), 1):
+                
+                for j in range(i, -1, -1): # i=j=0
+                    
+                    if j != 0:
+                        equal = True
+                        bNode = self[j].title.upper() # bNode = str:abcde
+                        fNode = self[j-1].title.upper() # fNode = str:abcd
+                    
+                        if len(bNode) <= len(fNode):
+                        
+                            for k in range(len(bNode)):
+                                if ord(bNode[k]) < ord(fNode[k]):
+                                    self.swap2(self[j-1], self[j])
+                                    equal = False
+                                    break
+                                elif ord(bNode[k]) > ord(fNode[k]):
+                                    equal = 'more than'
+                                    break
+                            
+                            if equal == 'more than':
+                                break
+                            elif equal == True:
+                                self.swap2(self[j-1], self[j])
+                            
+                        else:
+                            for k in range(len(fNode)):
+                                if ord(bNode[k]) < ord(fNode[k]):
+                                    self.swap2(self[j-1], self[j])
+                                    equal = False
+                                    break
+                                elif ord(bNode[k]) > ord(fNode[k]):
+                                    equal = 'more than'
+                                    break
+
+                            if equal == 'more than':
+                                break
+                            elif equal == True:
+                                break
+        
+        # Z-A
         elif type == 1:
-            pass
+            
+            for i in range(1, len(self), 1):
+            
+                for j in range(i, -1, -1): # i=j=0
+                
+                    if j != 0:
+                        equal = True
+                        bNode = self[j].title.upper() # bNode = str:abcde
+                        fNode = self[j-1].title.upper() # fNode = str:abcd
+                
+                        if len(bNode) <= len(fNode):
+                    
+                            for k in range(len(bNode)):
+                                if ord(bNode[k]) > ord(fNode[k]):
+                                    self.swap2(self[j-1], self[j])
+                                    equal = False
+                                    break
+                                elif ord(bNode[k]) < ord(fNode[k]):
+                                    equal = 'less than'
+                                    break
+                        
+                            if equal == 'less than':
+                                break
+                            elif equal == True:
+                                break
+                            
+                        else:
+                            for k in range(len(fNode)):
+                                if ord(bNode[k]) > ord(fNode[k]):
+                                    self.swap2(self[j-1], self[j])
+                                    equal = False
+                                    break
+                                elif ord(bNode[k]) < ord(fNode[k]):
+                                    equal = 'less than'
+                                    break
+
+                            if equal == 'less than':
+                                break
+                            elif equal == True:
+                                self.swap2(self[j-1], self[j])
+        
+        # max-min
         elif type == 2:
-            pass
+            # Base case if head is None
+            tempHead = self.head
+            self.mergeSort(tempHead)
+        
+        # min-max
         elif type == 3:
             pass
 
@@ -447,3 +618,18 @@ def exit():
 
 database = Database()
 req_q = Queue()
+
+ll = LinkedList()
+
+ll.append(BookNode(1, "Abcde", "path a", "a", 1))
+ll.append(BookNode(6, "aBcd", "path f", "f", 6))
+ll.append(BookNode(4, "aB", "path d", "d", 4))
+ll.append(BookNode(2, "zsa", "path b", "b", 2))
+ll.append(BookNode(5, "fhgh", "path e", "e", 5))
+ll.append(BookNode(3, "abdsf", "path c", "c", 3))
+
+print(ll)
+
+ll.sort(2)
+
+print(ll)
