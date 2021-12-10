@@ -1,4 +1,4 @@
-import sys, os, sqlite3
+import sys, os, sqlite3, random
 from PyQt5 import QtGui
 
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
@@ -9,37 +9,42 @@ class Database:
         self.db = sqlite3.connect("rsrc/db/data.db")
         self.curs = self.db.cursor()
         self.updateDatabase(True, True, True, True)
-        # self.rank = Rank()
+        self.req_q = RequestQueue()
 
     def initFont(self):
         self.fontDB = QtGui.QFontDatabase()
-        self.fontDB.addApplicationFont(":/Font/font/Better Grade/Better Grade.ttf")
+        self.fontDB.addApplicationFont("rsrc/font/Better Grade/Better Grade.ttf")
+        self.fontDB.addApplicationFont("rsrc/font/Freight/Freight Big Black SC.ttf")
+        self.fontDB.addApplicationFont("rsrc/font/Palatino/Palatino.ttf")
         self.fontDB.addApplicationFont(
-            ":/Font/font/Product Sans/Product Sans Regular.ttf"
+            "rsrc/font/Product Sans/Product Sans Regular.ttf"
         )
         self.fontDB.addApplicationFont(
-            ":/Font/font/Helvetica Neue/Helvetica Neue LT 93 Black Extended Oblique.ttf"
+            "rsrc/font/Helvetica Neue/Helvetica Neue LT 93 Black Extended Oblique.ttf"
         )
         self.fontDB.addApplicationFont(
-            ":/Font/font/Helvetica Neue/Helvetica Neue LT 87 Heavy Condensed Oblique.ttf"
+            "rsrc/font/Helvetica Neue/Helvetica Neue LT 87 Heavy Condensed Oblique.ttf"
         )
         self.fontDB.addApplicationFont(
-            ":/Font/font/Helvetica Neue/Helvetica Neue LT 63 Medium Extended Oblique.ttf"
+            "rsrc/font/Helvetica Neue/Helvetica Neue LT 65 Medium.ttf"
         )
         self.fontDB.addApplicationFont(
-            ":/Font/font/Helvetica Neue/Helvetica Neue LT 63 Medium Extended.ttf"
+            "rsrc/font/Helvetica Neue/Helvetica Neue LT 63 Medium Extended Oblique.ttf"
         )
         self.fontDB.addApplicationFont(
-            ":/Font/font/Helvetica Neue/Helvetica Neue LT 53 Extended.ttf"
+            "rsrc/font/Helvetica Neue/Helvetica Neue LT 63 Medium Extended.ttf"
         )
         self.fontDB.addApplicationFont(
-            ":/Font/font/Helvetica Neue/Helvetica Neue LT 55 Roman.ttf"
+            "rsrc/font/Helvetica Neue/Helvetica Neue LT 53 Extended.ttf"
         )
         self.fontDB.addApplicationFont(
-            ":/Font/font/Helvetica Neue/Helvetica Neue LT 47 Light Condensed.ttf"
+            "rsrc/font/Helvetica Neue/Helvetica Neue LT 55 Roman.ttf"
         )
         self.fontDB.addApplicationFont(
-            ":/Font/font/Helvetica Neue/Helvetica Neue LT 23 Ultra Light Extended Oblique.ttf"
+            "rsrc/font/Helvetica Neue/Helvetica Neue LT 47 Light Condensed.ttf"
+        )
+        self.fontDB.addApplicationFont(
+            "rsrc/font/Helvetica Neue/Helvetica Neue LT 23 Ultra Light Extended Oblique.ttf"
         )
 
     def updateDatabase(self, users=False, books=False, cur_user=False, reviews=False):
@@ -51,12 +56,13 @@ class Database:
             for i in range(len(users_db)):
                 user_db[i] = UserNode(
                     users_db[i][0],
-                    users_db[i][3],
+                    users_db[i][1],
                     users_db[i][2],
                     users_db[i][3],
                     users_db[i][4],
                     users_db[i][5],
                     users_db[i][6],
+                    users_db[i][7],
                 )
                 self.users_ll.append(user_db[i])
 
@@ -79,45 +85,45 @@ class Database:
                 self.books_ll.append(book_db[i])
             self.books_ll.sort(0)
 
-            self.fiction_ll = BookLinkedList()
+            self.fictions_ll = BookLinkedList()
             for i in self.books_ll:
                 if i[6] == "fiction":
-                    self.fiction_ll.append(i)
+                    self.fictions_ll.append(i)
 
-            self.thriller_ll = BookLinkedList()
+            self.thrillers_ll = BookLinkedList()
             for i in self.books_ll:
                 if i[6] == "thriller":
-                    self.thriller_ll.append(i)
+                    self.thrillers_ll.append(i)
 
-            self.fantasy_ll = BookLinkedList()
+            self.fantasies_ll = BookLinkedList()
             for i in self.books_ll:
                 if i[6] == "fantasy":
-                    self.fantasy_ll.append(i)
+                    self.fantasies_ll.append(i)
 
-            self.romance_ll = BookLinkedList()
+            self.romances_ll = BookLinkedList()
             for i in self.books_ll:
                 if i[6] == "romance":
-                    self.romance_ll.append(i)
+                    self.romances_ll.append(i)
 
-            self.biography_ll = BookLinkedList()
+            self.biographies_ll = BookLinkedList()
             for i in self.books_ll:
                 if i[6] == "biography":
-                    self.biography_ll.append(i)
+                    self.biographies_ll.append(i)
 
-            self.comedy_ll = BookLinkedList()
+            self.comedies_ll = BookLinkedList()
             for i in self.books_ll:
                 if i[6] == "comedy":
-                    self.comedy_ll.append(i)
+                    self.comedies_ll.append(i)
 
-            self.horror_ll = BookLinkedList()
+            self.horrors_ll = BookLinkedList()
             for i in self.books_ll:
                 if i[6] == "horror":
-                    self.horror_ll.append(i)
+                    self.horrors_ll.append(i)
 
-            self.poetry_ll = BookLinkedList()
+            self.poetries_ll = BookLinkedList()
             for i in self.books_ll:
                 if i[6] == "poetry":
-                    self.poetry_ll.append(i)
+                    self.poetries_ll.append(i)
 
         if cur_user:
             self.curs.execute("SELECT * FROM current_user")
@@ -137,27 +143,29 @@ class Database:
                     revs_db[i][0],
                     revs_db[i][1],
                     revs_db[i][2],
-                    revs_db[i][5],
                     revs_db[i][3],
                     revs_db[i][4],
                 )
                 self.revs_ll.append(rev_db[i])
 
-            self.revs_user = {}
-            self.revs_book = {}
+            self.books_comment = {}
+            self.books_rating = {}
             for i in self.revs_ll:
                 try:
-                    self.revs_book[i[1]].append(i[0])
-                    self.revs_user[i[2]].append(i[0])
+                    self.books_comment[i[0]].append((i[1], tuple(i[4].split("\r\n"))))
+                    self.books_rating[i[0]].append(i[3])
                 except:
-                    self.revs_book[i[1]] = [i[0]]
-                    self.revs_user[i[2]] = [i[0]]
+                    self.books_comment[i[0]] = [(i[1], tuple(i[4].split("\r\n")))]
+                    self.books_rating[i[0]] = [i[3]]
 
-
-class Rank:
-    def __init__(self, genre=None, rank=None):
-        self.genre = genre
-        self.rank = rank
+    def exit(self):
+        for i in self.req_q:
+            self.curs.execute(
+                "INSERT INTO requests (user_id, title, author) VALUES (?,?,?)",
+                [i[0], i[1], i[2]],
+            )
+            self.db.commit()
+        self.db.close()
 
 
 class CurUser:
@@ -174,7 +182,17 @@ class CurUser:
 
 
 class UserNode:
-    def __init__(self, id, f_name, l_name, username, password, email=None, img=None):
+    def __init__(
+        self,
+        id,
+        f_name,
+        l_name,
+        username,
+        password,
+        email=None,
+        img=None,
+        cur_read=None,
+    ):
         self.next = None
         self.prev = None
         self.id = id
@@ -184,6 +202,7 @@ class UserNode:
         self.password = password
         self.email = email if email else None
         self.img = img if img else ":/Image/db/userimg/dafault-pic.png"
+        self.cur_read = cur_read if cur_read else None
 
     def __getitem__(self, index):
         self.items = [
@@ -194,6 +213,7 @@ class UserNode:
             self.password,
             self.email,
             self.img,
+            self.cur_read,
         ]
         return self.items[index]
 
@@ -209,6 +229,7 @@ class UserNode:
                     str(self.password),
                     str(self.email),
                     str(self.img),
+                    str(self.cur_read),
                 ]
             )
             + "]"
@@ -252,7 +273,7 @@ class UserLinkedList:
 
     def append(self, node):
         new_node = UserNode(
-            node[0], node[1], node[2], node[3], node[4], node[5], node[6]
+            node[0], node[1], node[2], node[3], node[4], node[5], node[6], node[7]
         )
         if not self.head:
             self.head = new_node
@@ -266,7 +287,7 @@ class UserLinkedList:
 
     def prepend(self, node):
         new_node = UserNode(
-            node[0], node[1], node[2], node[3], node[4], node[5], node[6]
+            node[0], node[1], node[2], node[3], node[4], node[5], node[6], node[7]
         )
         if not self.head:
             self.head = new_node
@@ -277,7 +298,7 @@ class UserLinkedList:
 
     def insert(self, node, index):
         new_node = UserNode(
-            node[0], node[1], node[2], node[3], node[4], node[5], node[6]
+            node[0], node[1], node[2], node[3], node[4], node[5], node[6], node[7]
         )
         if index == 0:
             self.prepend(node)
@@ -303,7 +324,7 @@ class UserLinkedList:
 
     def remove(self, node):
         new_node = UserNode(
-            node[0], node[1], node[2], node[3], node[4], node[5], node[6]
+            node[0], node[1], node[2], node[3], node[4], node[5], node[6], node[7]
         )
         cur = self.head
         while cur:
@@ -377,7 +398,7 @@ class BookNode:
                     str(self.img),
                     str(self.author),
                     str(self.pages),
-                    # str(self.synop),
+                    str(self.synop),
                     str(self.genre),
                     str(self.rating),
                 ]
@@ -536,8 +557,62 @@ class BookLinkedList:
                         return new_node
             cur = cur.next
 
+    def merge(self, first, second):
+        if first is None:
+            return second
+        if second is None:
+            return first
+        if self.sort_type == 2:
+            if first.rating > second.rating:
+                first.next = self.merge(first.next, second)
+                first.next.prev = first
+                first.prev = None
+                self.head = first
+                return first
+            else:
+                second.next = self.merge(first, second.next)
+                second.next.prev = second
+                second.prev = None
+                return second
+        elif self.sort_type == 3:
+            if first.rating < second.rating:
+                first.next = self.merge(first.next, second)
+                first.next.prev = first
+                first.prev = None
+                self.head = first
+                return first
+            else:
+                second.next = self.merge(first, second.next)
+                second.next.prev = second
+                second.prev = None
+                return second
+
+    def split(self, tempHead):
+        fast = slow = tempHead
+        while True:
+            if fast.next is None:
+                break
+            if fast.next.next is None:
+                break
+            fast = fast.next.next
+            slow = slow.next
+        temp = slow.next
+        slow.next = None
+        return temp
+
+    def mergeSort(self, tempHead):
+        if tempHead is None:
+            return tempHead
+        if tempHead.next is None:
+            return tempHead
+        second = self.split(tempHead)
+        tempHead = self.mergeSort(tempHead)
+        second = self.mergeSort(second)
+        return self.merge(tempHead, second)
+
     def sort(self, type):
-        if type == 0:
+        self.sort_type = type
+        if self.sort_type == 0:
             for i in range(1, len(self), 1):
                 for j in range(i, -1, -1):
                     if j != 0:
@@ -570,7 +645,7 @@ class BookLinkedList:
                                 break
                             elif equal == True:
                                 break
-        elif type == 1:
+        elif self.sort_type == 1:
             for i in range(1, len(self), 1):
                 for j in range(i, -1, -1):
                     if j != 0:
@@ -603,10 +678,10 @@ class BookLinkedList:
                                 break
                             elif equal == True:
                                 break
-        elif type == 3:
-            pass
-        elif type == 4:
-            pass
+        elif self.sort_type == 2:
+            self.head = self.mergeSort(self.head)
+        elif self.sort_type == 3:
+            self.head = self.mergeSort(self.head)
         return self
 
     def search(self, key):
@@ -619,38 +694,40 @@ class BookLinkedList:
         while cur:
             title = cur.title.split()
             for t in title:
-                if t.upper().startswith(key):
+                if t.upper().startswith(key) and not added:
                     res.append(cur)
                     added = True
             author = cur.author.split()
             for a in author:
                 if a.upper().startswith(key) and not added:
                     res.append(cur)
+                    added = True
             cur = cur.next
             added = False
         if not cur:
             return res
 
+    def recommended(self):
+        return self[random.randrange(len(self))]
+
 
 class ReviewNode:
-    def __init__(self, id, user_id, book_id, date_created, rating=None, comment=None):
+    def __init__(self, user_id, book_id, date_created, rating=None, comment=None):
         self.next = None
         self.prev = None
-        self.id = id
         self.user_id = user_id
         self.book_id = book_id
-        self.date_created = date_created
         self.rating = rating if rating else None
         self.comment = comment if comment else None
+        self.date_created = date_created
 
     def __getitem__(self, index):
         self.items = [
-            self.id,
             self.user_id,
             self.book_id,
-            self.date_created,
             self.rating,
             self.comment,
+            self.date_created,
         ]
         return self.items[index]
 
@@ -659,12 +736,11 @@ class ReviewNode:
             "["
             + ", ".join(
                 [
-                    str(self.id),
                     str(self.user_id),
                     str(self.book_id),
-                    str(self.date_created),
                     str(self.rating),
                     str(self.comment),
+                    str(self.date_created),
                 ]
             )
             + "]"
@@ -707,7 +783,7 @@ class ReviewLinkedList:
             cur = cur.next
 
     def append(self, node):
-        new_node = ReviewNode(node[0], node[1], node[2], node[3], node[4], node[5])
+        new_node = ReviewNode(node[0], node[1], node[2], node[3], node[4])
         if not self.head:
             self.head = new_node
         else:
@@ -719,7 +795,7 @@ class ReviewLinkedList:
             new_node.next = None
 
     def prepend(self, node):
-        new_node = ReviewNode(node[0], node[1], node[2], node[3], node[4], node[5])
+        new_node = ReviewNode(node[0], node[1], node[2], node[3], node[4])
         if not self.head:
             self.head = new_node
         else:
@@ -728,7 +804,7 @@ class ReviewLinkedList:
             self.head = new_node
 
     def insert(self, node, index):
-        new_node = ReviewNode(node[0], node[1], node[2], node[3], node[4], node[5])
+        new_node = ReviewNode(node[0], node[1], node[2], node[3], node[4])
         if index == 0:
             self.prepend(node)
         elif index == len(self):
@@ -752,7 +828,7 @@ class ReviewLinkedList:
             return self.remove(self[len(self)])
 
     def remove(self, node):
-        new_node = ReviewNode(node[0], node[1], node[2], node[3], node[4], node[5])
+        new_node = ReviewNode(node[0], node[1], node[2], node[3], node[4])
         cur = self.head
         while cur:
             if cur == new_node:
@@ -785,6 +861,9 @@ class ReviewLinkedList:
                         cur = None
                         return new_node
             cur = cur.next
+
+    def search(self, book_id):
+        pass
 
 
 class RequestNode:
@@ -831,15 +910,4 @@ class RequestQueue:
         return self.items.pop(0)
 
 
-def exit():
-    for i in req_q:
-        database.curs.execute(
-            "INSERT INTO requests (user_id, title, author) VALUES (?,?,?)",
-            [i[0], i[1], i[2]],
-        )
-        database.db.commit()
-    database.db.close()
-
-
 database = Database()
-req_q = RequestQueue()
