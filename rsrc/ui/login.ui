@@ -755,7 +755,7 @@
         <family>Helvetica Neue LT Black Ext</family>
         <pointsize>24</pointsize>
         <weight>75</weight>
-        <italic>false</italic>
+        <italic>true</italic>
         <bold>true</bold>
        </font>
       </property>

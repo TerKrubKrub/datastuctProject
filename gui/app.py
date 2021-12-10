@@ -58,10 +58,11 @@ class App(QtWidgets.QWidget):
         if action == "Chart":
             self.setWindowTitle("Booque - Charts")
             self.app_panel.setCurrentIndex(6)
+            # chart.chartApp.updateGenre("All genre", db.database)
         elif action == "Log out":
             db.database.curs.execute("DELETE FROM current_user")
             db.database.db.commit()
-            db.database.updateDatabase(False, False, True, False)
+            db.database.updateDatabase(False, False, False, True)
 
             self.log_in = authen.LogIn()
             self.log_in.show()

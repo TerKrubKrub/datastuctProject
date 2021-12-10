@@ -9,40 +9,70 @@ class Database:
         self.db = sqlite3.connect("rsrc/db/data.db")
         self.curs = self.db.cursor()
         self.updateDatabase(True, True, True, True)
-        self.req = RequestQueue()
+        self.req_q = RequestQueue()
 
     def initFont(self):
         self.fontDB = QtGui.QFontDatabase()
-        self.fontDB.addApplicationFont(":/Font/font/Better Grade/Better Grade.ttf")
+        self.fontDB.addApplicationFont("rsrc/font/Better Grade/Better Grade.ttf")
+        self.fontDB.addApplicationFont("rsrc/font/Freight/Freight Big Black SC.ttf")
+        self.fontDB.addApplicationFont("rsrc/font/Palatino/Palatino.ttf")
         self.fontDB.addApplicationFont(
-            ":/Font/font/Product Sans/Product Sans Regular.ttf"
+            "rsrc/font/Product Sans/Product Sans Regular.ttf"
         )
         self.fontDB.addApplicationFont(
-            ":/Font/font/Helvetica Neue/Helvetica Neue LT 93 Black Extended Oblique.ttf"
+            "rsrc/font/Helvetica Neue/Helvetica Neue LT 93 Black Extended Oblique.ttf"
         )
         self.fontDB.addApplicationFont(
-            ":/Font/font/Helvetica Neue/Helvetica Neue LT 87 Heavy Condensed Oblique.ttf"
+            "rsrc/font/Helvetica Neue/Helvetica Neue LT 87 Heavy Condensed Oblique.ttf"
         )
         self.fontDB.addApplicationFont(
-            ":/Font/font/Helvetica Neue/Helvetica Neue LT 63 Medium Extended Oblique.ttf"
+            "rsrc/font/Helvetica Neue/Helvetica Neue LT 63 Medium Extended Oblique.ttf"
         )
         self.fontDB.addApplicationFont(
-            ":/Font/font/Helvetica Neue/Helvetica Neue LT 63 Medium Extended.ttf"
+            "rsrc/font/Helvetica Neue/Helvetica Neue LT 63 Medium Extended.ttf"
         )
         self.fontDB.addApplicationFont(
-            ":/Font/font/Helvetica Neue/Helvetica Neue LT 53 Extended.ttf"
+            "rsrc/font/Helvetica Neue/Helvetica Neue LT 53 Extended.ttf"
         )
         self.fontDB.addApplicationFont(
-            ":/Font/font/Helvetica Neue/Helvetica Neue LT 55 Roman.ttf"
+            "rsrc/font/Helvetica Neue/Helvetica Neue LT 55 Roman.ttf"
         )
         self.fontDB.addApplicationFont(
-            ":/Font/font/Helvetica Neue/Helvetica Neue LT 47 Light Condensed.ttf"
+            "rsrc/font/Helvetica Neue/Helvetica Neue LT 47 Light Condensed.ttf"
         )
         self.fontDB.addApplicationFont(
-            ":/Font/font/Helvetica Neue/Helvetica Neue LT 23 Ultra Light Extended Oblique.ttf"
+            "rsrc/font/Helvetica Neue/Helvetica Neue LT 23 Ultra Light Extended Oblique.ttf"
         )
 
-    def updateDatabase(self, users=False, books=False, cur_user=False, reviews=False):
+    def updateDatabase(self, reviews=False, users=False, books=False, cur_user=False):
+        if reviews:
+            self.curs.execute("SELECT * FROM comments")
+            comments_db = self.curs.fetchall()
+            comment_db = [i for i in range(len(comments_db))]
+            self.comments_ll = CommentLinkedList()
+            for i in range(len(comments_db)):
+                comment_db[i] = CommentNode(
+                    comments_db[i][0],
+                    comments_db[i][1],
+                    comments_db[i][2],
+                    comments_db[i][3],
+                    comments_db[i][4],
+                )
+                self.comments_ll.append(comment_db[i])
+
+            self.curs.execute("SELECT * FROM ratings")
+            ratings_db = self.curs.fetchall()
+            rating_db = [i for i in range(len(ratings_db))]
+            self.ratings_ll = RatingLinkedList()
+            for i in range(len(ratings_db)):
+                rating_db[i] = RatingNode(
+                    ratings_db[i][0],
+                    ratings_db[i][1],
+                    ratings_db[i][2],
+                    ratings_db[i][3],
+                )
+                self.ratings_ll.append(rating_db[i])
+
         if users:
             self.curs.execute("SELECT * FROM users")
             users_db = self.curs.fetchall()
@@ -65,6 +95,17 @@ class Database:
             self.curs.execute("SELECT * FROM books")
             books_db = self.curs.fetchall()
             book_db = [i for i in range(len(books_db))]
+            books_rating = []
+            books_rating_avg = []
+            books_id = [i[0] for i in books_db]
+            for i in books_id:
+                books_rating.append([x[3] for x in self.ratings_ll if x[1] == i])
+            for i in books_rating:
+                if len(i) > 0:
+                    books_rating_avg.append(float(sum(i) / len(i)))
+                else:
+                    books_rating_avg.append(0)
+
             self.books_ll = BookLinkedList()
             for i in range(len(books_db)):
                 book_db[i] = BookNode(
@@ -75,7 +116,7 @@ class Database:
                     books_db[i][4],
                     books_db[i][5],
                     books_db[i][6],
-                    books_db[i][7],
+                    books_rating_avg[i],
                 )
                 self.books_ll.append(book_db[i])
             self.books_ll.sort(0)
@@ -128,34 +169,8 @@ class Database:
             except:
                 self.cur_user = CurUser(None, None)
 
-        if reviews:
-            self.curs.execute("SELECT * FROM reviews")
-            revs_db = self.curs.fetchall()
-            rev_db = [i for i in range(len(revs_db))]
-            self.revs_ll = ReviewLinkedList()
-            for i in range(len(revs_db)):
-                rev_db[i] = ReviewNode(
-                    revs_db[i][0],
-                    revs_db[i][1],
-                    revs_db[i][2],
-                    revs_db[i][5],
-                    revs_db[i][3],
-                    revs_db[i][4],
-                )
-                self.revs_ll.append(rev_db[i])
-
-            self.revs_user = {}
-            self.revs_book = {}
-            for i in self.revs_ll:
-                try:
-                    self.revs_book[i[1]].append(i[0])
-                    self.revs_user[i[2]].append(i[0])
-                except:
-                    self.revs_book[i[1]] = [i[0]]
-                    self.revs_user[i[2]] = [i[0]]
-
     def exit(self):
-        for i in self.req:
+        for i in self.req_q:
             self.curs.execute(
                 "INSERT INTO requests (user_id, title, author) VALUES (?,?,?)",
                 [i[0], i[1], i[2]],
@@ -553,8 +568,149 @@ class BookLinkedList:
                         return new_node
             cur = cur.next
 
+    def merge(self, first, second):
+        if first is None:
+            return second
+        if second is None:
+            return first
+        if self.sort_type == 2:
+            if first.rating > second.rating:
+                first.next = self.merge(first.next, second)
+                first.next.prev = first
+                first.prev = None
+                self.head = first
+                return first
+            elif first.rating < second.rating:
+                second.next = self.merge(first, second.next)
+                second.next.prev = second
+                second.prev = None
+                return second
+            elif first.rating == second.rating:
+                equal = True
+                if len(second.title) <= len(first.title):
+                    for i in range(len(second.title)):
+                        if ord(second.title[i]) < ord(first.title[i]):
+                            equal = False
+                            second.next = self.merge(first, second.next)
+                            second.next.prev = second
+                            second.prev = None
+                            return second
+                        elif ord(second.title[i]) > ord(first.title[i]):
+                            equal = "more than"
+                            first.next = self.merge(first.next, second)
+                            first.next.prev = first
+                            first.prev = None
+                            self.head = first
+                            return first
+
+                    if equal == True:
+                        second.next = self.merge(first, second.next)
+                        second.next.prev = second
+                        second.prev = None
+                        return second
+                else:
+                    for i in range(len(first.title)):
+                        if ord(first.title[i]) > ord(second.title[i]):
+                            second.next = self.merge(first, second.next)
+                            second.next.prev = second
+                            second.prev = None
+                            return second
+                        elif ord(first.title[i]) < ord(second.title[i]):
+                            first.next = self.merge(first.next, second)
+                            first.next.prev = first
+                            first.prev = None
+                            self.head = first
+                            return first
+
+                    if equal == True:
+                        first.next = self.merge(first.next, second)
+                        first.next.prev = first
+                        first.prev = None
+                        self.head = first
+                        return first
+
+        elif self.sort_type == 3:
+            if first.rating < second.rating:
+                first.next = self.merge(first.next, second)
+                first.next.prev = first
+                first.prev = None
+                self.head = first
+                return first
+            elif first.rating > second.rating:
+                second.next = self.merge(first, second.next)
+                second.next.prev = second
+                second.prev = None
+                return second
+            elif first.rating == second.rating:
+                equal = True
+                if len(second.title) <= len(first.title):
+                    for i in range(len(second.title)):
+                        if ord(second.title[i]) < ord(first.title[i]):
+                            equal = False
+                            second.next = self.merge(first, second.next)
+                            second.next.prev = second
+                            second.prev = None
+                            return second
+                        elif ord(second.title[i]) > ord(first.title[i]):
+                            equal = "more than"
+                            first.next = self.merge(first.next, second)
+                            first.next.prev = first
+                            first.prev = None
+                            self.head = first
+                            return first
+
+                    if equal == True:
+                        second.next = self.merge(first, second.next)
+                        second.next.prev = second
+                        second.prev = None
+                        return second
+                else:
+                    for i in range(len(first.title)):
+                        if ord(first.title[i]) > ord(second.title[i]):
+                            second.next = self.merge(first, second.next)
+                            second.next.prev = second
+                            second.prev = None
+                            return second
+                        elif ord(first.title[i]) < ord(second.title[i]):
+                            first.next = self.merge(first.next, second)
+                            first.next.prev = first
+                            first.prev = None
+                            self.head = first
+                            return first
+
+                    if equal == True:
+                        first.next = self.merge(first.next, second)
+                        first.next.prev = first
+                        first.prev = None
+                        self.head = first
+                        return first
+
+    def split(self, tempHead):
+        fast = slow = tempHead
+        while True:
+            if fast.next is None:
+                break
+            if fast.next.next is None:
+                break
+            fast = fast.next.next
+            slow = slow.next
+        temp = slow.next
+        slow.next = None
+        return temp
+
+    def mergeSort(self, tempHead):
+        if tempHead is None:
+            return tempHead
+        if tempHead.next is None:
+            return tempHead
+        second = self.split(tempHead)
+        tempHead = self.mergeSort(tempHead)
+        second = self.mergeSort(second)
+        return self.merge(tempHead, second)
+
     def sort(self, type):
-        if type == 0:
+        self.sort_type = type
+        if self.sort_type == 0:
             for i in range(1, len(self), 1):
                 for j in range(i, -1, -1):
                     if j != 0:
@@ -587,7 +743,7 @@ class BookLinkedList:
                                 break
                             elif equal == True:
                                 break
-        elif type == 1:
+        elif self.sort_type == 1:
             for i in range(1, len(self), 1):
                 for j in range(i, -1, -1):
                     if j != 0:
@@ -620,10 +776,10 @@ class BookLinkedList:
                                 break
                             elif equal == True:
                                 break
-        elif type == 3:
-            pass
-        elif type == 4:
-            pass
+        elif self.sort_type == 2:
+            self.head = self.mergeSort(self.head)
+        elif self.sort_type == 3:
+            self.head = self.mergeSort(self.head)
         return self
 
     def search(self, key):
@@ -653,25 +809,23 @@ class BookLinkedList:
         return self[random.randrange(len(self))]
 
 
-class ReviewNode:
-    def __init__(self, id, user_id, book_id, date_created, rating=None, comment=None):
+class CommentNode:
+    def __init__(self, id, user_id, book_id, comment, date_created):
         self.next = None
         self.prev = None
         self.id = id
         self.user_id = user_id
         self.book_id = book_id
+        self.comment = comment
         self.date_created = date_created
-        self.rating = rating if rating else None
-        self.comment = comment if comment else None
 
     def __getitem__(self, index):
         self.items = [
             self.id,
             self.user_id,
             self.book_id,
-            self.date_created,
-            self.rating,
             self.comment,
+            self.date_created,
         ]
         return self.items[index]
 
@@ -683,16 +837,15 @@ class ReviewNode:
                     str(self.id),
                     str(self.user_id),
                     str(self.book_id),
-                    str(self.date_created),
-                    str(self.rating),
                     str(self.comment),
+                    str(self.date_created),
                 ]
             )
             + "]"
         )
 
 
-class ReviewLinkedList:
+class CommentLinkedList:
     def __init__(self):
         self.head = None
 
@@ -728,7 +881,7 @@ class ReviewLinkedList:
             cur = cur.next
 
     def append(self, node):
-        new_node = ReviewNode(node[0], node[1], node[2], node[3], node[4], node[5])
+        new_node = CommentNode(node[0], node[1], node[2], node[3], node[4])
         if not self.head:
             self.head = new_node
         else:
@@ -740,7 +893,7 @@ class ReviewLinkedList:
             new_node.next = None
 
     def prepend(self, node):
-        new_node = ReviewNode(node[0], node[1], node[2], node[3], node[4], node[5])
+        new_node = CommentNode(node[0], node[1], node[2], node[3], node[4])
         if not self.head:
             self.head = new_node
         else:
@@ -749,7 +902,7 @@ class ReviewLinkedList:
             self.head = new_node
 
     def insert(self, node, index):
-        new_node = ReviewNode(node[0], node[1], node[2], node[3], node[4], node[5])
+        new_node = CommentNode(node[0], node[1], node[2], node[3], node[4])
         if index == 0:
             self.prepend(node)
         elif index == len(self):
@@ -773,7 +926,7 @@ class ReviewLinkedList:
             return self.remove(self[len(self)])
 
     def remove(self, node):
-        new_node = ReviewNode(node[0], node[1], node[2], node[3], node[4], node[5])
+        new_node = CommentNode(node[0], node[1], node[2], node[3], node[4])
         cur = self.head
         while cur:
             if cur == new_node:
@@ -806,6 +959,151 @@ class ReviewLinkedList:
                         cur = None
                         return new_node
             cur = cur.next
+
+    def search(self, book_id):
+        pass
+
+
+class RatingNode:
+    def __init__(self, id, user_id, book_id, rating):
+        self.next = None
+        self.prev = None
+        self.id = id
+        self.user_id = user_id
+        self.book_id = book_id
+        self.rating = rating
+
+    def __getitem__(self, index):
+        self.items = [self.id, self.user_id, self.book_id, self.rating]
+        return self.items[index]
+
+    def __str__(self):
+        return (
+            "["
+            + ", ".join(
+                [str(self.id), str(self.user_id), str(self.book_id), str(self.rating)]
+            )
+            + "]"
+        )
+
+
+class RatingLinkedList:
+    def __init__(self):
+        self.head = None
+
+    def __len__(self):
+        count = 0
+        cur = self.head
+        while cur:
+            count += 1
+            cur = cur.next
+        return count
+
+    def __str__(self):
+        cur = self.head
+        l = []
+        while cur:
+            l.append(str(cur))
+            cur = cur.next
+        if l == []:
+            return "[]"
+        else:
+            return "[" + ", ".join(l) + "]"
+
+    def __getitem__(self, index):
+        cur = self.head
+        for i in range(index):
+            cur = cur.next
+        return cur
+
+    def __iter__(self):
+        cur = self.head
+        while cur:
+            yield cur
+            cur = cur.next
+
+    def append(self, node):
+        new_node = RatingNode(node[0], node[1], node[2], node[3])
+        if not self.head:
+            self.head = new_node
+        else:
+            cur = self.head
+            while cur.next:
+                cur = cur.next
+            cur.next = new_node
+            new_node.prev = cur
+            new_node.next = None
+
+    def prepend(self, node):
+        new_node = RatingNode(node[0], node[1], node[2], node[3])
+        if not self.head:
+            self.head = new_node
+        else:
+            self.head.prev = new_node
+            new_node.next = self.head
+            self.head = new_node
+
+    def insert(self, node, index):
+        new_node = RatingNode(node[0], node[1], node[2], node[3])
+        if index == 0:
+            self.prepend(node)
+        elif index == len(self):
+            self.append(node)
+        elif index > len(self):
+            print("Index out of range.")
+        else:
+            cur = self[index]
+            prv = cur.prev
+            prv.next = new_node
+            cur.prev = new_node
+            new_node.next = cur
+            new_node.prev = prv
+
+    def pop(self, index=None):
+        if index:
+            return self.remove(self[index])
+        elif index == 0:
+            return self.remove(self[0])
+        elif not index:
+            return self.remove(self[len(self)])
+
+    def remove(self, node):
+        new_node = RatingNode(node[0], node[1], node[2], node[3])
+        cur = self.head
+        while cur:
+            if cur == new_node:
+                if cur == self.head:
+                    if not cur.next:
+                        cur = None
+                        self.head = None
+                        return new_node
+                    else:
+                        nxt = cur.next
+                        cur.next = None
+                        nxt.prev = None
+                        cur = None
+                        self.head = nxt
+                        return new_node
+                else:
+                    if not cur.next:
+                        prv = cur.prev
+                        prv.next = None
+                        cur.prev = None
+                        cur = None
+                        return new_node
+                    else:
+                        nxt = cur.next
+                        prv = cur.prev
+                        prv.next = nxt
+                        nxt.prev = prv
+                        cur.prev = None
+                        cur.next = None
+                        cur = None
+                        return new_node
+            cur = cur.next
+
+    def search(self, book_id):
+        pass
 
 
 class RequestNode:

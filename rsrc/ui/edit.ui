@@ -24,13 +24,13 @@
     <number>100</number>
    </property>
    <property name="topMargin">
-    <number>10</number>
+    <number>0</number>
    </property>
    <property name="rightMargin">
     <number>100</number>
    </property>
    <property name="bottomMargin">
-    <number>60</number>
+    <number>70</number>
    </property>
    <item>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -38,7 +38,7 @@
       <number>5</number>
      </property>
      <property name="bottomMargin">
-      <number>30</number>
+      <number>0</number>
      </property>
      <item>
       <spacer name="verticalSpacer_10">
@@ -221,6 +221,46 @@
        </item>
       </layout>
      </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_14">
+       <property name="spacing">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>10</number>
+       </property>
+       <item>
+        <widget class="QPushButton" name="delete_account">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>150</width>
+           <height>30</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <family>Product Sans</family>
+           <pointsize>9</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="text">
+          <string>Delete Account</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
     </layout>
    </item>
    <item>
@@ -297,8 +337,14 @@
           </property>
           <property name="minimumSize">
            <size>
-            <width>135</width>
+            <width>160</width>
             <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>160</width>
+            <height>16777215</height>
            </size>
           </property>
           <property name="font">
@@ -367,8 +413,14 @@
           </property>
           <property name="minimumSize">
            <size>
-            <width>135</width>
+            <width>160</width>
             <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>160</width>
+            <height>16777215</height>
            </size>
           </property>
           <property name="font">
@@ -437,8 +489,14 @@
           </property>
           <property name="minimumSize">
            <size>
-            <width>135</width>
+            <width>160</width>
             <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>160</width>
+            <height>16777215</height>
            </size>
           </property>
           <property name="font">
@@ -507,8 +565,14 @@
           </property>
           <property name="minimumSize">
            <size>
-            <width>135</width>
+            <width>160</width>
             <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>160</width>
+            <height>16777215</height>
            </size>
           </property>
           <property name="font">
@@ -577,8 +641,14 @@
           </property>
           <property name="minimumSize">
            <size>
-            <width>135</width>
+            <width>160</width>
             <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>160</width>
+            <height>16777215</height>
            </size>
           </property>
           <property name="font">
@@ -650,8 +720,14 @@
           </property>
           <property name="minimumSize">
            <size>
-            <width>135</width>
+            <width>160</width>
             <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>160</width>
+            <height>16777215</height>
            </size>
           </property>
           <property name="font">
@@ -723,8 +799,14 @@
           </property>
           <property name="minimumSize">
            <size>
-            <width>135</width>
+            <width>160</width>
             <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>160</width>
+            <height>16777215</height>
            </size>
           </property>
           <property name="font">
@@ -875,6 +957,20 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>upload_btn</tabstop>
+  <tabstop>username</tabstop>
+  <tabstop>f_name</tabstop>
+  <tabstop>l_name</tabstop>
+  <tabstop>email</tabstop>
+  <tabstop>password</tabstop>
+  <tabstop>re_password</tabstop>
+  <tabstop>cur_read_box</tabstop>
+  <tabstop>back_btn</tabstop>
+  <tabstop>save_btn</tabstop>
+  <tabstop>restore_btn</tabstop>
+  <tabstop>delete_account</tabstop>
+ </tabstops>
  <resources>
   <include location="../rsrc.qrc"/>
  </resources>

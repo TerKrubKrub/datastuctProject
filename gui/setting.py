@@ -27,11 +27,12 @@ class Setting(QtWidgets.QWidget):
     def setDarkMode(self, i):
         app.dark = i
         if app.dark:
-            authen.mainApp.home_btn.setIcon(
-                QtGui.QIcon("rsrc/img/logo_full_dark.png")
-            )
+            authen.mainApp.home_btn.setIcon(QtGui.QIcon("rsrc/img/logo_full_dark.png"))
             authen.mainApp.prof_btn.setIcon(QtGui.QIcon("rsrc/img/frame_dark.png"))
             authen.mainApp.setStyleSheet(appStyle.dark_mode)
+            book.bookApp.user_frame.setPixmap(QtGui.QPixmap("rsrc/img/frame_dark.png"))
+            book.bookApp.setStyleSheet(bookStyle.dark_mode)
+            book.bookApp.frame = "rsrc/img/frame_dark.png"
             chart.chartApp.setStyleSheet(chartStyle.dark_mode)
             edit.editApp.img_frame.setPixmap(
                 QtGui.QPixmap("rsrc/img/frame_dark_big.png")
@@ -45,6 +46,9 @@ class Setting(QtWidgets.QWidget):
             authen.mainApp.home_btn.setIcon(QtGui.QIcon("rsrc/img/logo_full.png"))
             authen.mainApp.prof_btn.setIcon(QtGui.QIcon("rsrc/img/frame.png"))
             authen.mainApp.setStyleSheet(appStyle.default)
+            book.bookApp.user_frame.setPixmap(QtGui.QPixmap("rsrc/img/frame.png"))
+            book.bookApp.setStyleSheet(bookStyle.default)
+            book.bookApp.frame = "rsrc/img/frame.png"
             chart.chartApp.setStyleSheet(chartStyle.default)
             edit.editApp.img_frame.setPixmap(QtGui.QPixmap("rsrc/img/frame_big.png"))
             edit.editApp.setStyleSheet(editStyle.default)

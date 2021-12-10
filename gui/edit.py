@@ -1,6 +1,5 @@
 import sys, os
 from PyQt5 import QtWidgets, QtGui, QtCore, uic
-from PyQt5.QtCore import QFile
 
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 from gui import app, authen, db, home
@@ -25,13 +24,14 @@ class Edit(QtWidgets.QWidget):
         self.upload_btn.clicked.connect(self.uploadImage)
         self.restore_btn.clicked.connect(self.restoreProfile)
         self.save_btn.clicked.connect(self.saveChanges)
+        self.delete_account.clicked.connect(self.delAcc)
         self.edit_label.resizeEvent = self.resizeEdit
         self.old_username = [str(i[3]) for i in db.database.users_ll if i[0] == app.id][
             0
         ]
         self.old_f_name = [str(i[1]) for i in db.database.users_ll if i[0] == app.id][0]
         self.old_l_name = [str(i[2]) for i in db.database.users_ll if i[0] == app.id][0]
-        self.old_email = [str(i[5]) for i in db.database.users_ll if i[0] == app.id][0]
+        self.old_email = [i[5] for i in db.database.users_ll if i[0] == app.id][0]
         self.old_password = [str(i[4]) for i in db.database.users_ll if i[0] == app.id][
             0
         ]
@@ -60,6 +60,8 @@ class Edit(QtWidgets.QWidget):
         authen.mainApp.prof_btn.show()
         authen.mainApp.prof.show()
         authen.mainApp.app_panel.setCurrentIndex(0)
+        self.file = None
+        self.new_prof = None
 
     def resizeEdit(self, event):
         if self.rect().width() // 35 > 35:
@@ -67,6 +69,35 @@ class Edit(QtWidgets.QWidget):
         else:
             font = QtGui.QFont("Helvetica Neue LT Black Ext", 35)
         self.edit_label.setFont(font)
+
+    def delAcc(self):
+        self.msg.setIcon(QtWidgets.QMessageBox.Question)
+        self.msg.setWindowTitle("Confirm deletion.")
+        self.msg.setText("Are you sure to delete this account?")
+        self.msg.setStandardButtons(
+            QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.Cancel
+        )
+        self.msg.buttonClicked.connect(self.delete)
+        self.msg.exec_()
+
+    def delete(self, signal):
+        if signal.text() == "&Yes":
+            db.database.curs.execute("DELETE FROM current_user")
+            db.database.db.commit()
+            db.database.curs.execute("DELETE FROM users WHERE user_id=" + str(app.id))
+            db.database.db.commit()
+            db.database.curs.execute(
+                "DELETE FROM comments WHERE user_id=" + str(app.id)
+            )
+            db.database.db.commit()
+            db.database.curs.execute("DELETE FROM ratings WHERE user_id=" + str(app.id))
+            db.database.db.commit()
+            db.database.updateDatabase(False, True, False, True)
+
+            self.log_in = authen.LogIn()
+            self.log_in.show()
+            authen.mainApp.close()
+
 
     def uploadImage(self):
         self.file = QtWidgets.QFileDialog.getOpenFileName(
@@ -79,8 +110,9 @@ class Edit(QtWidgets.QWidget):
             self.new_prof = "rsrc/db/userimg/" + self.file[0].split("/")[-1]
             self.prof_img.setPixmap(QtGui.QPixmap(self.file[0]))
         else:
-            self.new_prof = self.old_prof
-            self.prof_img.setPixmap(QtGui.QPixmap(self.new_prof))
+            self.file = None
+            self.new_prof = None
+            self.prof_img.setPixmap(QtGui.QPixmap(self.old_prof))
 
     def saveChanges(self):
         if not self.f_name.text():
@@ -173,14 +205,14 @@ class Edit(QtWidgets.QWidget):
                     self.l_name.text(),
                     self.username.text(),
                     self.password.text() if self.password.text() else self.old_password,
-                    self.email.text() if self.email.text() else self.old_email,
+                    self.email.text() if self.email.text() else None,
                     self.new_prof if self.new_prof else self.old_prof,
                     self.cur_book_id,
                     app.id,
                 ],
             )
             db.database.db.commit()
-            db.database.updateDatabase(True, False, False, False)
+            db.database.updateDatabase(False, True, False, False)
             home.homeApp.updateCurBook(self.cur_book_id)
             self.old_username = self.username.text()
             self.old_f_name = self.f_name.text()
@@ -204,6 +236,8 @@ class Edit(QtWidgets.QWidget):
         self.email.setText(self.old_email)
         self.cur_read_box.setCurrentIndex(self.old_cur_read_index)
         self.prof_img.setPixmap(QtGui.QPixmap(self.old_prof))
+        self.file = None
+        self.new_prof = None
 
     def fnChanged(self, txt):
         if not txt:

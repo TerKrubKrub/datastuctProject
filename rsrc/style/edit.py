@@ -14,6 +14,15 @@ QPushButton:hover {
 	background-color: rgb(29, 131, 255);
 }
 
+#delete_account {
+	background-color: red;
+	border-radius: 7px;
+    color: white;
+}
+#delete_account:hover {
+	background-color: rgb(29, 131, 255);
+}
+
 QComboBox {
 	padding-left: 10px;
 	background-color: rgb(255, 228, 184);
@@ -47,6 +56,15 @@ QPushButton {
     color: white;
 }
 QPushButton:hover {
+	background-color: rgb(29, 131, 255);
+}
+
+#delete_account {
+	background-color: red;
+	border-radius: 7px;
+    color: white;
+}
+#delete_account:hover {
 	background-color: rgb(29, 131, 255);
 }
 

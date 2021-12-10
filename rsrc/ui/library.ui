@@ -30,7 +30,7 @@
     <number>50</number>
    </property>
    <property name="bottomMargin">
-    <number>30</number>
+    <number>0</number>
    </property>
    <property name="spacing">
     <number>0</number>
@@ -55,7 +55,7 @@
         <x>0</x>
         <y>0</y>
         <width>1100</width>
-        <height>490</height>
+        <height>520</height>
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout_2">
@@ -78,6 +78,9 @@
         <layout class="QGridLayout" name="book_shelf">
          <property name="topMargin">
           <number>20</number>
+         </property>
+         <property name="bottomMargin">
+          <number>50</number>
          </property>
          <property name="horizontalSpacing">
           <number>30</number>
@@ -310,6 +313,9 @@
        </property>
        <property name="placeholderText">
         <string>Search</string>
+       </property>
+       <property name="clearButtonEnabled">
+        <bool>true</bool>
        </property>
       </widget>
      </item>

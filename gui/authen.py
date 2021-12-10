@@ -82,7 +82,7 @@ class LogIn(QtWidgets.QWidget):
         self.user_id = self.rmb = None
         db.database.curs.execute("DELETE FROM current_user")
         db.database.db.commit()
-        db.database.updateDatabase(False, False, True, False)
+        db.database.updateDatabase(False, False, False, True)
 
     def usnChanged(self, txt):
         if not txt:
@@ -125,7 +125,7 @@ class LogIn(QtWidgets.QWidget):
                         self.cur_user,
                     )
                     db.database.db.commit()
-                    db.database.updateDatabase(False, False, True, False)
+                    db.database.updateDatabase(False, False, False, True)
 
                     mainApp = app.App(self.user_id)
                     mainApp.show()
@@ -339,7 +339,7 @@ class SignUp(QtWidgets.QWidget):
                 self.user_info,
             )
             db.database.db.commit()
-            db.database.updateDatabase(True, False, False, False)
+            db.database.updateDatabase(False, True, False, False)
             self.msg.setWindowTitle("Account created.")
             self.msg.setIcon(QtWidgets.QMessageBox.Information)
             self.msg.setText(

@@ -21,12 +21,15 @@ class Request(QtWidgets.QWidget):
     def submitReq(self):
         if self.req_title.text().upper() not in [
             i[1].upper() for i in db.database.books_ll
-        ] and self.req_author.text().upper() not in [i[2].upper() for i in db.database.books_ll]:
+        ] and self.req_author.text().upper() not in [
+            i[2].upper() for i in db.database.books_ll
+        ]:
             if self.req_title.text() and self.req_author.text():
                 self.req_info = db.RequestNode(
                     app.id, self.req_title.text(), self.req_author.text()
                 )
-                db.req_q.enqueue(self.req_info)
+                db.database.req_q.enqueue(self.req_info)
+                print(db.database.req_q)
                 self.req_title.setText("")
                 self.req_author.setText("")
                 self.msg.setIcon(QtWidgets.QMessageBox.Information)

@@ -18,6 +18,7 @@ class Library(QtWidgets.QWidget):
         self.book_titles = []
         self.book_imgs = []
         self.book_authors = []
+        self.book_rating = []
         self.column = 4
         self.sort = 0
         self.no_match.hide()
@@ -25,6 +26,9 @@ class Library(QtWidgets.QWidget):
         self.search_btn.clicked.connect(self.search)
         self.sort_box.activated.connect(lambda x: self.setSort(x))
         self.genre_box.activated.connect(lambda x: self.setGenre(x))
+        QtWidgets.QScroller.grabGesture(
+            self.scrollArea, QtWidgets.QScroller.LeftMouseButtonGesture
+        )
 
     def goToBook(self, book_id, book_title):
         authen.mainApp.setWindowTitle("Booque - " + book_title)
@@ -36,6 +40,7 @@ class Library(QtWidgets.QWidget):
         self.book_titles = []
         self.book_imgs = []
         self.book_authors = []
+        self.book_ratings = []
         self.pos = []
         self.button = []
         if layout is not None:
@@ -52,11 +57,12 @@ class Library(QtWidgets.QWidget):
             self.cur_ll = ll
         if ll:
             self.no_match.hide()
-            for i in range(len(ll)):
-                self.book_ids.append(ll[i][0])
-                self.book_titles.append(ll[i][1])
-                self.book_imgs.append(ll[i][2])
-                self.book_authors.append(ll[i][3])
+            for i in ll:
+                self.book_ids.append(i[0])
+                self.book_titles.append(i[1])
+                self.book_imgs.append(i[2])
+                self.book_authors.append(i[3])
+                self.book_ratings.append(float(i[7]))
             self.pos = [
                 [r, c]
                 for r in range(int(len(ll) / self.column) + 1)
@@ -66,44 +72,53 @@ class Library(QtWidgets.QWidget):
                 [[] for c in range(self.column)]
                 for r in range(int(len(ll) / self.column) + 1)
             ]
-            for pos, id, title, img, author in zip(
+            for pos, id, title, img, author, rating in zip(
                 self.pos,
                 self.book_ids,
                 self.book_titles,
                 self.book_imgs,
                 self.book_authors,
+                self.book_ratings,
             ):
-                self.title_label = QtWidgets.QLabel()
-                self.title_label.setText(title)
-                self.title_label.setFont(QtGui.QFont("Product Sans", 12))
-                self.title_label.setWordWrap(True)
-                self.title_label.setAlignment(QtCore.Qt.AlignCenter)
-                self.title_label.setMaximumWidth(250)
-                self.author_label = QtWidgets.QLabel()
-                self.author_label.setText(author)
-                self.author_label.setFont(QtGui.QFont("Product Sans", 10))
-                self.author_label.setWordWrap(True)
-                self.author_label.setAlignment(QtCore.Qt.AlignCenter)
-                self.author_label.setMaximumWidth(250)
-                self.button = QtWidgets.QPushButton()
-                self.button.setIcon(QtGui.QIcon(QtGui.QPixmap(img)))
-                self.button.setSizePolicy(
+                title_label = QtWidgets.QLabel(self.scrollAreaContents)
+                title_label.setText(title)
+                title_label.setFont(QtGui.QFont("Product Sans", 12))
+                title_label.setWordWrap(True)
+                title_label.setAlignment(QtCore.Qt.AlignCenter)
+                title_label.setMinimumWidth(250)
+                title_label.setMaximumHeight(200)
+                author_label = QtWidgets.QLabel(self.scrollAreaContents)
+                author_label.setText(author)
+                author_label.setFont(QtGui.QFont("Product Sans", 11))
+                author_label.setWordWrap(True)
+                author_label.setAlignment(QtCore.Qt.AlignCenter)
+                author_label.setMinimumWidth(250)
+                author_label.setMaximumHeight(30)
+                rating_label = QtWidgets.QLabel(self.scrollAreaContents)
+                rating_label.setText("⭐ {0:.2f}".format(rating))
+                rating_label.setFont(QtGui.QFont("Product Sans", 10))
+                rating_label.setWordWrap(True)
+                rating_label.setAlignment(QtCore.Qt.AlignCenter)
+                rating_label.setMinimumWidth(250)
+                rating_label.setMaximumHeight(30)
+                button = QtWidgets.QPushButton(self.scrollAreaContents)
+                button.setIcon(QtGui.QIcon(QtGui.QPixmap(img)))
+                button.setSizePolicy(
                     QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed
                 )
-                self.button.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-                self.button.setMinimumSize(250, 380)
-                self.button.setIconSize(self.button.minimumSize())
-                self.button.clicked.connect(
+                button.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+                button.setMinimumSize(250, 380)
+                button.setIconSize(button.minimumSize())
+                button.clicked.connect(
                     lambda x, id=id, title=title: self.goToBook(id, title)
                 )
-                self.book_container = QtWidgets.QVBoxLayout()
-                self.book_container.setSpacing(4)
-                self.book_container.addWidget(
-                    self.button, 0, alignment=QtCore.Qt.AlignCenter
-                )
-                self.book_container.addWidget(self.title_label, 1)
-                self.book_container.addWidget(self.author_label, 2)
-                self.book_shelf.addLayout(self.book_container, *pos)
+                book_container = QtWidgets.QVBoxLayout()
+                book_container.setSpacing(5)
+                book_container.addWidget(button, 0, alignment=QtCore.Qt.AlignCenter)
+                book_container.addWidget(title_label, 1)
+                book_container.addWidget(author_label, 2)
+                book_container.addWidget(rating_label, 3)
+                self.book_shelf.addLayout(book_container, *pos)
         else:
             self.no_match.show()
 
