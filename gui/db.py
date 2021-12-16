@@ -8,41 +8,62 @@ class Database:
     def __init__(self):
         self.db = sqlite3.connect("rsrc/db/data.db")
         self.curs = self.db.cursor()
-        self.updateDatabase(True, True, True, True)
         self.req_q = RequestQueue()
 
-    def initFont(self):
-        self.fontDB = QtGui.QFontDatabase()
-        self.fontDB.addApplicationFont("rsrc/font/Better Grade/Better Grade.ttf")
-        self.fontDB.addApplicationFont("rsrc/font/Freight/Freight Big Black SC.ttf")
-        self.fontDB.addApplicationFont("rsrc/font/Palatino/Palatino.ttf")
-        self.fontDB.addApplicationFont(
-            "rsrc/font/Product Sans/Product Sans Regular.ttf"
-        )
-        self.fontDB.addApplicationFont(
-            "rsrc/font/Helvetica Neue/Helvetica Neue LT 93 Black Extended Oblique.ttf"
-        )
-        self.fontDB.addApplicationFont(
-            "rsrc/font/Helvetica Neue/Helvetica Neue LT 87 Heavy Condensed Oblique.ttf"
-        )
-        self.fontDB.addApplicationFont(
-            "rsrc/font/Helvetica Neue/Helvetica Neue LT 63 Medium Extended Oblique.ttf"
-        )
-        self.fontDB.addApplicationFont(
-            "rsrc/font/Helvetica Neue/Helvetica Neue LT 63 Medium Extended.ttf"
-        )
-        self.fontDB.addApplicationFont(
-            "rsrc/font/Helvetica Neue/Helvetica Neue LT 53 Extended.ttf"
-        )
-        self.fontDB.addApplicationFont(
-            "rsrc/font/Helvetica Neue/Helvetica Neue LT 55 Roman.ttf"
-        )
-        self.fontDB.addApplicationFont(
-            "rsrc/font/Helvetica Neue/Helvetica Neue LT 47 Light Condensed.ttf"
-        )
-        self.fontDB.addApplicationFont(
-            "rsrc/font/Helvetica Neue/Helvetica Neue LT 23 Ultra Light Extended Oblique.ttf"
-        )
+    def updateRsrc(self, init=None):
+        if init:
+            self.fontDB = QtGui.QFontDatabase()
+            self.fontDB.addApplicationFont("rsrc/font/Better Grade/Better Grade.ttf")
+            self.fontDB.addApplicationFont("rsrc/font/Freight/Freight Big Black SC.ttf")
+            self.fontDB.addApplicationFont("rsrc/font/Palatino/Palatino.ttf")
+            self.fontDB.addApplicationFont(
+                "rsrc/font/Product Sans/Product Sans Regular.ttf"
+            )
+            self.fontDB.addApplicationFont(
+                "rsrc/font/Helvetica Neue/Helvetica Neue LT 93 Black Extended Oblique.ttf"
+            )
+            self.fontDB.addApplicationFont(
+                "rsrc/font/Helvetica Neue/Helvetica Neue LT 87 Heavy Condensed Oblique.ttf"
+            )
+            self.fontDB.addApplicationFont(
+                "rsrc/font/Helvetica Neue/Helvetica Neue LT 63 Medium Extended Oblique.ttf"
+            )
+            self.fontDB.addApplicationFont(
+                "rsrc/font/Helvetica Neue/Helvetica Neue LT 63 Medium Extended.ttf"
+            )
+            self.fontDB.addApplicationFont(
+                "rsrc/font/Helvetica Neue/Helvetica Neue LT 53 Extended.ttf"
+            )
+            self.fontDB.addApplicationFont(
+                "rsrc/font/Helvetica Neue/Helvetica Neue LT 55 Roman.ttf"
+            )
+            self.fontDB.addApplicationFont(
+                "rsrc/font/Helvetica Neue/Helvetica Neue LT 47 Light Condensed.ttf"
+            )
+            self.fontDB.addApplicationFont(
+                "rsrc/font/Helvetica Neue/Helvetica Neue LT 23 Ultra Light Extended Oblique.ttf"
+            )
+            self.book_img = []
+            self.curs.execute("SELECT * FROM books")
+            books_db = self.curs.fetchall()
+            for i in books_db:
+                self.book_img.append(QtGui.QPixmap(i[2]))
+            self.star = QtGui.QPixmap("rsrc/img/star.png")
+            self.star_latter = QtGui.QPixmap("rsrc/img/star_latter.png")
+            self.star_off = QtGui.QPixmap("rsrc/img/star_off.png")
+            self.star_off_latter = QtGui.QPixmap("rsrc/img/star_off_latter.png")
+
+        self.user_img = []
+        self.user_img_pixmap = []
+        self.curs.execute("SELECT * FROM users")
+        users_db = self.curs.fetchall()
+        default_prof = QtGui.QPixmap("rsrc/db/userimg/dafault-pic.png")
+        for i in users_db:
+            self.user_img.append([i[0], i[6]])
+            if i[6] == "rsrc/db/userimg/dafault-pic.png":
+                self.user_img_pixmap.append(default_prof)
+            else:
+                self.user_img_pixmap.append(QtGui.QPixmap(i[6]))
 
     def updateDatabase(self, reviews=False, users=False, books=False, cur_user=False):
         if reviews:
@@ -86,7 +107,7 @@ class Database:
                     users_db[i][3],
                     users_db[i][4],
                     users_db[i][5],
-                    users_db[i][6],
+                    self.user_img_pixmap[i],
                     users_db[i][7],
                 )
                 self.users_ll.append(user_db[i])
@@ -95,28 +116,17 @@ class Database:
             self.curs.execute("SELECT * FROM books")
             books_db = self.curs.fetchall()
             book_db = [i for i in range(len(books_db))]
-            books_rating = []
-            books_rating_avg = []
-            books_id = [i[0] for i in books_db]
-            for i in books_id:
-                books_rating.append([x[3] for x in self.ratings_ll if x[1] == i])
-            for i in books_rating:
-                if len(i) > 0:
-                    books_rating_avg.append(float(sum(i) / len(i)))
-                else:
-                    books_rating_avg.append(0)
-
             self.books_ll = BookLinkedList()
             for i in range(len(books_db)):
                 book_db[i] = BookNode(
                     books_db[i][0],
                     books_db[i][1],
-                    books_db[i][2],
+                    self.book_img[i],
                     books_db[i][3],
                     books_db[i][4],
                     books_db[i][5],
                     books_db[i][6],
-                    books_rating_avg[i],
+                    books_db[i][7],
                 )
                 self.books_ll.append(book_db[i])
             self.books_ll.sort(0)
@@ -409,7 +419,7 @@ class BookNode:
                     str(self.img),
                     str(self.author),
                     str(self.pages),
-                    # str(self.synop),
+                    str(self.synop),
                     str(self.genre),
                     str(self.rating),
                 ]
