@@ -332,7 +332,11 @@ class LinkedList:
 
     def append(self, node):
         if not self.head:
+<<<<<<< HEAD
+            self.head = new_node
+=======
             self.head = node # Node(data)
+>>>>>>> parent of 8d6a81c (pull new code)
         else:
             cur = self.head
             while cur.next:
@@ -579,6 +583,10 @@ class LinkedList:
         # min-max
         elif type == 3:
             pass
+<<<<<<< HEAD
+
+=======
+>>>>>>> parent of 8d6a81c (pull new code)
 
     def search(self, key):
         pass
@@ -618,19 +626,31 @@ def exit():
 
 
 database = Database()
+<<<<<<< HEAD
+=======
 req_q = Queue()
+>>>>>>> parent of 8d6a81c (pull new code)
 
-ll = LinkedList()
+# req_q = Queue()
 
-ll.append(BookNode(1, "Abcde", "path a", "a", 1))
-ll.append(BookNode(6, "aBcd", "path f", "f", 6))
-ll.append(BookNode(4, "aB", "path d", "d", 4))
-ll.append(BookNode(2, "zsa", "path b", "b", 2))
-ll.append(BookNode(5, "fhgh", "path e", "e", 5))
-ll.append(BookNode(3, "abdsf", "path c", "c", 3))
+# ll = LinkedList()
 
+# ll.append(BookNode(1, "Abcde", "path a", "a", 1))
+# ll.append(BookNode(6, "aBcd", "path f", "f", 6))
+# ll.append(BookNode(4, "aB", "path d", "d", 4))
+# ll.append(BookNode(2, "zsa", "path b", "b", 2))
+# ll.append(BookNode(5, "fhgh", "path e", "e", 5))
+# ll.append(BookNode(3, "abdsf", "path c", "c", 3))
+
+# print(ll)
+
+# ll.sort(2)
+
+# print(ll)
+
+# req_q = RequestQueue()
+
+<<<<<<< HEAD
+=======
 print(ll)
-
-ll.sort(2)
-
-print(ll)
+>>>>>>> parent of 8d6a81c (pull new code)
