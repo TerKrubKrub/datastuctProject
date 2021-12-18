@@ -64,17 +64,25 @@ default = """
 }
 
 #show_pwd {
+	background-color: transparent;
 	color: black;
 }
 #show_pwd:hover {
-	background-color: rgba(255, 255, 255, 0);
+	background-color: transparent;
+}
+#show_pwd:active {
+	background-color: transparent;
 }
 
 #show_repwd {
+	background-color: transparent;
 	color: black;
 }
 #show_repwd:hover {
-	background-color: rgba(255, 255, 255, 0);
+	background-color: transparent;
+}
+#show_repwd:active {
+	background-color: transparent;
 }
 
 #create_btn {

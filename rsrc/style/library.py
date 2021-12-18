@@ -3,7 +3,7 @@ default = """
  	background: transparent;
 }
 
-#scrollAreaContent {
+#scrollAreaContents {
  	background: transparent;
 }
 
@@ -12,12 +12,6 @@ QLabel {
 }
 
 QPushButton {
-	background-color: rgba(255, 255, 255, 0);
-}
-QPushButton:hover {
-	background-color: rgba(255, 255, 255, 0);
-}
-QPushButton:active {
 	background-color: rgba(255, 255, 255, 0);
 }
 
@@ -50,7 +44,7 @@ dark_mode = """
  	background: transparent;
 }
 
-#scrollAreaContent {
+#scrollAreaContents {
  	background: transparent;
 }
 
@@ -59,12 +53,6 @@ QLabel {
 }
 
 QPushButton {
-	background-color: rgba(255, 255, 255, 0);
-}
-QPushButton:hover {
-	background-color: rgba(255, 255, 255, 0);
-}
-QPushButton:active {
 	background-color: rgba(255, 255, 255, 0);
 }
 

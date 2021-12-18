@@ -1,14 +1,15 @@
-import sys
-from PyQt5 import QtWidgets
-from gui import db, authen, library
+import sys, os
+from PyQt5.QtWidgets import QApplication
+
+sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
+from gui import db, authen
 
 
 def run():
-    app = QtWidgets.QApplication(sys.argv)
+    app = QApplication(sys.argv)
     gui = authen.LogIn()
-    db.database.initFont()
     gui.show()
-    app.aboutToQuit.connect(db.exit)
+    app.aboutToQuit.connect(db.database.exit)
     sys.exit(app.exec_())
 
 
