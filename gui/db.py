@@ -1035,15 +1035,15 @@ class RatingLinkedList:
     def append(self, node):
         new_node = RatingNode(node[0], node[1], node[2], node[3])
         if not self.head:
-<<<<<<< HEAD
-<<<<<<< HEAD
+
+
             self.head = new_node
-=======
+
             self.head = node # Node(data)
->>>>>>> parent of 8d6a81c (pull new code)
-=======
+            
+
             self.head = new_node
->>>>>>> a137bad453a53ffd8d26176f3ea9024163ace4d4
+
         else:
             cur = self.head
             while cur.next:
@@ -1120,7 +1120,6 @@ class RatingLinkedList:
                         return new_node
             cur = cur.next
 
-<<<<<<< HEAD
     def swap2(self, x, y):
         if x == y:
             return
@@ -1302,15 +1301,14 @@ class RatingLinkedList:
         # min-max
         elif type == 3:
             pass
-<<<<<<< HEAD
 
-=======
->>>>>>> parent of 8d6a81c (pull new code)
+
+
 
     def search(self, key):
-=======
+        pass
+
     def search(self, book_id):
->>>>>>> a137bad453a53ffd8d26176f3ea9024163ace4d4
         pass
 
 
@@ -1359,11 +1357,7 @@ class RequestQueue:
 
 
 database = Database()
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-req_q = Queue()
->>>>>>> parent of 8d6a81c (pull new code)
+
 
 # req_q = Queue()
 
@@ -1384,9 +1378,4 @@ req_q = Queue()
 
 # req_q = RequestQueue()
 
-<<<<<<< HEAD
-=======
-print(ll)
->>>>>>> parent of 8d6a81c (pull new code)
-=======
->>>>>>> a137bad453a53ffd8d26176f3ea9024163ace4d4
+# print(ll)
