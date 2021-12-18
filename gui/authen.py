@@ -17,7 +17,6 @@ class LogIn(QtWidgets.QWidget):
         self.setupUi()
         self.setStyleSheet(style.default)
         self.setWindowTitle("Log in to continue.")
-        db.database.updateRsrc(1)
         db.database.updateDatabase(False, True, False, True)
         self.usn_db = [str(i[3]) for i in db.database.users_ll]
         self.eml_db = [str(i[5]) for i in db.database.users_ll]

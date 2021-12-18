@@ -7,6 +7,7 @@ from gui import db, authen
 
 def run():
     app = QApplication(sys.argv)
+    db.database.updateRsrc(1)
     gui = authen.LogIn()
     gui.show()
     app.aboutToQuit.connect(db.database.exit)

@@ -14,7 +14,7 @@ class Database:
         if init:
             self.fontDB = QtGui.QFontDatabase()
             self.fontDB.addApplicationFont("rsrc/font/Better Grade/Better Grade.ttf")
-            self.fontDB.addApplicationFont("rsrc/font/Freight/Freight Big Black SC.ttf")
+            self.fontDB.addApplicationFont("rsrc/font/Freight/Freight Big Black SC.otf")
             self.fontDB.addApplicationFont("rsrc/font/Palatino/Palatino.ttf")
             self.fontDB.addApplicationFont(
                 "rsrc/font/Product Sans/Product Sans Regular.ttf"
@@ -24,6 +24,9 @@ class Database:
             )
             self.fontDB.addApplicationFont(
                 "rsrc/font/Helvetica Neue/Helvetica Neue LT 87 Heavy Condensed Oblique.ttf"
+            )
+            self.fontDB.addApplicationFont(
+                "rsrc/font/Helvetica Neue/Helvetica Neue LT 65 Medium.ttf"
             )
             self.fontDB.addApplicationFont(
                 "rsrc/font/Helvetica Neue/Helvetica Neue LT 63 Medium Extended Oblique.ttf"
@@ -95,6 +98,7 @@ class Database:
                 self.ratings_ll.append(rating_db[i])
 
         if users:
+            self.updateRsrc()
             self.curs.execute("SELECT * FROM users")
             users_db = self.curs.fetchall()
             user_db = [i for i in range(len(users_db))]
@@ -179,14 +183,20 @@ class Database:
             except:
                 self.cur_user = CurUser(None, None)
 
-    def exit(self):
-        for i in self.req_q:
+    def exit(self, justReq=None):
+        if not justReq:
+            print("\nExitting the program...")
+        print()
+        for i in range(len(self.req_q)):
+            req = self.req_q.dequeue()
+            print(str(i + 1) + ".) Push " + str(req) + " to the database.")
             self.curs.execute(
-                "INSERT INTO requests (user_id, title, author) VALUES (?,?,?)",
-                [i[0], i[1], i[2]],
+                "INSERT INTO requests (title, author) VALUES (?,?)", [req[0], req[1]]
             )
             self.db.commit()
-        self.db.close()
+        print()
+        if not justReq:
+            self.db.close()
 
 
 class CurUser:
@@ -970,9 +980,6 @@ class CommentLinkedList:
                         return new_node
             cur = cur.next
 
-    def search(self, book_id):
-        pass
-
 
 class RatingNode:
     def __init__(self, id, user_id, book_id, rating):
@@ -1112,29 +1119,21 @@ class RatingLinkedList:
                         return new_node
             cur = cur.next
 
-    def search(self, book_id):
-        pass
-
 
 class RequestNode:
-    def __init__(self, user_id, title, author):
-        self.user_id = user_id
+    def __init__(self, title, author):
         self.title = title
         self.author = author
 
     def __getitem__(self, index):
-        self.items = [self.user_id, self.title, self.author]
+        self.items = [self.title, self.author]
         return self.items[index]
 
     def __len__(self):
         return 1
 
     def __str__(self):
-        return (
-            "["
-            + ", ".join([str(self.user_id), str(self.title), str(self.author)])
-            + "]"
-        )
+        return "[" + ", ".join([str(self.title), str(self.author)]) + "]"
 
 
 class RequestQueue:

@@ -194,7 +194,7 @@ input = """
     border-radius: 10px;
     background-color: rgb(255, 228, 184);
     color: black;
-    font-size: 14px;
+    font-size: 17px;
 }
 
 #l_name {
@@ -202,7 +202,7 @@ input = """
     border-radius: 10px;
     background-color: rgb(255, 228, 184);
     color: black;
-    font-size: 14px;
+    font-size: 17px;
 }
 
 #username {
@@ -210,7 +210,7 @@ input = """
     border-radius: 10px;
     background-color: rgb(255, 228, 184);
     color: black;
-    font-size: 14px;
+    font-size: 17px;
 }
 
 #email {
@@ -218,7 +218,7 @@ input = """
     border-radius: 10px;
     background-color: rgb(255, 228, 184);
     color: black;
-    font-size: 14px;
+    font-size: 17px;
 }
 
 #password {
@@ -226,7 +226,7 @@ input = """
     border-radius: 10px;
     background-color: rgb(255, 228, 184);
     color: black;
-    font-size: 14px;
+    font-size: 17px;
 }
 
 #re_password {
@@ -234,6 +234,6 @@ input = """
     border-radius: 10px;
     background-color: rgb(255, 228, 184);
     color: black;
-    font-size: 14px;
+    font-size: 17px;
 }
 """

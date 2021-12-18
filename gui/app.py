@@ -208,6 +208,7 @@ class App(QtWidgets.QWidget):
             db.database.curs.execute("DELETE FROM current_user")
             db.database.db.commit()
             db.database.updateDatabase(False, False, False, True)
+            db.database.exit(1)
 
             self.log_in = authen.LogIn()
             self.log_in.show()
@@ -297,14 +298,14 @@ class Book(QtWidgets.QWidget):
         self.gridLayout_3.addItem(spacerItem1, 4, 0, 1, 1)
         self.review_section = QtWidgets.QFrame(self.scrollAreaContents)
         self.review_section.setObjectName("review_section")
-        self.asdasd = QtWidgets.QGridLayout(self.review_section)
-        self.asdasd.setContentsMargins(0, 0, 0, 30)
-        self.asdasd.setSpacing(20)
-        self.asdasd.setObjectName("asdasd")
+        self.review_container = QtWidgets.QGridLayout(self.review_section)
+        self.review_container.setContentsMargins(0, 0, 0, 30)
+        self.review_container.setSpacing(20)
+        self.review_container.setObjectName("review_container")
         spacerItem2 = QtWidgets.QSpacerItem(
             40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum
         )
-        self.asdasd.addItem(spacerItem2, 1, 6, 1, 1)
+        self.review_container.addItem(spacerItem2, 1, 6, 1, 1)
         self.stars = QtWidgets.QFrame(self.review_section)
         sizePolicy = QtWidgets.QSizePolicy(
             QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed
@@ -608,7 +609,7 @@ class Book(QtWidgets.QWidget):
         self.btn3.setFont(font)
         self.btn3.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btn3.setObjectName("btn3")
-        self.asdasd.addWidget(self.stars, 1, 2, 1, 1)
+        self.review_container.addWidget(self.stars, 1, 2, 1, 1)
         self.frame = QtWidgets.QFrame(self.review_section)
         sizePolicy = QtWidgets.QSizePolicy(
             QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed
@@ -648,24 +649,24 @@ class Book(QtWidgets.QWidget):
         self.user_frame.setSizeIncrement(QtCore.QSize(50, 50))
         self.user_frame.setText("")
         self.user_frame.setObjectName("user_frame")
-        self.asdasd.addWidget(self.frame, 1, 1, 1, 1)
+        self.review_container.addWidget(self.frame, 1, 1, 1, 1)
         self.comment_section = QtWidgets.QVBoxLayout()
         self.comment_section.setContentsMargins(0, 30, -1, 100)
         self.comment_section.setSpacing(40)
         self.comment_section.setObjectName("comment_section")
-        self.asdasd.addLayout(self.comment_section, 0, 1, 1, 5)
+        self.review_container.addLayout(self.comment_section, 0, 1, 1, 5)
         spacerItem3 = QtWidgets.QSpacerItem(
             40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum
         )
-        self.asdasd.addItem(spacerItem3, 3, 2, 1, 1)
+        self.review_container.addItem(spacerItem3, 3, 2, 1, 1)
         spacerItem4 = QtWidgets.QSpacerItem(
             40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum
         )
-        self.asdasd.addItem(spacerItem4, 3, 6, 1, 1)
+        self.review_container.addItem(spacerItem4, 3, 6, 1, 1)
         spacerItem5 = QtWidgets.QSpacerItem(
             40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum
         )
-        self.asdasd.addItem(spacerItem5, 2, 0, 1, 1)
+        self.review_container.addItem(spacerItem5, 2, 0, 1, 1)
         self.comment = QtWidgets.QTextEdit(self.review_section)
         sizePolicy = QtWidgets.QSizePolicy(
             QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed
@@ -681,15 +682,15 @@ class Book(QtWidgets.QWidget):
         font.setPointSize(12)
         self.comment.setFont(font)
         self.comment.setObjectName("comment")
-        self.asdasd.addWidget(self.comment, 2, 2, 1, 4)
+        self.review_container.addWidget(self.comment, 2, 2, 1, 4)
         spacerItem6 = QtWidgets.QSpacerItem(
             40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum
         )
-        self.asdasd.addItem(spacerItem6, 0, 6, 1, 1)
+        self.review_container.addItem(spacerItem6, 0, 6, 1, 1)
         spacerItem7 = QtWidgets.QSpacerItem(
             40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum
         )
-        self.asdasd.addItem(spacerItem7, 0, 0, 1, 1)
+        self.review_container.addItem(spacerItem7, 0, 0, 1, 1)
         self.submit_btn = QtWidgets.QPushButton(self.review_section)
         self.submit_btn.setMinimumSize(QtCore.QSize(200, 50))
         self.submit_btn.setMaximumSize(QtCore.QSize(200, 50))
@@ -701,15 +702,15 @@ class Book(QtWidgets.QWidget):
         self.submit_btn.setFont(font)
         self.submit_btn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.submit_btn.setObjectName("submit_btn")
-        self.asdasd.addWidget(self.submit_btn, 3, 5, 1, 1)
+        self.review_container.addWidget(self.submit_btn, 3, 5, 1, 1)
         spacerItem8 = QtWidgets.QSpacerItem(
             40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum
         )
-        self.asdasd.addItem(spacerItem8, 1, 0, 1, 1)
+        self.review_container.addItem(spacerItem8, 1, 0, 1, 1)
         spacerItem9 = QtWidgets.QSpacerItem(
             40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum
         )
-        self.asdasd.addItem(spacerItem9, 2, 6, 1, 1)
+        self.review_container.addItem(spacerItem9, 2, 6, 1, 1)
         self.star_btn = QtWidgets.QPushButton(self.review_section)
         sizePolicy = QtWidgets.QSizePolicy(
             QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed
@@ -726,11 +727,11 @@ class Book(QtWidgets.QWidget):
         self.star_btn.setFont(font)
         self.star_btn.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.star_btn.setObjectName("star_btn")
-        self.asdasd.addWidget(self.star_btn, 1, 3, 1, 1)
+        self.review_container.addWidget(self.star_btn, 1, 3, 1, 1)
         spacerItem10 = QtWidgets.QSpacerItem(
             40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum
         )
-        self.asdasd.addItem(spacerItem10, 1, 4, 1, 1)
+        self.review_container.addItem(spacerItem10, 1, 4, 1, 1)
         self.gridLayout_3.addWidget(self.review_section, 5, 1, 1, 6)
         spacerItem11 = QtWidgets.QSpacerItem(
             40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum
@@ -1764,7 +1765,7 @@ class Chart(QtWidgets.QWidget):
         self.horror_btn.setText(_translate("chart", "Horror"))
         self.poetry_btn.setText(_translate("chart", "Poetry"))
         self.genre_label.setText(_translate("chart", "All Genre"))
-        self.first_label.setText(_translate("chart", "WIN 👑NER"))
+        self.first_label.setText(_translate("chart", "WIN👑NER"))
         self.no1_rating.setText(_translate("chart", "⭐ 0"))
         self.second_label.setText(_translate("chart", "2nd place!"))
         self.no2_rating.setText(_translate("chart", "⭐ 0"))
@@ -2408,6 +2409,7 @@ class Edit(QtWidgets.QWidget):
                     )
             db.database.db.commit()
             db.database.updateDatabase(False, False, True, False)
+            db.database.exit(1)
 
             self.log_in = authen.LogIn()
             self.log_in.show()
@@ -3237,11 +3239,11 @@ class Request(QtWidgets.QWidget):
         if self.req_title.text().upper() not in [
             i[1].upper() for i in db.database.books_ll
         ] and self.req_author.text().upper() not in [
-            i[2].upper() for i in db.database.books_ll
+            i[3].upper() for i in db.database.books_ll
         ]:
             if self.req_title.text() and self.req_author.text():
                 self.req_info = db.RequestNode(
-                    app.id, self.req_title.text(), self.req_author.text()
+                    self.req_title.text(), self.req_author.text()
                 )
                 db.database.req_q.enqueue(self.req_info)
                 print(db.database.req_q)
