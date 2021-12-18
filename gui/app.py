@@ -256,8 +256,8 @@ class Book(QtWidgets.QWidget):
         self.star5.setScaledContents(True)
         self.user_img.setScaledContents(True)
         self.user_frame.setScaledContents(True)
-        self.star_btn.clicked.connect(self.submitStar)
-        self.submit_btn.clicked.connect(self.submitComment)
+        self.star_btn.clicked.connect(self.resetStar)
+        self.submit_btn.clicked.connect(self.submitReview)
         QtWidgets.QScroller.grabGesture(
             self.scrollArea, QtWidgets.QScroller.LeftMouseButtonGesture
         )
@@ -897,23 +897,13 @@ class Book(QtWidgets.QWidget):
         self.btn5.setText(_translate("Book", "5"))
         self.btn3.setText(_translate("Book", "3"))
         self.comment.setPlaceholderText(_translate("Book", "Write Something..."))
-        self.submit_btn.setText(_translate("Book", "Post"))
+        self.submit_btn.setText(_translate("Book", "Submit"))
         self.star_btn.setText(_translate("Book", "Reset"))
-        self.book_title.setText(_translate("Book", "Title"))
-        self.book_author.setText(_translate("Book", "Author"))
-        self.book_rating.setText(_translate("Book", "⭐"))
         self.synop_label.setText(_translate("Book", "Synopsis"))
-
-    def resetId(self):
-        self.updateStar(0)
-        self.comment.clear()
-        self.currentRating.setAutoExclusive(False)
-        self.currentRating.setChecked(False)
-        self.currentRating.setAutoExclusive(True)
 
     def setId(self, id):
         self.book_id = id
-        self.currentRating = self.btn05
+        self.currentRating = QtWidgets.QRadioButton()
         self.scrollArea.verticalScrollBar().setValue(0)
         self.resetId()
         self.book_title.setText(
@@ -950,6 +940,47 @@ class Book(QtWidgets.QWidget):
             self.past_rating = 0
         self.updateStar(self.past_rating)
         self.updateComment()
+
+    def resetId(self):
+        self.currentRating.setAutoExclusive(False)
+        self.currentRating.setChecked(False)
+        self.currentRating.setAutoExclusive(True)
+        self.updateStar(0)
+        self.updateComment()
+
+    def resetStar(self):
+        if self.rating != 0:
+            self.past_rating = 0
+            self.rating = 0
+            db.database.curs.execute(
+                "DELETE FROM ratings WHERE book_id="
+                + str(self.book_id)
+                + " and user_id="
+                + str(app.id)
+            )
+            db.database.db.commit()
+            db.database.updateDatabase(True, False, False, False)
+            ratings = []
+            for i in db.database.ratings_ll:
+                if i[1] == self.book_id:
+                    ratings.append(i[3])
+            if ratings:
+                db.database.curs.execute(
+                    "UPDATE books SET rating="
+                    + str(float(sum(ratings) / len(ratings)))
+                    + " WHERE book_id="
+                    + str(self.book_id)
+                )
+            else:
+                db.database.curs.execute(
+                    "UPDATE books SET rating="
+                    + str(0.0)
+                    + " WHERE book_id="
+                    + str(self.book_id)
+                )
+            db.database.db.commit()
+            db.database.updateDatabase(False, False, True, False)
+            self.resetId()
 
     def updateStar(self, id):
         self.rating = id
@@ -1025,7 +1056,7 @@ class Book(QtWidgets.QWidget):
             self.star45.setPixmap(db.database.star_off)
             self.star5.setPixmap(db.database.star_off_latter)
         elif self.rating == 3:
-            self.currentRating = self.btn2
+            self.currentRating = self.btn3
             self.star05.setPixmap(db.database.star)
             self.star1.setPixmap(db.database.star_latter)
             self.star15.setPixmap(db.database.star)
@@ -1090,58 +1121,6 @@ class Book(QtWidgets.QWidget):
                 [float(i[7]) for i in db.database.books_ll if i[0] == self.book_id][0]
             )
         )
-
-    def submitStar(self):
-        if self.rating != 0:
-            self.past_rating = self.rating
-            db.database.curs.execute(
-                "DELETE FROM ratings WHERE book_id="
-                + str(self.book_id)
-                + " and user_id="
-                + str(app.id)
-            )
-            db.database.db.commit()
-            db.database.updateDatabase(True, False, False, False)
-            ratings = []
-            for i in db.database.ratings_ll:
-                if i[1] == self.book_id:
-                    ratings.append(i[3])
-            if ratings:
-                db.database.curs.execute(
-                    "UPDATE books SET rating="
-                    + str(float(sum(ratings) / len(ratings)))
-                    + " WHERE book_id="
-                    + str(self.book_id)
-                )
-            else:
-                db.database.curs.execute(
-                    "UPDATE books SET rating="
-                    + str(0.0)
-                    + " WHERE book_id="
-                    + str(self.book_id)
-                )
-            db.database.db.commit()
-            db.database.updateDatabase(False, False, True, False)
-            self.updateComment()
-            self.updateStar(0)
-
-    def clearLayout(self, layout):
-        self.comment_id = []
-        self.rev_comment = []
-        self.rev_rating = []
-        self.rev_date = []
-        self.rev_fname = []
-        self.rev_lname = []
-        self.rev_username = []
-        self.rev_userimg = []
-        self.pos = []
-        if layout is not None:
-            while layout.count():
-                child = layout.takeAt(0)
-                if child.widget() is not None:
-                    child.widget().deleteLater()
-                elif child.layout() is not None:
-                    self.clearLayout(child.layout())
 
     def updateComment(self):
         self.clearLayout(self.comment_section)
@@ -1312,10 +1291,30 @@ class Book(QtWidgets.QWidget):
                 comment_container.addWidget(comment_date, 2)
                 self.comment_section.addLayout(comment_container, pos)
 
-    def submitComment(self):
+    def clearLayout(self, layout):
+        self.comment_id = []
+        self.rev_comment = []
+        self.rev_rating = []
+        self.rev_date = []
+        self.rev_fname = []
+        self.rev_lname = []
+        self.rev_username = []
+        self.rev_userimg = []
+        self.pos = []
+        if layout is not None:
+            while layout.count():
+                child = layout.takeAt(0)
+                if child.widget() is not None:
+                    child.widget().deleteLater()
+                elif child.layout() is not None:
+                    self.clearLayout(child.layout())
+
+    def submitReview(self):
+        submitted = False
         date_created = datetime.datetime.now(LOCAL_TIMEZONE).strftime(
             "%a, %d %b %Y at %I:%M %p"
         )
+
         if self.comment.toPlainText():
             db.database.curs.execute(
                 "INSERT INTO Comments (book_id, user_id, comment, date_created) VALUES (?,?,?,?)",
@@ -1329,7 +1328,10 @@ class Book(QtWidgets.QWidget):
             db.database.db.commit()
             db.database.updateDatabase(True, False, False, False)
             self.comment.clear()
+            submitted = True
+
         if self.rating != self.past_rating and self.rating != 0:
+            self.past_rating = self.rating
             try:
                 past_rating = [
                     x[3]
@@ -1373,6 +1375,15 @@ class Book(QtWidgets.QWidget):
                     ]
                 )
             )
+            submitted = True
+
+        if submitted:
+            submitted = False
+            self.msg.setIcon(QtWidgets.QMessageBox.Information)
+            self.msg.setWindowTitle("Review submitted")
+            self.msg.setText("Your review is submitted.")
+            self.msg.exec_()
+
         self.updateComment()
 
     def delComment(self, comment_id):
@@ -2380,7 +2391,7 @@ class Edit(QtWidgets.QWidget):
             db.database.db.commit()
             db.database.curs.execute("DELETE FROM ratings WHERE user_id=" + str(app.id))
             db.database.db.commit()
-            db.database.updateDatabase(True, True, False, True)
+            db.database.updateDatabase(True, True, False, False)
             ratings = {}
             for i in db.database.ratings_ll:
                 try:
@@ -2408,7 +2419,7 @@ class Edit(QtWidgets.QWidget):
                         + str(i[0])
                     )
             db.database.db.commit()
-            db.database.updateDatabase(False, False, True, False)
+            db.database.updateDatabase(False, False, True, True)
             db.database.exit(1)
 
             self.log_in = authen.LogIn()

@@ -806,18 +806,20 @@ class BookLinkedList:
         if not key:
             return
         key = key.upper()
+        isKeyAWord = True if len(key.split()) == 1 else False
         res = BookLinkedList()
         cur = self.head
         added = False
         while cur:
-            title = cur.title.split()
-            for t in title:
-                if t.upper().startswith(key) and not added:
-                    res.append(cur)
-                    added = True
-            author = cur.author.split()
-            for a in author:
-                if a.upper().startswith(key) and not added:
+            word = cur.title.upper() + " " + cur.author.upper()
+            words = word.split()
+            if isKeyAWord:
+                for w in words:
+                    if w.startswith(key) and not added:
+                        res.append(cur)
+                        added = True
+            else:
+                if key in word and not added:
                     res.append(cur)
                     added = True
             cur = cur.next
