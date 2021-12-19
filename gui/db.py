@@ -806,7 +806,7 @@ class BookLinkedList:
         if not key:
             return
         key = key.upper()
-        isKeyAWord = True if len(key.split()) == 1 else False
+        isKeyAWord = True if len(key.split()) >= 1 else False
         res = BookLinkedList()
         cur = self.head
         added = False
