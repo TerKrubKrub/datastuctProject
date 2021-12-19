@@ -473,33 +473,6 @@ class BookLinkedList:
             yield cur
             cur = cur.next
 
-    def swap(self, x, y):
-        if x == y:
-            return
-
-        cur_x = self.head
-        prev_x = None
-        cur_y = self.head
-        prev_y = None
-        while cur_x and cur_x != x:
-            prev_x = cur_x
-            cur_x = cur_x.next
-        while cur_y and cur_y != y:
-            prev_y = cur_y
-            cur_y = cur_y.next
-
-        if not cur_x or not cur_y:
-            return
-        if prev_x:
-            prev_x.next = cur_y
-        else:
-            self.head = cur_y
-        if prev_y:
-            prev_y.next = cur_x
-        else:
-            self.head = cur_x
-        cur_x.next, cur_y.next = cur_y.next, cur_x.next
-
     def append(self, node):
         new_node = BookNode(
             node[0], node[1], node[2], node[3], node[4], node[5], node[6], node[7]
@@ -587,6 +560,33 @@ class BookLinkedList:
                         cur = None
                         return new_node
             cur = cur.next
+
+    def swap(self, x, y):
+        if x == y:
+            return
+
+        cur_x = self.head
+        prev_x = None
+        cur_y = self.head
+        prev_y = None
+        while cur_x and cur_x != x:
+            prev_x = cur_x
+            cur_x = cur_x.next
+        while cur_y and cur_y != y:
+            prev_y = cur_y
+            cur_y = cur_y.next
+
+        if not cur_x or not cur_y:
+            return
+        if prev_x:
+            prev_x.next = cur_y
+        else:
+            self.head = cur_y
+        if prev_y:
+            prev_y.next = cur_x
+        else:
+            self.head = cur_x
+        cur_x.next, cur_y.next = cur_y.next, cur_x.next
 
     def merge(self, first, second):
         if first is None:
@@ -806,7 +806,7 @@ class BookLinkedList:
         if not key:
             return
         key = key.upper()
-        isKeyAWord = True if len(key.split()) >= 1 else False
+        isKeyAWord = True if len(key.split()) == 1 else False
         res = BookLinkedList()
         cur = self.head
         added = False
@@ -829,6 +829,25 @@ class BookLinkedList:
 
     def recommended(self):
         return self[random.randrange(len(self))]
+
+    def binarySearch(self, ll, l, r, title, author):
+        if r >= l:
+            mid = l + (r - 1) // 2
+
+            if ll[mid].title.upper() == title and ll[mid].author.upper() == author:
+                return True
+            elif ll[mid].title.upper() > title and ll[mid].author.upper() > author:
+                return self.binarySearch(ll, l, mid - 1, title, author)
+            else:
+                return self.binarySearch(ll, mid + 1, r, title, author)
+        else:
+            return False
+
+    def existed(self, title, author):
+        title = title.upper()
+        author = author.upper()
+        self.sort(0)
+        return self.binarySearch(self, 0, len(self) - 1, title, author)
 
 
 class CommentNode:
