@@ -3120,12 +3120,12 @@ class Library(QtWidgets.QWidget):
             self.no_match.show()
 
     def search(self):
-        self.search_bar.setText("")
         if self.search_bar.text():
             temp = self.cur_ll.search(self.search_bar.text())
             self.updateCatalog(temp, 1)
         else:
             self.updateCatalog(self.cur_ll)
+        self.search_bar.setText("")
 
     def setSort(self, index):
         self.search_bar.setText("")
@@ -3248,7 +3248,7 @@ class Request(QtWidgets.QWidget):
         self.req_author.setPlaceholderText(_translate("Request", "Author"))
 
     def submitReq(self):
-        if db.database.books_ll.existed(self.req_title.text(), self.req_author.text()):
+        if not db.database.books_ll.existed(self.req_title.text(), self.req_author.text()):
             if self.req_title.text() and self.req_author.text():
                 self.req_info = db.RequestNode(
                     self.req_title.text(), self.req_author.text()

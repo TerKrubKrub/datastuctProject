@@ -831,17 +831,15 @@ class BookLinkedList:
         return self[random.randrange(len(self))]
 
     def binarySearch(self, ll, l, r, title, author):
-        if r >= l:
-            mid = l + (r - 1) // 2
-
-            if ll[mid].title.upper() == title and ll[mid].author.upper() == author:
-                return True
-            elif ll[mid].title.upper() > title and ll[mid].author.upper() > author:
-                return self.binarySearch(ll, l, mid - 1, title, author)
-            else:
-                return self.binarySearch(ll, mid + 1, r, title, author)
-        else:
+        if l > r:
             return False
+        mid = (l + r) // 2
+        if ll[mid].title.upper() == title and ll[mid].author.upper() == author:
+            return True
+        elif ll[mid].title.upper() > title and ll[mid].author.upper() > author:
+            return self.binarySearch(ll, l, mid - 1, title, author)
+        else:
+            return self.binarySearch(ll, mid + 1, r, title, author)
 
     def existed(self, title, author):
         title = title.upper()
